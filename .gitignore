@@ -8,3 +8,6 @@
 *.lof
 *.out
 *.toc
+*.acn
+*.glo
+*.ist
