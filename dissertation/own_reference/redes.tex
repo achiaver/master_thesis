@@ -1,0 +1,245 @@
+"As an alternative to traditional client-server systems, Peer-to-Peer (P2P) systems provide major advantages in terms of scalability, autonomy and dynamic behavior of peers, and decentralization of control.
+Thus, they are well suited for large-scale data sharing in distributed environments.
+Most of the existing P2P approaches for data sharing rely on either structured networks (e.g., DHTs) for
+efficient indexing, or unstructured networks for ease of deployment, or some combination.
+However, these approaches have some limitations, such as lack of freedom for data placement in DHTs, and
+high latency and high network traffic in unstructured networks.
+To address these limitations, gossip protocols which are easy to deploy and scale well, can be exploited.
+In this book, we will give a overview of these different P2P techniques and architectures, discuss their trade-offs and illustrate their use for decentralizing several large-scale data sharing applications."
+\cite{book:p2p-mob}
+
+"With the Internet reaching a critical mass of users, Web 2.0 has encouraged the emergence of peer-to-peer (P2P) technology as a new communication model.
+The P2P model stands in direct contrast to the traditional client-server model, as it introduces symmetry in roles, where each peer is both a client and a server.
+Whereas a client-server network requires more investment to serve more clients, a P2P network pools the resources of each peer for the common good. In other terms, it exhibits the network effect as defined by economists: the value of a network to an individual user scales with the total number of participants.
+In theory, as the number of peers increases, the aggregate storage space and content availability grow linearly, the user-perceived response time remains constant, whereas the search throughput remains high or even grows.
+Therefore, it is commonly believed that P2P networks are naturally suited for handling large-scale applications, due to their
+inherent self-scalability.
+Since the late 1990s, P2P technology has gained popularity, mainly in the form of file sharing applications where peers exchange multimedia files.
+Chapter 1 covers the most relevant P2P concepts and overlays."\cite{book:p2p-mob}
+
+"Given that the Web is witnessing an explosive growth in the amount of web content and users, P2P networks seem to be the perfect match to build low cost infrastructures for content distribution.
+This is because they can offer several advantages like decentralization, self-organization, fault-tolerance and scalability.
+In a P2P system, users serve each other’s queries by sharing their previously requested content, thus distributing the content without the need for powerful and dedicated servers."\cite{book:p2p-mob}
+
+"P2P File-sharing systems have proven very efficient at locating content given specific queries.
+However, few solutions exist that are able to recommend the most relevant documents given a keyword-based query.
+This requires the use if recommendation methods."\cite{book:p2p-mob}
+
+"By definition, a top-k query returns only the k data the most relevant to the users query.
+The relevance of data can be measured by a scoring function that the user specifies."\cite{book:p2p-mob}
+
+% ============================================
+\section{P2P Overlays, Query Routing, and Gossiping}
+
+"A P2P system is a distributed system in which the peers (nodes) are relatively autonomous and can join or leave the system anytime.
+By distributing data storage, processing and bandwidth across autonomous peers, P2P systems can usually scale up to a very large number of peers.
+They have been successfully used for sharing computation, e.g., Seti@home [Anderson et al., 2002] and Genome@home [Larson et al., 2003a], [Larson et al., 2003b], internet services, e.g., P2P multicast systems [Bhargava et al., 2004], or data, e.g., Gnutella1.
+There are several features that distinguish data management in P2P systems from traditional distributed database systems (DDBS), some of which are the following [Ng et al., 2003].
+\begin{itemize}
+	\item Peers in P2P systems are very dynamic and can join and leave the system anytime. But, in a
+DDBS, nodes are added to and removed from the system in a controlled manner.
+	\item Usually there is no predefined global schema for describing the data shared by the peers.
+    \item In P2P systems, the answers to queries are typically incomplete. The reason is that some peers may be absent at query execution time. In addition, due to the very large scale of the network, forwarding a query to all peers can be very inefficient.
+    \item In P2P systems, there is no centralized catalog that can be used to determine the peers that hold relevant data to a query. However, such a catalog is an essential component of DDBS.
+\end{itemize}
+"\cite{book:p2p-mob}
+
+"P2P systems are built on a P2P overlay, and the overlay is built on top of the physical network (typically the Internet).
+The topology of the P2P overlay strongly impacts the properties of the P2P system, such as fault-tolerance, self-maintainability, performance and scalability.
+We consider three main P2P overlay architectures: unstructured, structured, and super-peer."\cite{book:p2p-mob}
+
+"Structured overlays try to be efficient in query routing by tightly controlling the overlay topology and data placement.
+Data (or pointers to them) are placed at precisely specified locations, and the routing of queries to the data is done efficiently.
+Distributed hash table (DHT) is the main representative of structured overlays.
+While there are significant implementation differences between DHTs, they all map each given key into a peer p, called responsible for the key, using a hash function and can lookup p efficiently, usually in O(log n) routing hops where n is the number of peers [Harren et al., 2002].
+DHTs typically provide an operation put(key, data) that stores the data at the peer that is responsible for key.
+For requesting a data, there is an operation get(key) that routes the key to the peer that is responsible for it, and retrieves the requested data.
+Because a peer is responsible for storing the values corresponding to its range of keys, autonomy is limited.
+Furthermore, DHT queries are typically limited to exact match keyword search.
+Much research has been done to extend the DHT capabilities to deal with more complex queries such as range queries [Gao and Steenkiste, 2004], join queries [Huebsch et al., 2003], and top-k queries [Akbarinia et al., 2007]."\cite{book:p2p-mob}
+
+"Like client-server systems, some peers, called super-peers, act as dedicated servers for some other peers and can perform complex functions such as indexing, query processing, access control, and meta-data management.
+Using only one super-peer reduces to client-server with all the problems associated with a single server.
+Like pure overlays, super-peers can be organized in a P2P fashion and communicate with one another in sophisticated ways, thereby allowing the partitioning or replication of global information across all super-peers.
+Super-peers can be dynamically elected (e.g., based on their bandwidth and processing power) and replaced in the
+presence of failures.
+In a super-peer overlay, a requesting peer simply sends the request, which can be expressed in a high-level language, to its responsible super-peer.
+The super-peer can then find the relevant peers either directly through its index or indirectly using its neighbor super-peers.
+The main advantages of super-peer overlays are efficiency and quality of service.
+The time needed to find data by directly accessing indices in a super-peer is very small compared with query routing in unstructured overlays.
+In addition, super-peer overlays exploit and take advantage of different peers’ capabilities in terms of CPU power, bandwidth, or storage capacity as super-peers take on a large portion of the entire network load.
+In contrast, in pure overlays, all nodes are equally loaded regardless of their capabilities.
+Access control can also be better enforced since directory and security information can be maintained at the super-peers.
+However, autonomy is restricted since peers cannot log in freely to any super-peer.
+Fault-tolerance is typically low since super-peers are single points of failure for their sub-peers (dynamic replacement of super-peers can alleviate this problem)."\cite{book:p2p-mob}
+
+"Table 1.1: Comparison of P2P overlays
+(Autonomy, Query expressiveness, Efficient query processing, QoS, Fault tolerance)"\cite{book:p2p-mob}
+% Pegar a publicação do NIC.br (tem em PT e em EN)
+
+"The way by which a DHT routes the keys to their responsible peers depends on the DHT’s routing geometry,i.e.,the topology that is used by the DHT for arranging peers and routing queries over them.
+The routing geometries in DHTs include the following [Gummadi et al.,2003]:tree,hypercube,ring, butterfly, and hybrid.
+Let us describe these geometries and discuss their query routing approaches."\cite{book:p2p-mob}
+
+"Hybrid geometries use a combination of the basic geometries. Pastry [Rowstron and Druschel, 2001b] combines the tree and ring geometries in order to achieve more efficiency and flexibility.
+Peer identifiers are maintained as both the leaves of a binary tree and as points on a one-dimensional circle.
+In Pastry, the distance between a given pair of nodes is computed in two different ways: the tree distance and the ring distance.
+Peers have great flexibility of neighbor selection. For selecting their neighbors, peers take into account the proximity properties, i.e., they select the neighbors that are close to them in the underlying physical network.
+The route selection is also very flexible, because to route a message peers have the possibility to choose one of the hops that do make progress on the tree or on the ring."\cite{book:p2p-mob}
+
+"Each ordinary peer joins the system by connecting to a super-peer."\cite{book:p2p-mob}
+
+"To support efficient query routing, at each super-peer two kinds of routing indices are maintained: super-peer/peer (SP/P) indices and super-peer/super-peer (SP/SP) indices.
+Queries are routed over super-peers by using the SP/SP indices, and to ordinary peers based on the SP/P indices.
+In the SP/P indices, each super-peer stores information about the characteristics of the data shared by the peers that are connected to it.
+These indices are used to route a query from the super-peer to its connected peers.
+At join time, peers provide their metadata information to their super-peer by publishing an advertisement.
+To index the provided metadata, Edutella uses the schema-based approaches that have successfully been used in the context of mediator-based information systems (e.g., [Wiederhold, 1992]).
+To ensure that the indices are always up-to-date, peers notify super-peers when their data change.
+When a peer leaves the system, all references to this peer are removed from the indices.
+If a super-peer fails, its formerly connected peers must connect to another super-peer chosen at random, and provide their metadata to it."\cite{book:p2p-mob}
+
+"Gossip protocols are widely used for information dissemination in P2P systems.
+They can serve as efficient tools to achieve new P2P trends in a scalable and robust manner.
+Gossip protocols have recently received considerable attention from researchers in the field of P2P systems [Kermarrec and van Steen, 2007].
+In addition to their inherent scalability, they are simple to implement, robust and resilient to failures.
+They are designed to deal with continuous changes in the system, while they exhibit reliability despite peer failures and message loss.
+This makes them ideally suited for large-scale and dynamic environments like P2P systems.
+In this section, we provide generic definition and description of gossip protocols, then we investigate how P2P systems can leverage these protocols."\cite{book:p2p-mob}
+
+"Upon receiving the remote information, each one of A and B merges it with its local information and update their state.
+At that point, the way a peer deals with the received information and accordingly update its local state is highly application dependent.
+Gossip protocols may achieve four main purposes [Kermarrec and van Steen, 2007]: dissemination,resource monitoring,topology construction, and peer sampling.
+Figure 1.9 illustrates these gossip-based services and how they interfere in a P2P system that is represented by an overlay layer and a search layer."\cite{book:p2p-mob}
+
+"Recently, various researches have explored gossip protocols as a means for overlay construction and maintenance according to certain desirable topologies (e.g., interest-based, locality-based, random graphs), without requiring any global information or centralized administration.
+In such systems, peers self-organize under the target topology, via a selection function that determines which neighbors are optimal for each peer (e.g., semantic or physical proximity).
+Along these lines, several protocols have been proposed such as Vicinity [Voulgaris and van Steen, 2005] which creates a semantic overlay and T-Man [Jelasity and Babaoglu, 2005] that provides a general framework for creating topologies according to some ranking function.
+Figure 1.9 represents the topology construction service providing peers with specific neighbors and thereby connecting the P2P overlay."\cite{book:p2p-mob}
+
+"[gossip] Weaknesses.The usage of gossip might introduce serious limitations [Birman, 2007], e.g., the protocol running times can be slow and potentially costly in terms of background messages.
+One should carefully tune gossip parameters (e.g., periodicity) in a way that matches the goals of the target application."\cite{book:p2p-mob}
+
+"In the context of distributed systems, replication is commonly used to improve data availability and enhance performance.
+More particularly, P2P systems can significantly benefit from replication given the high levels of dynamicity and failures.
+For instance, if one peer is unavailable, its data can still be retrieved from the other peers that hold replicas.
+Data replication in P2P systems can be categorized as follows [Androutsellis-Theotokis and Spinellis, 2004b]."\cite{book:p2p-mob}
+
+"To improve object availability and at the same time avoid hotspots, most DHT-based systems replicate popular objects and map the replicas to multiple peers.
+Generally, this can be done via two techniques.
+The first one [Ratnasamy et al., 2001] uses several hash functions to map the object to several keys and thereby store copies at several peers.
+The second technique consists in replicating the object in a number of peers whose IDs match most closely the key (or in other terms, in the logical neighborhood of the peer whose ID is the closest to the key).
+The latter technique is commonly used in several systems (e.g. [Dabek et al., 2001, Rowstron and Druschel, 2001d]).
+Cohen and Shenker [2002] evaluate three different strategies for replication in an unstructured overlays.
+The uniform strategy creates a fixed number of copies when the object first enters the system.
+The proportional strategy creates a fixed number of copies every time the object is queried.
+In the square-root replication strategy, the number of copies for an object is proportional to the square root of its query probability.
+To implement these strategies, the object can be replicated either randomly or at peers along the path from the requester peer (i.e., the peer that submits the query) to the provider peer (i.e., the peer that stores the queried data).
+However, it is not clear how the strategies can be implemented in a decentralized way (e.g., how to monitor query rate under P2P dynamicity).
+Further, such proactive replication is not feasible in systems that wish to respect peer autonomy because some peers may not want to store unrequested objects."\cite{book:p2p-mob}
+
+"Thus, a fundamental challenge is to incorporate IP-level topological information in the construction of the overlay in order to improve routing and search performance.
+This optimization is referred to by locality-awareness since it deals with peers close in locality.
+In Chapter 2, we focus on locality-awareness as an important requirement of P2P applications such as P2P content distribution."\cite{book:p2p-mob}
+
+"Indeed, we show in Chapter 2 that a P2P content distribution system might need an interest-based overlay to cope with peer autonomy as well as a locality-aware overlay to achieve quality of service.
+However, the construction and maintenance of the combined overlays might imply additional overhead which should not compromise the desirable gains.
+Below, we present and discuss some exemplary approaches."\cite{book:p2p-mob}
+
+"DHT Layering or Hierarchy
+A structured overlay [Ntarmos and Triantafillou, 2004] is organized into multiple layers in order to improve performance under high levels of churn.
+They identify two types of peers: altruistic and selfish.
+The idea is to concentrate most routing chores at altruistic peers; these peers are willing to carry extra load and have the required capabilities to do so.
+The authors also assume that altruistic peers stay connected more than others.
+Thus, a main structured overlay is built over altruistic peers, and each one in its turn is connected to a smaller structured overlay of less altruistic peers.
+Figure 1.12 shows an example of a two-layer DHT, where the main DHT represents the altruistic network and links several DHT-structured clusters.
+The P2P overlay can be further clustered, resulting into multiple layers."\cite{book:p2p-mob}
+
+% ============================================
+\section{Content Distribution in P2P Systems}
+
+"In order to improve the Internet service quality, a new technology has emerged that efficiently delivers the web content to large audiences. It is called Content Distribution Network or Content Delivery Network (CDN) [Buyya et al., 2008].
+A commercial CDN like Akamai1 is a network of dedicated servers that are strategically spread across the Internet and that cooperate to deliver content to end-users.
+A content provider like Google or CNN can sign up with a CDN so that its content is deployed over the servers of the CDN.
+Then, the requests for the deployed content are transparently redirected to and handled by the CDN on behalf of the original web-servers.
+As a result, CDNs decrease the workload on the web-servers, reduce bandwidth costs, and lower the user-perceived latency.
+In short, CDNs strike a balance between the costs incurred on content providers and the QoS provided to the users [Pallis and Vakali, 2006].
+CDNs have become a huge market for generating large revenues since they provide content providers with the highly required scalabiliy,reliability, and performance.
+However, CDN services are quite expensive, often out of reach for small enterprises or non-profit organizations."\cite{book:p2p-mob}
+
+"This implies that P2P systems are a perfect match for building cheap and scalable CDN infrastructures.
+However, making use of P2P self-scalability is not a straightforward endeavor because designing an efficient P2P system is very challenging."\cite{book:p2p-mob}
+
+"2.2.1 BACKGROUND ON WEB CACHING"\cite{book:p2p-mob} % TALVEZ JÁ SEJA MUITO TÉCNICO PARA A DISSERTAÇÃO!!
+
+"Most recently, traditional CDNs [Buyya et al., 2008] have turned towards P2P technology to reduce investments in their own infrastructure, in the context of video streaming.
+The key idea is to dynamically couple traditional CDN distribution with P2P distribution.
+Basically, the CDN serves a handful of clients which in turn provide the content to other clients.
+Joost3 and BitTorrent4 are today’s most representative CDN companies using P2P technology to deliver Internet television
+and video streaming, respectively."\cite{book:p2p-mob}
+
+"If the CDN could rely on a cheap P2P infrastructure supported only by end-users, this would provide a cheap
+and scalable alternative.
+In the rest of this chapter, we further investigate the feasibility of pure P2P content distribution."\cite{book:p2p-mob}
+
+"Most of the current P2P applications fall within the category of content distribution, which range from simple file sharing, to more sophisticated systems that create a distributed overlay for organizing, indexing, searching and retrieving content [Androutsellis-Theotokis and Spinellis, 2004b].
+P2P content distribution functionality is achieved via collaboration among a large scale of peers, scalability is ensured by resource sharing (content, storage, bandwidth, etc.).
+Therefore, by distributing tasks across all participating peers, they can collectively carry out large-scale content distribution without the need for powerful and dedicated servers."\cite{book:p2p-mob}
+
+"One of the major challenges is to capture the information, whether topological or semantically, in a manner that is both practical and scalable.
+This should be done without requiring global knowledge or centralized administration or incurring large overheads of messages and/or data transfers on the P2P CDN.
+Another challenge is to avoid grouping peers into a static configuration which does not evolve well as the interests, localities, or behaviors of peers change.
+Indeed, this might severely affect the quality of service of the P2P CDN, with respect to content search and download."\cite{book:p2p-mob}
+
+"Basically, they rely on a network of cooperative reverse proxy servers that distribute web content and handle related queries.
+Such systems cannot be categorized as pure P2P solutions because they are using dedicated servers rather than exploiting client resources.The only P2P characteristic exhibited by these systems is the absence of centralized administration.
+We examine one typical example of these systems, CoralCDN."\cite{book:p2p-mob}
+
+"If not cached locally, the proxy can perform a key-based routing throughout its overlays in order to find a pointer to a remote copy of the object; it starts at the highest-level overlay of the proxy to benefit from network locality then progresses down the hierarchy.
+Once the object is fetched and locally cached, the proxy inserts pointers to itself, with respect to the object, in the different overlays to which belongs this proxy: it stores at each node responsible for this object its own address information along with the object identifier."\cite{book:p2p-mob}
+
+"Unstructured Approaches
+Proofs [Stavrou et al., 2002]. Uses an unstructured overlay in which peers continuously exchange neighbors among each other like in gossip protocols.
+This provides each peer with a random view of the system for each query routing operation.
+Peers keep their requested objects and can then provide them to other participants.
+To locate one of the object replicas, a query is flooded to a random subset of neighbors with a fixed TTL, i.e., the max number of hops.
+The continuous randomization of the overlay has the benefit of improving the network fault-tolerance and tends to uniformly distribute the load over peers.
+However, the blind searches for not not-so popular objects induce heavy traffic overheads and high latencies.
+Moreover, Proofs does not address locality-awareness which is useful to forward queries to close results."\cite{book:p2p-mob}
+
+"Kache is robust against failures, because all peers in the same group store pointers of all the objects mapped onto the group. Moreover, locality-awareness is incorporated through the RTT-based routing tables.
+Lookups are bounded by O(1), thus scaling does not influence lookup time.
+However, the resources necessary to maintain routing information increase as the number of peers increases."\cite{book:p2p-mob}
+
+"Table 2.1: Comparison of P2P networks --> PetalUp-CDN!
+PetalUp-CDN is designed to achieve scalability at low costs while respecting peer autonomy and complying with peer localities."\cite{book:p2p-mob}
+
+"After a first overview of traditional CDNs, we identified their requirements which are performance, scalability, and reliability, and we discussed the mechanisms needed to fulfill each requirement.
+We focused on the potential savings and benefits in using P2P technology as a cheap and efficient alternative for commercial CDNs.
+We then presented the recent P2P trends that can improve the performance of P2P content distribution but incur additional challenges.
+The trends that we identified are locality-aware and interest-aware overlay matching, and overlay combination.
+The challenges are to keep the solutions simple, avoid centralized management and large overheads, operate fast and dynamically adapt to changes and massive scales.
+Finally, we focused on P2P CDN which have stringent performance requirements.
+They should be highly robust, efficient, and scalable, while taking into account the autonomy of peers.
+Existing P2P CDNs do not answer all the important requirements.
+Most importantly, they are not designed to achieve high scalability as they target small scales."\cite{book:p2p-mob}
+
+% ===============================
+\section{Recommendation Systems}
+
+"In this chapter,we are concerned with recommendation for decentralized infrastructures where users wish to keep their contents (documents, items, images, tables, etc.) in their own workspace, which is typically the case for on-line communities [Cheng and Vassileva, 2005].
+An on-line community refers to a information system where anyone can post content.
+In this chapter, we consider on-line communities such as researchers or friends who wish to share data and want to keep their data in their own workspace instead of storing it in an unknown server.
+In this context, P2P is appropriate to handle content sharing as the underlying infrastructure.
+P2P file-sharing systems have proven to be very efficient at locating content given specific queries.
+However, file-sharing systems only provide a very simple keyword search capability, trying to find the contents whose name or description match the keywords provided by the user.
+Few solutions exist that are able to recommend the most relevant files."\cite{book:p2p-mob}
+
+% ==============================================
+\section{Top-k Query Processing in P2P Systems}
+
+"In a large-scale P2P system, top-k queries are very useful [Balke et al., 2005]; they can reduce the network traffic significantly and avoid overwhelming the user with large numbers of uninteresting answers."\cite{book:p2p-mob}
+
+"The best known algorithm for answering top-k queries over sorted lists is the Threshold Algorithm (TA) [Fagin et al., 2001], [Güntzer et al., 2000], [Nepal and Ramakrishna, 1999].
+Many distributed and P2P top-k query processing algorithms are based on the TA algorithm that is itself based on Fagin’s Algorithm (FA).
+In this section, we first formally define the sorted lists model, and then we briefly describe FA and TA."\cite{book:p2p-mob}

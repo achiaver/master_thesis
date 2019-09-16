@@ -1,0 +1,23 @@
+\tikzset{%
+    >={Latex[width=2mm,length=2mm]},
+    node distance=1.5cm,
+    % 
+    % Specifications for style of nodes:
+              base/.style = {fill=white, draw=black, %yshift=-1cm,
+                             %minimum width=2cm, minimum height=1cm,
+                             text width=2.5cm, text centered, font=\sffamily},
+           onchain/.style = {base, rectangle, rounded corners},
+          offchain/.style = {onchain, dashed},
+          terminal/.style = {base, ellipse},
+               i-o/.style = {base, trapezium, trapezium left angle=60, trapezium right angle=120},
+               i2o/.style = {i-o, text width=5cm},
+          decision/.style = {base, diamond},
+             erase/.style = {fill=white, shape=circle, minimum size=1.8*\radius, inner sep=0pt},
+}
+
+% VALUABLE NOTES
+% \draw[->]     (d) -- ++(-4cm,0) |- (end) node[pos=0.25] {No};
+% [node distance=1.5cm, align=center]
+
+\def \radius {.7mm} 
+\def \cc {\textcopyright\space\textsc{CC BY 4.0}\space\textsc{2019, Yuri Bastos Gabrich}}

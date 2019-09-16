@@ -1,0 +1,92 @@
+% General glossary input in the form {'name'}/{'description'}
+% TAXONOMY --> XU2017
+\def \listofBCc {
+				{application}/{diferenciação para o modelo OSI},
+% 
+                {architecture}/{structure?},
+%                 
+				{block}/{containers?},
+%                 
+                {blockchain}/{"The term “blockchain” is used to refer to a data structure and occasionally to a network or system.
+                As a data structure, a blockchain is an ordered list of blocks, where each block contains a small (possibly empty) list of transactions. Each block in a blockchain is “chained” back to the previous block, by containing a hash of the representation of the previous block. Thus historical transactions in the blockchain may not be deleted or altered without invalidating the chain of hashes. Combined with computational constraints and incentive schemes on the creation of blocks, this can in practice prevent tampering and revision of information stored in the blockchain."~\cite{xu2017}},
+% 
+                {blockchain network (DLT)}/{},
+%                 
+                {computação quântica}/{},
+% 
+                {consensus}/{"A signed transaction is sent to a node connected to the blockchain network, which validates the transaction. If the transaction is valid and previously unknown to the node, the node propagates it to other nodes in the network, which also validate the transaction and propagate it to their peers, until the transaction reaches all nodes in the network. In a global network, this can take seconds. There are diﬀerent consensus mechanisms, e.g., “proof-of-work” or “proof-of-stake” (see Section III). Depending on the consensus mechanism and the required guarantees, there can be diﬀerent notions of when a transaction is taken to be committed or conﬁrmed and thus immutable."~\cite{xu2017}},
+% 
+                {hash}/{},
+%                 
+                {client-server}/{},
+%                 
+                {chaining}/{pq esse termo?},
+% 
+                {computação quântica}/{},
+%                 
+                {control data redundancy}/{"In the Database approach, ideally each data item is stored in only one place in the database. In some cases redundancy still exists so as to improve system performance, but such redundancy is controlled and kept to minimum."},
+%                 http://www.opentextbooks.org.hk/ditatopic/30651		30/10/18
+% 
+                {crypto-currency}/{},
+%                 
+                {cryptography}/{},
+%                          
+                {DAO}/{},
+%                 
+                {dapps}/{},
+%                 
+                {data structure}/{ordered list of blocks?},
+% 
+                {double-spending problem}/{},
+% 
+                {ledger}/{},
+%                 
+                {Merkle Tree}/{árvore de armazenamento de dados no banco de dados...?},
+% 
+                {mining/mined}/{"Mining is the process of appending new blocks to the blockchain data structure. A blockchain network relies on miners to aggregate valid transactions into blocks and append them to the blockchain. New blocks broadcast across the whole network, so that each node holds a replica of the whole data structure. The whole network aims to reach a consensus about the latest block to be included into the blockchain."~\cite{xu2017}},
+% 
+                {minted}/{},
+% 
+                {network}/{centralized or decentralized?},
+%                 
+                {node}/{},
+%                 
+                {peer-to-peer (P2P)}/{},
+%                 
+                {protocol}/{},
+% 
+                {private key}/{},
+% 
+                {public key}/{"Public key cryptography and digital signatures are normally used to identify accounts and to ensure authorization of transactions initiated on a blockchain."~\cite{xu2017}},
+%                 
+                {relational database}/{},
+%                 
+                {server-client}/{},
+%                 
+                {signature}/{},
+%                 
+                {smart contract}/{"Programs can be deployed and run on a blockchain, and are known as smart contracts [18]. Smart contracts can express triggers, conditions and business logic [25] to enable more complex programmable transaction. However, they are not necessarily smart, nor necessarily related to legal contracts. A common simple example of a smart contract-enabled service is escrow, which can hold funds until the obligations defined in the smart contract have been fulfilled."~\cite{xu2017}},% E se a pessoa não tiver como pagar no futuro? Isso não está igual a lógica do cheque?
+% 
+                {``stack-oriented'' programming}/{},
+%                 
+                {transaction}/{"Transactions are data packages that store parameters (such as monetary value in the case of Bitcoin) and results of function calls (such as from smart contracts). The integrity of a transaction is checked by algorithmic rules and cryptographic techniques. A transaction is signed by its initiator, to authorise the expenditure of their money, to authorise the data payload of a transaction, or the creation and execution of a smart contract."~\cite{xu2017}},
+% 
+                {tamper-proof}/{},
+% 
+                {timestamp}/{},
+%                 
+%                 {}/{},
+%                 {}/{},
+%                 {}/{},
+%                 {}/{},
+% 
+                {z}/{o último sem vírgula}
+				}
+
+
+% Adjust the glossary inputs to glossary package code to allow sorting
+\newcounter{BC}
+\foreach \name/\description in \listofBCc{
+    \refstepcounter{BC}
+	\gloss{\theBC}{\name}{\description}
+}

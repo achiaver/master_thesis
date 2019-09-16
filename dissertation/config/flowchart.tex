@@ -1,0 +1,32 @@
+\tikzset{%
+    >={Latex[width=2mm,length=2mm]},
+    % Specifications for style of nodes:
+            base/.style = {rounded corners, draw=black, yshift=-1cm,
+                           minimum width=2cm, minimum height=1cm, text width=3cm, text centered},
+  activityStarts/.style = {ellipse, base, text width=2cm, fill=blue!30},
+       startstop/.style = {diamond, base, text width=1.5cm, fill=red!30, node distance=2.5cm},
+    activityRuns/.style = {rectangle, base, fill=green!30},
+         process/.style = {rectangle, base, fill=orange!15},
+}
+
+\newcommand{\flowchart}[4][h!tbp]{%
+    \begin{figure}[#1]{\textwidth}
+    	\centering
+        \frame{%
+        %     \resizebox{\textwidth}{!}{%
+            % Drawing part, node distance is 1.5 cm and every node is prefilled with white background
+            \begin{tikzpicture}[every node/.style={fill=white,
+                                                    font=\sffamily\scriptsize,
+                                                    node distance=1cm},
+                                align=center]
+                {#4}
+        	\end{tikzpicture}%
+        }
+    	\caption{#2}
+    	\label{#3}
+    % 	\legend{}
+        \source{\copyright}
+    \end{figure}
+}
+
+\newcommand{\figchart}[4][h!tbp]{\flowchart[#1]{#2}{#3}{#4}}

@@ -1,0 +1,44 @@
+6.1) O objetivo é propor um sistema que gerencie de forma confiável (trustless) a troca de energia em um smart grid, gerenciado na forma de Associação (segundo normas brasileiras vigentes). Esse sistema funciona da seguinte maneira.
+
+6.2) Existirá um token que será utilizado para intermediar as trocas internas. Esse token será emitido por uma autoridade interna (ou seja, não será possível trocá-lo livremente no mercado externo, como PowerLedger), e será equivalente a 1 kWh.
+
+6.3) O pagamento por esse token não será necessariamente gerenciado por nós, ou seja, a pessoa poderia pagar em Ether, em Reais, em Dolar, em Camelos, não importa... :) 
+
+6.4) É claro que é possível criarmos um controle monetário em cima, mas não precisa ser o foco da tese. Por hora, o objetivo maior é usar o token para fazer o planejamento energético do grid.
+
+6.5) Funciona assim: cada pessoa adquire os tokens, pode ser vendido com preços promocionais no início do ano, por exemplo, ou ser adquirido por mẽs... não importa como, mas alguém vai receber o dinheiro.
+
+6.6) Quando você tem token, você pode participar de um "marketplace" de energia, em que pessoas ofertam certa quantidade de kWh, por certo preço (em tokens). Se você está interessado na proposta, você aceita a proposta e transfere os tokens. A proposta inclui um período de tempo (por exemplo, mês) que a pessoa irá te fornecer os kWh.
+
+6.7) Com base nas ofertas, o sistema calcula então o percentual que será distribuído para cada membro da associação. Exemplo (mês abril): Yuri compra 50kWh de Vitor, e Igor compra 100kWh de Vitor. O sistema então decide que a produção de Vitor no mês de abril será: 50/150=33\% para Yuri, 100/150=66\% para Igor.
+
+6.8) O sistema informa a concessionária sobre os percentuais do próximo mês.
+
+6.9) O membro gerador de fato gera a energia e os créditos são repassados para os consumidores.
+
+6.10) O sistema confere no próximo mês se o gerador cumpriu a promessa de geração, e quanto o consumidor recebeu a mais ou a menos. A diferença é paga em tokens (esse passo é feito de forma centralizada pela autoridade da associação). Não é necessário implementar essa integração com o sistema da concessionaria Yuri, basta propor, ok? Embora não seja difícil fazer no caso da Enel.
+
+
+% ------------------------------------------------------------------
+
+USUÁRIOS: user < manager < admin
+
+RECURSOS de todo 'user':
+	ID na cooperativa
+    	cooperativa [nome ou ID]
+    ID na distribuidora --> tentar assimilar com registro da ANEEL
+    	CPF/CNPJ
+        # cliente
+    geração [kWh méd] --> atrelado a Wp instalado (dado complicado de explicar, pois a capacidade de geração varia de acordo com a localização)
+    consumo [kWh méd]
+    energia demandada [kWh]
+    energia disponibilizada [kWh]
+    manager?
+    	startdate
+        enddate
+        term [months]
+	admin?
+    	startdate
+        enddate
+        term [months]
+    

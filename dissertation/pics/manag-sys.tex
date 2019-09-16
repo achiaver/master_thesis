@@ -1,0 +1,92 @@
+\def\c#1{\textbf{#1}}
+
+\newcommand{\appschema}[4]{
+\begin{figure}[h!btp]{\textwidth}
+    \centering
+    \caption{#1}
+    {#2} % label
+    
+    % We need layers to draw the block diagram
+    \pgfdeclarelayer{background}
+    \pgfdeclarelayer{foreground}
+    \pgfsetlayers{background,main,foreground}
+    
+    % Define a few styles and constants
+    \tikzstyle{elemts}=[draw, fill=gray!20, text width=5em, text centered, minimum height=2.5em]
+    \tikzstyle{target} = [draw, fill=gray!50, text width=6em, text centered, minimum height=2.5em, rounded corners]
+    \tikzstyle{geral} = [rounded corners, draw=black!90]
+    % \tikzstyle{ann} = [above, text width=5em]
+    \tikzstyle{tbx} = [anchor=north west, text width=6em]
+    % \def\blockdist{(-1,0.7)}
+    \def\edgedist{(-0.2,0.2)}
+    
+    \def\bigtxt{\footnotesize{\c{market trends\\\medskip laws \& regulations}\\\medskip %
+                legal liabilities\\\medskip social responsibilities\\\medskip \c{technology base}\\\medskip labor pool\\\medskip competing products\\\medskip \c{standards \& specifications\\\medskip public culture\\\medskip physical/natural environment}}}
+    \def\bigtx{\footnotesize{policies \& procedures\\\medskip standards \& specifications\\\medskip %
+                guidelines\\\medskip domain technologies\\\medskip local culture}}
+    \def\bigt{\footnotesize{\c{business operational processes\\\medskip  business operational constraints}\\\medskip %
+                business operational policies \& rules\\\medskip business operational modes\\\medskip business operational quality\\\medskip business structure}}
+    
+    \frame{%
+    \resizebox{\textwidth}{!}{%
+    \begin{tikzpicture}
+        % general boxes
+        % \node 
+        \node (sftwr) [target] {Software\\(Dapp)};
+        \node (sysel) [above of=sftwr] {System Element};
+        \path [above of=sysel]+(0,1.5) node (elemt1) [elemts, text width=8em] {System Element};
+        
+        % titles
+        \node (SYS) [above of=elemt1] {System};
+        \path (SYS.north west)+(0,0.7) node (sysop) {System Operation};
+        \path (sysop.north west)+(-2,0.7) node (bizop) {Business Operation};
+        \path (bizop.north west)+(-0.5,0.7) node (orgen) {Organization Environment};
+        \path (orgen.north west)+(-1.5,0.7) node (exten) {External Environment};
+        
+        % text boxes
+        \path (bizop.south west)+(0,-0.25) node [tbx, text width=8em] {\bigt};
+        \path (orgen.south west)+(0,-0.25) node [tbx] {\bigtx};
+        \path (exten.south west)+(0,-0.25) node [tbx, text width=7em] {\bigtxt};
+        
+        % boxes of the titles
+        \begin{pgfonlayer}{background}
+            % External Environment
+            \path (exten.north west)+\edgedist node (a) {};
+            \path (sftwr.south -| sftwr.east)+(2,-1.2) node (b) {};
+            \path[geral, draw=white] (a) rectangle (b);
+            
+            % Organization Environment
+            \path (orgen.north west)+\edgedist node (a) {};
+            \path (b)+(-0.2,0.2) node (b) {};
+            \path[geral] (a) rectangle (b);
+            
+            % Business Operation
+            \path (bizop.north west)+\edgedist node (a) {};
+            \path (b)+(-0.2,0.2) node (b) {};
+            \path[geral] (a) rectangle (b);
+            
+            % System Operation
+            \path (sysop.north west)+\edgedist node (a) {};
+            \path (b)+(-0.2,0.2) node (b) {};
+            \path[rounded corners, draw=black!90, dashed] (a) rectangle (b);
+            
+            % System
+            \path (sysel.west |- SYS.north)+(-0.4,0.2) node (a) {};
+            \path (sftwr.south -| sysel.east)+(+0.4,-0.4) node (b) {};
+            \path[geral] (a) rectangle (b);
+            
+            % System Element (of Dapp)
+            % \path (sysel.north west)+(-0.2,0.2) node (a) {};
+            % \path (sftwr.south -| sysel.east)+(+0.2,-0.2) node (b) {};
+            % \path[elemts] (a) rectangle (b); % node 'System Element' with 'Software'
+            \path let \p1=($(elemt1.west)-(elemt1.east)$), \n1 = {veclen(\p1)-\pgflinewidth},
+                \p2=($(sysel.north)-(sftwr.south)$), \n2 = {veclen(\p2)} % -\pgflineheight
+                in node[draw, elemts, minimum width=\n1, minimum height={1em+\n2}] at (0,0.4) (nome) {};
+        \end{pgfonlayer}
+    \end{tikzpicture}
+    }}
+
+    \legend{#3}
+    \source{#4}
+\end{figure}
+}

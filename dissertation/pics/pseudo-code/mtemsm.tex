@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+
+    % Specification of nodes
+    \node (s1)  []                                  {EVENTS};
+    \node (s2)  [right=of s1]                       {GLOBAL VARIABLES};
+    \node (s3)  [below=of s1.west, anchor=west]     {THE MAIN INTERFACE};
+    
+    \node (o1)    [onchain, below=of s3.west, anchor=west]  {General operation.};
+    \node (o2)    [onchain, right=of o1]                    {Partially restricted operation.};
+    \node (o3)    [onchain, right=of o2]                    {Restricted operations.};
+    \node (o4)    [onchain, below=of o3, xshift=1.5cm]      {Group operations.};
+    \node (o5)    [onchain, below=of o4]                    {Administrative operations.};
+    
+    \node (s4)  [below=of o1.west, anchor=west, yshift=-5cm]    {GROUP FUNCTIONS};
+    \node (s5)  [right=of s4]                                   {SYSTEM FUNCTIONS};
+    \node (s6)  [right=of s5]                                   {ADMINISTRATIVE FUNCTIONS};
+    
+    \node (s7)  [below=of s4.west, anchor=west]     {METHODS FOR MEMBERS};
+    \node (s8)  [right=of s7]                       {METHODS FOR POWER PLANTS};
+    \node (s9)  [right=of s8]                       {METHODS FOR REFERENDUMS};
+    \node (s10) [below=of s9.east, anchor=east]     {METHODS TO FINANCE A NEW POWER PLANT (aka an ICO of a NFT)};
+    
+    % Identification of the system interface
+    \draw (s3.north west) rectangle (o5.south east);
+    
+    % Identification of the system integration
+    \draw[thick, dashed] (s1.north west) rectangle (s2.south east);
+    \draw[thick, dashed] (s4.north west) rectangle (s6.south east);
+    \draw[thick, dashed] (s7.north west) rectangle (s10.south east);
+    
+\end{tikzpicture}

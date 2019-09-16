@@ -1,0 +1,128 @@
+% =============================================
+% Stakeholder Requirements Specification (StRS)
+% =============================================
+
+	- describes the organization's motivation for why the system is being developed
+    - defines processes and policies/rules under which the system is used
+    - documents the top level requirements from the stakeholder perspective including needs of users/operators/maintainers as derived from the context of use
+    
+In a business environment:
+	- describes how the organization is pursuing new business or changing the current business in order to fit a new business environment
+    - how to utilize the system as a means to contribute to the business
+    - The description at the organization level includes:
+    	- the organizational environment, goals and objectives,
+        - the business model,
+        - the information environment
+    - The description at the business operation level includes:
+    	- the business operation model,
+        - the business operation modes,
+        - the business operational quality,
+        - the organizational formation,
+        - the concept of the proposed system.
+        
+\emph{The information items of the StRS should be specified by the stakeholders}
+	- necessário identificá-los corretamente
+    - não temos a opinião de todos (a proposta é generalista!)
+
+Typical types of stakeholder requirements included in the StRS are:
+	- organizational requirements,
+    - business requirements,
+    - user requirements.
+
+NOTE 1 ISO/IEC/IEEE 15289 provides guidance to include business, organizational, and user (stakeholder)
+requirements in the system requirements specification. This International Standard includes these requirements in the
+StRS since the contents should be specified from the stakeholders' perspective. They may be succeeded in the SyRS by addressing technical concerns.
+
+	"Throughout this document, “shall” is used	 to	 express	 a	 provision	 that	 is	 normative,	 “should”	 to	 express	 a	recommendation	 among	 other	 possibilities,	 and	 “may”	 to	 indicate	 a	 course	 of action permissible	 within	 the	limits	of	this	document."
+    
+    "The	verb	 “include”	used	in	 this	document	indicates	 that	either	(1)	 the	information	is	present	or	 (2)	 a	reference to	the	information	is	given."
+    
+    "The	information	items	 (documents)	are	produced	and	communicated	for	human	use	and	contain	formal	elements	(such	as	purpose,	scope,	and	summary), intended	to	make	them	usable	by	their	intended audience."
+    
+    "The	 Information	 Management	 process	 should	support	 the	 needs	 of	 a	 project	 and	 the	 related	 product	 or	 service.	 It	 should	 include	 procedures	 for	 preparing,	collecting,	identifying,	classifying,	distributing,	storing,	updating,	archiving,	and	retrieving	information." [6.4 anx.A]
+    
+    "7 Generic types of information items"
+    
+    COMEÇAR PELO ANEXO A!
+    
+    https://sci-hub.tw/https://ieeexplore.ieee.org/document/7942151/
+    
+
+NOTE 3 The stakeholder requirements and business requirements are distinguished in The Guide to the Business
+Analysis Body of Knowledge (BABOK) as follows: Business Requirements are high-level statements of the goal, objectives,
+or needs of the enterprise. They describe why a project is initiated, what the project will achieve, and which metrics will be used to measure the project's success. Stakeholder Requirements are statements of the needs of a particular stakeholder
+or class of stakeholders. They describe the needs that a given stakeholder has and how that stakeholder will interact with
+a solution. Stakeholder Requirements serves as a bridge between Business Requirements and the various classes of
+solution requirements.
+
+% ----------------------------------------------------------
+Example StRS Outline
+
+1. Introduction
+  1.1 Business purpose
+  1.2 Business scope
+  1.3 Business overview
+  1.4 Definitions
+  1.5 Stakeholders
+2. References
+3. Business management requirements
+  3.1 Business environment
+  3.2 Goal and objective
+  3.3 Business model
+  3.4 Information environment
+4. Business operational requirements
+  4.1 Business processes
+  4.2 Business operational policies and rules
+  4.3 Business operational constraints
+  4.4 Business operational modes
+  4.5 Business operational quality
+  4.6 Business structure
+5. User requirements
+6. Concept of proposed system
+  6.1 Operational concept
+  6.2 Operational scenario
+7 Project Constraints
+8. Appendix
+  8.1 Acronyms and abbreviations
+% ----------------------------------------------------------
+
+
+Na geração distribuída temos os seguintes stakeholders:
+	- end users:
+        - autoconsumo local
+        	- prosumer
+        - autoconsumo remoto
+        	- prosumer
+       	- múltiplas unidades consumidoras (system acquirer)
+        	- prosumers
+            - consumers
+        - geração compartilhada (system acquirer)
+        	- prosumers
+            - consumers
+    - system supplier:
+    	- DISSERTAÇÃO
+    - regulatory bodies:
+    	- ANEEL
+        - distribuidora
+        - cooperativa ou condomínio (estatuto e regulamentação)
+
+
+
+% Note the use of \path instead of \node at ... below.
+% \path (naveq.140)+(-\blockdist,0) node (gyros) [sensor] {System Element};
+% \path (naveq.-150)+(-\blockdist,0) node (accel) [sensor] {System Element};
+
+% Unfortunately we cant use the convenient \path (fromnode) -- (tonode) 
+% syntax here. This is because TikZ draws the path from the node centers
+% and clip the path at the node boundaries. We want horizontal lines, but
+% the sensor and naveq blocks aren't aligned horizontally. Instead we use
+% the line intersection syntax |- to calculate the correct coordinate
+% \path [draw, ->] (gyros) -- node [above] {$\vc{\omega}_{ib}^b$} (naveq.west |- gyros);
+% We could simply have written (gyros) .. (naveq.140). However, it's
+% best to avoid hard coding coordinates
+% \path [draw, ->] (accel) -- node [above] {$\vc{f}^b$} (naveq.west |- accel);
+
+% \draw [->] (naveq.50) -- node [ann] {Velocity } + (\edgedist,0) node[right] {$\vc{v}^l$};
+% \draw [->] (naveq.20) -- node [ann] {Attitude} + (\edgedist,0) node[right] { $\mx{R}_l^b$};
+% \draw [->] (naveq.-25) -- node [ann] {Horisontal position} + (\edgedist,0) node [right] {$\mx{R}_e^l$};
+% \draw [->] (naveq.-50) -- node [ann] {Depth} + (\edgedist,0) node[right] {$z$};

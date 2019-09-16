@@ -1,0 +1,167 @@
+\begin{tikzpicture}
+
+    % Specification of nodes
+    \node (start) [terminal]                    {Activity starts.};
+    
+    \node (d1)    [decision, below=of start]    {Were all the required inputs provided?};
+    \node (d2)    [decision, below=of d1]       {Is the time to market a factual value?};
+    
+    \node (e1)    [i-o, right=of d2]            {Displays an error message.};
+    
+    \node (o1)    [onchain, below=of d2]        {Gets the inputs provided.};
+    \node (o2)    [onchain, below=of o1]        {Creates and stores a referendum ID for follow-up.};
+    
+    \node (e2)    [i-o, below=of o2]            {Displays the request for a new PP.};
+    \node (e3)    [i-o, below=of e2]            {Returns the referendum ID.};
+    
+    % Loop process.
+    \node (o3)    [offchain, below=of e3, xshift=10cm]       {Waits a time frame period to keep going.};
+    \node (o4)    [onchain, below=of o3]        {During the time frame members can vote/bid on the respective ID.};
+    
+    \node (o5)    [onchain, right=of o3]        {Any member resumes the process.};
+    
+    \node (d3)    [decision, right=of o5]       {Was the referendum ID provided?};
+    \node (d4)    [decision, right=of d3]       {Were there provided more arguments than needed?};
+    
+    \node (o6)    [onchain, right=of d4]        {Gets the inputs provided.};
+    
+    % STEP 1
+    \node (d5)    [decision, right=of o6]       {Is there a PP ID?};
+    \node (d6)    [decision, right=of d5]       {Did the waiting period of the referendum pass out?};
+    
+    \node (d7)    [decision, right=of d6]       {Has the referendum result already been evaluated?};
+    
+    \node (e4)    [i2o, above=of d7]            {Returns a message of the end of the process.};
+    
+    \node (o8)    [onchain, right=of d7]        {Updates the referendum evaluation status.};
+    
+    \node (d8)    [decision, right=of o8]       {Are there more than 50\% of favorable votes?};
+    
+    \node (o9)    [onchain, right=of d8]        {Updates the referendum result status.};
+    
+    \node (o10)   [onchain, right=of o9]       {Creates the PP registration ID.};
+    \node (o11)   [onchain, right=of o10]       {Starts a crowdfunding.};
+    
+    \node (e5)    [i2o, right=of o11]           {Displays the approval for the crowdfunding process.};
+    \node (e6)    [i-o, right=of e5]            {Returns the PP ID.};
+    
+    \node (e7)    [i-o, below=of d8]            {Displays the disapproval.};
+    \node (e8)    [i-o, right=of e7]            {Returns \verb|"false"|.};
+    
+    % STEP 2
+    \node (d9)    [decision, below=of d5, yshift=-10cm]      {Did the waiting period of the crowdfunding pass out?};
+    
+    \node (o12)    [onchain, right=of d9]      {Gets a list of funders of the respective PP.};
+    
+    \node (d10)    [decision, right=of o12]      {Has the crowdfunding result already been evaluated?};
+    
+    \node (o13)    [onchain, right=of d10]      {Updates the crowdfunding evaluation status.};
+    
+    \node (d11)    [decision, right=of o13]     {Has the funding reached the target?};
+    
+    \node (o14)    [onchain, right=of d11]      {Updates the crowdfunding result status.};
+    \node (o15)    [onchain, right=of o14]      {Updates the number of investors.};
+    
+    \node (e9)     [i2o, right=of o15]          {Displays the success of the crowdfunding process.};
+    \node (e10)    [i-o, right=of e9]           {Returns \verb|"true"|.};
+    
+    \node (o16)    [onchain, below=of d11]      {Refund each funder.};
+    
+    \node (e11)    [i2o, right=of o16]          {Displays the failure of the crowdfunding process.};
+    \node (e12)    [i-o, right=of e11]          {Returns \verb|"false"|.};
+    
+    % STEP 3
+    \node (o17)    [onchain, below=of d10, yshift=-10cm]      {Calculates the date the new PP is planned to start to operate.};
+    
+    \node (d12)    [decision, below=of o17]     {Did the waiting period of the time to market pass out?};
+    \node (d13)    [decision, right=of d12]     {Has the PP operation already started?};
+    
+    \node (o18)    [onchain, right=of d13]      {Increases the total power supply of the group};
+    \node (o19)    [onchain, right=of o18]      {Calculates the shares of the new PP in the group total power supply.};
+    \node (o20)    [onchain, right=of o19]      {Calculates how many tokens a funder will get.};
+    \node (o21)    [onchain, right=of o20]      {Calculates the shares a funder will have from the new total power supply.};
+    \node (o22)    [onchain, right=of o21]      {Distributes the respective assets for each funder.};
+    
+    \node (e13)     [i2o, right=of o22]         {Displays the success of the new PP operation.};
+    \node (e14)     [i-o, right=of e13, xshift=0.4cm]         {Returns \verb|"true"|.};
+    
+    \node (e15)     [i2o, above=of d13]         {Displays a message of the end of remaining operations.};
+    
+    % END OF OPERATIONS
+    \node (end)     [terminal, right=of e10, xshift=4cm]    {Activity ends.};
+
+
+    % Specification of lines between nodes defined above with additional nodes for description.
+    \draw[->]  (start) -- (d1);
+    \draw[->]     (o1) -- (o2);
+    \draw[->]     (o2) -- (e2);
+    \draw[->]     (o3) -- (o4);
+    \draw[->]     (o3) -- (o5);
+    \draw[->]     (o5) -- (d3);
+    \draw[->]     (o6) -- (d5);
+    % \draw[->]     (o7) -- (x);
+    \draw[->]     (o8) -- (d8);
+    \draw[->]     (o9) -- (o10);
+    \draw[->]    (o10) -- (o11);
+    \draw[->]    (o11) -- (e5);
+    \draw[->]    (o12) -- (d10);
+    \draw[->]    (o13) -- (d11);
+    \draw[->]    (o14) -- (o15);
+    \draw[->]    (o15) -- (e9);
+    \draw[->]    (o16) -- (e11);
+    \draw[->]    (o17) -- (d12);
+    \draw[->]    (o18) -- (o19);
+    \draw[->]    (o19) -- (o20);
+    \draw[->]    (o20) -- (o21);
+    \draw[->]    (o21) -- (o22);
+    \draw[->]    (o22) -- (e13);
+    
+    \draw[->]     (e1) -| (end);
+    \draw[->]     (e2) -- (e3);
+    \draw[->]     (e3) |- (o3) node (jump) [erase, pos=0.8] {};
+    \draw[->]     (e4) -| (end);
+    \draw[->]     (e5) -- (e6);
+    \draw[->]     (e6) -| (end);
+    \draw[->]     (e7) -- (e8);
+    \draw[->]     (e8) -| (end);
+    \draw[->]     (e9) -- (e10);
+    \draw[->]    (e10) -- (end);
+    \draw[->]    (e11) -- (e12);
+    \draw[->]    (e12) -| (end);
+    \draw[->]    (e13) -- (e14);
+    \draw[->]    (e14) -- (end);
+    \draw[->]    (e15) -| (end);
+
+    \draw[->]     (d1) -- node[left=2.5mm]   {Yes} (d2);
+    \draw[->]     (d2) -- node[left=2.5mm]   {Yes} (o1);
+    \draw[->]     (d3) -- node[above=2.5mm]  {Yes} (d4);
+    \draw[->]     (d4) -- node[above=2.5mm]  {No} (o6);
+    \draw[->]     (d5) -- node[above=2.5mm]  {No} (d6);
+    \draw[->]     (d6) -- node[above=2.5mm]  {Yes} (d7);
+    \draw[->]     (d7) -- node[above=2.5mm]  {No} (o8);
+    \draw[->]     (d8) -- node[above=2.5mm]  {Yes} (o9);
+    \draw[->]     (d9) -- node[above=2.5mm]  {Yes} (o12);
+    \draw[->]    (d10) -- node[above=2.5mm]  {No} (o13);
+    \draw[->]    (d11) -- node[above=2.5mm]  {Yes} (o14);
+    \draw[->]    (d12) -- node[above=2.5mm]  {Yes} (d13);
+    \draw[->]    (d13) -- node[above=2.5mm]  {Yes} (o18);
+    
+    \draw[->]     (d1)  -| node[pos=0.25, above=2.5mm] {No} (e1);
+    \draw[->]     (d9)  -| node[pos=0.25, above=2.5mm] {No}  (e1);
+    \draw[->]     (d12) -| node[pos=0.25, above=2.5mm] {No}  (e1);
+    
+    \draw[->]     (d2) -- node[above=2.5mm] {No} (e1);
+    \draw[->]     (d5) -- node[left=2.5mm]  {Yes} (d9);
+    \draw[->]     (d7) -- node[left=2.5mm]  {Yes} (e4);
+    \draw[->]     (d8) -- node[left=2.5mm]  {No} (e7);
+    \draw[->]    (d10) -- node[left=2.5mm]  {Yes} (o17);
+    \draw[->]    (d11) -- node[left=2.5mm]  {No} (o16);
+    \draw[->]    (d13) -- node[left=2.5mm]  {No} (e15);
+    
+    \draw[->]     (d3) -- ++(0,4cm) -| (e1) node[pos=0.25, above=2.5mm] {No};
+    \draw[->]     (d4) -- ++(0,6cm) -| (e1) node[pos=0.25, above=2.5mm] {Yes};
+    \draw[->]     (d6) -- ++(0,8cm) -| (e1) node[pos=0.25, above=2.5mm] {No};
+    
+    \draw[-] (jump)+(-\radius, 0mm) arc(180:0:\radius);
+    
+\end{tikzpicture}

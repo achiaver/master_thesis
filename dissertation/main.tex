@@ -1,0 +1,65 @@
+% Leia o documento 'copyright.txt' para saber mais sobre o modelo deste documento
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{config/repUERJ}
+
+% Pacotes fundamentais
+\input{config/packages}
+
+% Informações de autoria e institucionais
+\input{authorship}
+
+% Configurações de aparência do PDF final
+\input{config/PDF_final_view}
+
+% Início do documento
+% ---
+% compila o índice; se não for usar, comentar
+% ---
+% \makeindex % acho q não é a melhor opção --> http://ftp.math.purdue.edu/mirrors/ctan.org/macros/latex/contrib/glossaries/glossaries-user.pdf
+% Já definido em packages.tex
+% ---
+
+\begin{document}
+
+\input{pre-textual}
+
+% ELEMENTOS TEXTUAIS
+\mainmatter
+
+% Formas de citar referências neste documento:
+%     \cite{bib:Amado1991} --> (AUTOR, ano)
+%     \citeonline{bib:Amado1991} --> Autor (ano)
+%     \citeauthoronline{bib:Andrade1997} --> Autor
+%     \citeyear{bib:Andrade1997} --> ano
+%     \citeauthor{bib:Andrade1997} --> AUTOR
+
+% verificação da gramática
+% grammarly.com
+
+% sugestões de como escrever textos acadêmicos em inglês
+% http://www.phrasebank.manchester.ac.uk/
+
+\chapter*{Introduction}
+\label{ch:0}
+\input{intro}
+
+\chapter{The Brazilian Distributed Generation}
+\label{ch:1}
+\input{part1}
+
+\chapter{General concepts about blockchain applications}
+\label{ch:2}
+\input{part2}
+
+\chapter{The application proposal}
+\label{ch:3}
+\input{part3}
+
+\chapter{Conclusion}
+% \setcounter{chapter}{4}
+\label{ch:final}
+\input{ending}
+
+\input{pos-textual}
+
+\end{document}
