@@ -1,4 +1,4 @@
-% --------------------------------------------------------------------
+%--------------------------------------------------------------------
 % --------------------------------------------------------------------
 % Modelo de Trabalho Acadêmico utilizando classe repUERJ para elaboração
 % de teses, dissertação e trabalhos monográficos em geral.
@@ -36,7 +36,7 @@
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 %
-\documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{repUERJ}
+\documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{style/repUERJ}
 % ---
 % Pacotes fundamentais 
 % ---
@@ -53,8 +53,8 @@
 % ---
 % Pacote auxiliar para as normas da UERJ
 % ---
-\usepackage[frame=no,algline=yes,font=default]{repUERJformat}
-\usepackage{repUERJpseudocode}
+\usepackage[frame=no,algline=yes,font=default]{style/repUERJformat}
+\usepackage{style/repUERJpseudocode}
 % ---
 % Pacotes de citacoes
 % ---
@@ -70,8 +70,8 @@
 % Imagens pretextuais (precisam estar no mesmo diretório deste arquivo .tex)
 %---------------------------------------------------------------------
 
-\logo{logo_uerj_cinza.png}
-\marcadagua{marcadagua_uerj_cinza.png}{1}{160}{255}
+\logo{images/logo_uerj_cinza.png}
+\marcadagua{images/marcadagua_uerj_cinza.png}{1}{160}{255}
 
 %---------------------------------------------------------------------
 % Informações da instituição
@@ -299,7 +299,7 @@ Texto do capítulo. Texto, texto, Figura \ref{rotulo}. Texto Figura \ref{outro.r
 
 \begin{figure}[!ht]{6cm}
   \caption{Título da figura.} \label{rotulo}
-  \includegraphics[width=\hsize]{logo_uerj_cor.jpg}
+  \includegraphics[width=\hsize]{images/logo_uerj_cor.jpg}
   \legend{Texto da legenda.}
   \source{Citação da fonte ou `O autor.'.}
 \end{figure}
@@ -308,11 +308,11 @@ Texto do capítulo. Texto, texto, Figura \ref{rotulo}. Texto Figura \ref{outro.r
 \begin{figure}[!ht]{11cm}
   \caption{Título da figura.} \label{outro.rotulo}
   \subfloat[][]{\label{subrotulo1}
-    \fbox{\includegraphics[width=0.45\hsize]{logo_uerj_cinza.png}}}\hfill
+    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cinza.png}}}\hfill
   \subfloat[][]{\label{subrotulo2}
-    \fbox{\includegraphics[width=0.45\hsize]{marcadagua_uerj_cinza.png}}}\\
+    \fbox{\includegraphics[width=0.45\hsize]{images/marcadagua_uerj_cinza.png}}}\\
   \subfloat[][]{\label{subrotulo3}
-    \fbox{\includegraphics[width=0.45\hsize]{logo_uerj_cor.jpg}}}\hfill
+    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cor.jpg}}}\hfill
   \legend{Texto da legenda. \subref{subrotulo1} Texto da imagem.
           \subref{subrotulo2} Texto da imagem.
           \subref{subrotulo3} Texto da imagem.}
