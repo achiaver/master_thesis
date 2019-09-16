@@ -1,2 +1,10 @@
 /*.DS_Store
 /references
+*.aux
+*.idx
+*.loa
+*.log
+*.lot
+*.lof
+*.out
+*.toc
