@@ -1,0 +1,84 @@
+% Falta uma introdução do capítulo!
+
+
+In other countries and locations there have been initiatives for creating the so-called nanogrids, in which an optimized peer-to-peer topology \cite{MAGNASCO2016369} can be obtained by specialized real time management devices.
+In this sense, we could expect an ever more active transactive energy.
+
+
+
+% Detalhar mais que o texto descrito no Apêndice, porém buscar identificar conceito de sistema e não da engenharia elétrica
+
+The \glsreset{gd}\gls{gd} is an alternative power source to the traditional big power plants.
+At Brazil, the former comprises mainly photovoltaic solar panels to feed local power demands, while the latter encompass hydroeletric and thermoelectric power plants to sustain the country power needs.
+
+% Diferença entre micro e mini
+The \gls{gd} has its limits based on power capacity installations, i.e., at the Brazilian context, if the \gls{gd} installation has up to 75 kW of power capacity it is considered a micro grid, however if greater than this and up to 5 MW it is considered a mini grid.
+Note that it is independently of the source type and must be connected to the local power distribution grid~\cite{GD}.
+% completar com a diferença para o tamanho do SIN
+% For the sake of comparison, the \gls{sin} has ... GW of power capacity.
+As a matter of curiosity, the \gls{sin} has about 162 GW of power capacity~\cite{BIG2}.
+
+Whilst the benefits of electricity to the daily life of society is immeasurable, the cost to do so is controversial.
+The Brazilian policy aims to support the captive consumers%
+\footnote{For a better comprehension about captive and free consumers consider \autoref{appen:1}.}
+with the lowest possible tariff, and with a tariff diversification based on different energy scenarios in the country.
+However, those that profit with \gls{gd} installation have an additional option of power source and electricity tariff to choose from.
+No matter the reasons, if it is greener or a look for energy independence, the \gls{gd} offers an alternative to feed distinctive power needs.
+
+Therefore, the captive consumers%
+\footnote{An explanation about captive consumers is also at \autoref{appen:1}.}
+can now be classified beyond their power consumption levels
+with those that produce electricity being known as \emph{prosumers} (\emph{pro}ducer + con\emph{sumer}).
+The prosumers are grouped by the Brazilian regulation into four categories,
+but they can be divided into two main groups based on their generation management,
+one that is for self-consumption, and another for shareable consumption.
+The former is for individual use.
+The \gls{gd} may be on the same local of power consumption or
+in another place -- namely \emph{remote self-consumption} -- whereas the power and consumption units must be inside the same distribution utility coverage area.
+The latter refers to sharing generation between customers,
+either they are from a condominium -- known as \emph{enterprises of multiple consumer units} -- or
+from a consortium or a cooperative -- known as a \emph{shareable generation}.
+Again, the customers' units must situate inside the same distribution utility coverage area.
+\autoref{fig:gd-categories} summarizes this classification and contextualizes the \gls{gd} into the power energy sector.
+
+\input{pics/gd_categories}
+
+% Como a distribuição de energia acontece na GD?
+Even with different categories, the delivery of electricity follows the same principle to distribute the total power generation ($E_{T}$) by the number of participants over their own agreement.
+\autoref{eq:power distribution} catches this behaviour with the number of participants ($n$) ranging from 1, as the individual case, to multiple members ($m$), as the shareable case.
+
+\begin{equation}\label{eq:power distribution}
+    E_{T} = \sum_{n=1}^{m} E_{n} \qquad \text{[Wh]}
+\end{equation}
+
+Specific exceptions guide how the cost and benefit of an investment in the \gls{gd} will be split among the participants.
+For instance, the remote self-consumption case has more than one participant to share electricity, but only one person responsible to sustain the related investment.
+On the other hand, for the condominium case, multiple people are taken into account.
+Thus, the attribution of cost and benefit is determined by each category guidelines.
+However, one common sharing operation is to distribute energy proportionally to each member investment contribution,
+i.e., an investment of 10\% guarantees 10\% of the electricity generated in a given period.
+This model represents the investment shares as percentage values, called as well as quotas.
+
+So, \autoref{eq:quotas} complements the \autoref{eq:power distribution} arranging the dual relationship of cost and benefit for a particular person.
+Consequently, the electricity obtained by a member ($E_{m}$) can be interpreted as a weighted value ($q_{m}$) of the \gls{gd} cost ($C_{DG}$), i.e., of the total power generation ($E_{T}$).
+
+\begin{equation}\label{eq:quotas}
+    E_{m} = q_{m} \cdot C_{DG} \qquad \text{[Wh]}
+\end{equation}
+
+% Como acontece a distribuição de créditos?
+Nonetheless, independently of group type,
+the surplus energy generated can be ``stored'' on the distribution grid by no additional cost%
+\footnote{Until the expected approval of changes on the \href{http://www.aneel.gov.br/audiencias-publicas?p_auth=pWIuCaW3&p_p_id=audienciaspublicasvisualizacao_WAR_AudienciasConsultasPortletportlet&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_count=1&_audienciaspublicasvisualizacao_WAR_AudienciasConsultasPortletportlet_audienciaId=2301&_audienciaspublicasvisualizacao_WAR_AudienciasConsultasPortletportlet_javax.portlet.action=visualizarAudiencia}{\emph{Resolução Normativa n\textsuperscript{o} 482/2012}} in the year of 2019.}
+in order to be consumed later, a measure known in Brazil as the Electricity Compensation System~\cite{FAQ}. % [ANEEL, 2016a]
+However, this ``energy credit'' can only be used for personal purposes, i.e., it can not be transferred for anyone, even if part of a shareable consumption group.
+The surplus energy depends on each member consumption rate over her/his power quota.
+
+In general, the power generated must be known by the distribution utility in order to keep record of the energy credit that will be distributed.
+But beyond to what is exposed by \autoref{eq:power distribution}, the utility must get notes about member's quotas as well, because each member has a personal consumer profile, and consequently, a different energy credit balance.
+\autoref{fig:ecredits} depicts how this management between the generation and the credit is handled.
+For the cases of the shareable consumption group, the generation is accountable as a unit and later distributed proportionally by each member's quota.
+
+\input{pics/credit-sharing.tex}
+
+% Physical System Operation and Planning |x| Market Operation
