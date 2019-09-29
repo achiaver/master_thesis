@@ -11,3 +11,5 @@
 *.acn
 *.glo
 *.ist
+*.fls
+*.fdb_latexmk
