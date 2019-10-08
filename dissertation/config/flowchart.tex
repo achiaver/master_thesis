@@ -10,23 +10,20 @@
 }
 
 \newcommand{\flowchart}[4][h!tbp]{%
-    \begin{figure}[#1]{\textwidth}
-    	\centering
-        \frame{%
-        %     \resizebox{\textwidth}{!}{%
-            % Drawing part, node distance is 1.5 cm and every node is prefilled with white background
-            \begin{tikzpicture}[every node/.style={fill=white,
-                                                    font=\sffamily\scriptsize,
-                                                    node distance=1cm},
-                                align=center]
-                {#4}
-        	\end{tikzpicture}%
-        }
-    	\caption{#2}
-    	\label{#3}
-    % 	\legend{}
-        \source{\copyright}
-    \end{figure}
+  \begin{figure}[#1]{\textwidth}
+    \centering
+    \frame{%
+      %     \resizebox{\textwidth}{!}{%
+      % Drawing part, node distance is 1.5 cm and every node is prefilled with white background
+      \begin{tikzpicture}[every node/.style={fill=white,font=\sffamily\scriptsize,node distance=1cm},align=center]
+        {#4}
+      \end{tikzpicture}%
+    }
+    \caption{#2}%
+    \label{#3}%
+    %\legend{}
+    \source{\copyright}
+  \end{figure}
 }
 
 \newcommand{\figchart}[4][h!tbp]{\flowchart[#1]{#2}{#3}{#4}}

@@ -5,9 +5,10 @@
 \usepackage{makeidx}			    % Cria o índice
 \usepackage{hyperref}			    % Controla a formação do índice
 \usepackage{indentfirst}	        % Indenta o primeiro parágrafo de cada seção.
+%\usepackage{standalone}
 \usepackage{graphicx}			    % Inclusão de gráficos
-\graphicspath{
-    {pics/}
+\graphicspath{%
+             {images/}
 }
 \usepackage{subfig}
 \usepackage{amsmath}			    % pacote matemático
@@ -24,6 +25,7 @@
 \usetikzlibrary{shapes.geometric}   % to use diamond shape
 \usepackage[table]{xcolor}		    % colors on tables
 \definecolor{lightgray}{gray}{0.9}
+%\usepackage{calc}
 % \let\oldtabular\tabular             % tabela cor-sim/cor-não
 % \let\endoldtabular\endtabular
 % \renewenvironment{tabular}{\rowcolors{2}{white}{lightgray}\oldtabular}{\endoldtabular}
@@ -37,7 +39,7 @@
 % \lstloadlanguages[sharp]{C}
 \lstset{defaultdialect=[sharp]C}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{mystyle}{%
     % backgroundcolor=\color{backcolour},   
     % commentstyle=\color{codegreen},
     % keywordstyle=\color{magenta},
@@ -56,7 +58,7 @@
     tabsize=2,
     frame=lrtb
 }
-\lstset{style=mystyle} % https://pt.overleaf.com/learn/latex/Code_listing
+\lstset{style=mystyle} % https://pt.overleaf.com/learn/latex/Code_listin
 
 % ---
 % Pacote auxiliar para as normas da UERJ
@@ -104,7 +106,10 @@
 
 % Lista customizada
 % inline list with bold label with items separated by semicolon
-\newenvironment{descriptive}{\begin{itemize*}[font=\bfseries, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}, afterlabel={{ -- }}]}{\end{itemize*}}
+\newenvironment{descriptive}{%
+  \begin{itemize*}[font=\bfseries, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}, afterlabel={{-- }}]
+  \end{itemize*}
+}
 
 % Acrônimo customizado
 \newcommand{\glsitem}[1]{\glsreset{#1}\gls{#1}}
@@ -125,7 +130,7 @@
 \input{config/flowchart}
 
 % Imagem sobre stakeholders
-\input{pics/realms}
+\input{images/realms}
 
 % Configuração padrão para os fluxogramas
-\input{pics/pseudo-code/config-tikz}
+\input{images/pseudo-code/config-tikz}
