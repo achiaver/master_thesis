@@ -12,4 +12,13 @@ Training Boltzmann Machines means finding the right connection between the units
 
 Boltzmann Machines (BM) are stochastics neural networks with symmetric connections, i.e., $w_{ij} = w_{ji}$. Boltzmann Machines use the Boltzmann distribution to determine the probability of the state of the system of the network. BM ressambles the Hopfield networks with the inclusion of hidden units. Finding the right connections between the hidden units without knowing it from the training patterns what the hidden units represent is part of the solving the Boltzmann Machine problem.
 
-Units $S_{i}$ in BM are split into two kinds: visible and hidden units 
+Units $x_{i}$ in BM are split into two kinds: visible and hidden units. The visible units have connection to the outside world and are the units that receive the data input. On the other hand, the hidden units do not have any connection to the outside of the network and they are resposible to find the data relation from the input. In a BM, the connections between units can be complete or not. Regardless of how the connections are, every connection in a BM is symmetric.
+
+BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
+\begin{align}
+  x_{i} & =
+    \begin{case}
+      1 & with probability g(h_{i}), \\
+      0 & with probability 1 - g(h_{i}
+    \end{case}
+\end{align}
