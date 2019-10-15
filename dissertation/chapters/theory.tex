@@ -15,12 +15,21 @@ Boltzmann Machines (BM) are stochastics neural networks with symmetric connectio
 Units $x_{i}$ in BM are split into two kinds: visible and hidden units. The visible units have connection to the outside world and are the units that receive the data input. On the other hand, the hidden units do not have any connection to the outside of the network and they are resposible to find the data relation from the input. In a BM, the connections between units can be complete or not. Regardless of how the connections are, every connection in a BM is symmetric.
 
 BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
-\begin{align}
-  x_{i} & =
-    \begin{case}
-      1 & with probability g(h_{i}), \\
-      0 & with probability 1 - g(h_{i})
-    \end{case}
+\begin{equation}
+  x_{i} =
+    \begin{cases*}
+      1 & with probability $g(h_{i})$, \\
+      0 & with probability $1 - g(h_{i})$
+    \end{cases*},
   \label{eq:eq1}
-\end{align}
-
+\end{equation}
+where
+\begin{equation}
+  h_{i} = \sum_{j}w_{ij}x_{j},
+  \label{eq:eq2}
+\end{equation}
+and
+\begin{equation}
+  g(h_{i}) = \frac{1}{1 + e^{2 \beta h_{i}}}.
+  \label{eq:eq3}
+\end{equation}
