@@ -1,4 +1,4 @@
-/*.DS_Store
+*.DS_Store
 /references
 *.aux
 *.idx
@@ -13,4 +13,3 @@
 *.ist
 *.fls
 *.fdb_latexmk
-texto/
