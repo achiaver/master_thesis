@@ -1,0 +1,35 @@
+Here we begin by explaining the theory behind Boltzmann Machines
+
+\section{Boltzmann Machines}
+
+Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units are symmetrical $w_{ij} = w_{ji}$ [HERTZ]. This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution. Boltzmann Machines were named after the Boltzmann distribution. Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ]. According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
+
+
+Boltzamann Machines have visible and hidden units. The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012]. In BM, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout.
+
+Training Boltzmann Machines means finding the right connection between the units.
+
+
+Boltzmann Machines (BM) are stochastics neural networks with symmetric connections, i.e., $w_{ij} = w_{ji}$. Boltzmann Machines use the Boltzmann distribution to determine the probability of the state of the system of the network. BM ressambles the Hopfield networks with the inclusion of hidden units. Finding the right connections between the hidden units without knowing it from the training patterns what the hidden units represent is part of the solving the Boltzmann Machine problem.
+
+Units $x_{i}$ in BM are split into two kinds: visible and hidden units. The visible units have connection to the outside world and are the units that receive the data input. On the other hand, the hidden units do not have any connection to the outside of the network and they are resposible to find the data relation from the input. In a BM, the connections between units can be complete or not. Regardless of how the connections are, every connection in a BM is symmetric.
+
+BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
+\begin{equation}
+  x_{i} =
+    \begin{cases*}
+      1 & with probability $g(h_{i})$, \\
+      0 & with probability $1 - g(h_{i})$
+    \end{cases*},
+  \label{eq:eq1}
+\end{equation}
+where
+\begin{equation}
+  h_{i} = \sum_{j}w_{ij}x_{j},
+  \label{eq:eq2}
+\end{equation}
+and
+\begin{equation}
+  g(h_{i}) = \frac{1}{1 + e^{2 \beta h_{i}}}.
+  \label{eq:eq3}
+\end{equation}
