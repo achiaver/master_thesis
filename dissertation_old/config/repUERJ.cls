@@ -4,7 +4,7 @@
 % 2. consertar o problema de sublinar subseções com \uline
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{repUERJ}[2013/06/01 v7.0]
+\ProvidesClass{config/repUERJ}[2013/06/01 v7.0]
 
 \RequirePackage{ifthen}
 \RequirePackage[normalem]{ulem}
@@ -16,7 +16,7 @@
 \providecommand{\packagename}{repUERJ v7.0}
 
 % refaz o comando do setspace
-\renewcommand{\singlespacing}{\setstretch {\setspace@singlespace}}
+\renewcommand{\singlespacing}{\setstretch {\setspace@singlespace}}%
 
 \newcommand\@ptsize{}
 \newif\if@restonecol
@@ -427,7 +427,8 @@
 \def\@pstchapter[#1]#2{
   \ifnum \c@secnumdepth >\m@ne
     \refstepcounter{chapter}\typeout{\@chapapp\space\thechapter.}%
-    \phantomsection\addcontentsline{toc}{chapter}
+    % \phantomsection% A princípio isso resolve o problema do 'crossref' como 'section' sem influenciar no resto do documento
+    \addcontentsline{toc}{chapter}
       {\normalfont\nobreak
         {\protect\numberline{}}\nobreak
         {\bf\uppercase{\@chapapp}\space\thechapter}\nobreak
@@ -492,8 +493,10 @@
 \newcommand\subsection{\@startsection{subsection}{2}{\z@}%
                                      {-2\baselineskip}%
                                      {\baselineskip}%
-                                     {\protect\normalfont\protect\normalsize
-                                      \noexpand\uline}}
+                                    %  {\protect\normalfont\protect\normalsize
+                                    %   \noexpand\uline}}
+                                    {\protect\bfseries\protect\normalsize
+                                      \noexpand}}
 \newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
                                      {-2\baselineskip}%
                                      {\baselineskip}%
@@ -775,7 +778,7 @@
                         captionskip=5pt}
 
 \DeclareCaptionLabelFormat{legendfmt}{\legendname}
-\DeclareCaptionStyle{legend}{%
+\DeclareCaptionStyle{legend}{
   format=hang,
   font={small,onehalfspacing},
   labelformat=legendfmt,
@@ -787,7 +790,7 @@
   list=no
 }
 
-\newcommand{\legend}[1]{%
+\newcommand{\legend}[1]{
   \captionsetup{style=legend}
   % \@captype vem do pacote caption
   % traz o contador que esta sendo usado
@@ -795,7 +798,7 @@
 }
 
 \DeclareCaptionLabelFormat{sourcefmt}{\sourcename}
-\DeclareCaptionStyle{source}{%
+\DeclareCaptionStyle{source}{
   format=hang,
   labelformat=sourcefmt,
   labelsep=colon,
@@ -807,7 +810,7 @@
   list=no
 }
 
-\newcommand{\source}[1]{%
+\newcommand{\source}[1]{
   \captionsetup{style=source}
   % \@captype vem do pacote caption
   % traz o contador que esta sendo usado
@@ -906,7 +909,7 @@
 \newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
 \let\@openbib@code\@empty
 
-\newenvironment{theindex}{%
+\newenvironment{theindex}{
   \if@twocolumn
     \@restonecolfalse
   \else

@@ -1,80 +1,514 @@
-% Leia o documento 'copyright.txt' para saber mais sobre o modelo deste documento
-\PassOptionsToPackage{table}{xcolor}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+% Modelo de Trabalho Acadêmico utilizando classe repUERJ para elaboração
+% de teses, dissertação e trabalhos monográficos em geral.
+%
+% Este arquivo está editado na codificação de caracteres UTF-8.
+%
+% As referencia estão baseadas no modelo bibtex e citação em autor-data
+%
+% Este modelo foi criado por Dr. Luís Fernando de Oliveira.
+% Professor Adjunto do Departamento de Física Aplicada e Termodinâmica
+% Instituto de Física Armando Dias Tavares
+% Universidade do Estado do Rio de Janeiro - UERJ
+%
+% A classe repUERJ.cls foi criada a partir do código original 
+% disponibilizado pelo grupo CódigoLivre (coordenado por
+% Gerald Weber).
+% Foram feitas adequações para implementação das normas de elaboração
+% de teses e dissertações da UERJ.
+%
+% Os estilos repUERJformat.sty codificam os elementos pré-textuais e
+% pós-textuais.
+% O estilo repUERJpseudocode.sty codifica a elaboração de algoritmos
+% utilizando um glossário desenvolvido por mim (Luís Fernando), o mesmo
+% usado em meu curso de Física Computacional.
+%
+% Todo este material está disponível também no meu site
+%      http://sites.google.com/site/deoliveiralf
+%
+% As normas da UERJ para elaboração de teses e dissertações pode ser
+% obtidas no documento disponível no site
+%      http://www.bdtd.uerj.br/roteiro_uerj_web.pdf
+%
+% Agradecimentos ao grupo da Rede Sirius - BDTD e à Biblioteca Setorial
+% da Física.
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+%
 \documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{config/repUERJ}
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage[brazil,british]{babel}  % adequação para o português Brasil
+\usepackage[utf8]{inputenc} % Determina a codificação utilizada
+                            % (conversão automática dos acentos)
+\usepackage{makeidx}        % Cria o índice
+\usepackage{hyperref}       % Controla a formação do índice
+\usepackage{indentfirst}    % Endenta o primeiro paragrafo de
+                            % cada seção.
+\usepackage{graphicx}       % Inclusão de gráficos
+\usepackage{subfig}
+\usepackage{amsmath}        % pacote matemático
+% ---
+% Pacote auxiliar para as normas da UERJ
+% ---
+\usepackage[frame=no,algline=yes,font=default]{config/repUERJformat}
+\usepackage{config/repUERJpseudocode}
+% ---
+% Pacotes de citacoes
+% ---
+\usepackage[alf]{abntex2cite}
 
-% Pacotes fundamentais
-\input{config/packages}
-
+% ********************************************************************
+% ********************************************************************
 % Informações de autoria e institucionais
-%\input{chapters/authorship}
+% ********************************************************************
+% ********************************************************************
 
+%---------------------------------------------------------------------
+% Imagens pretextuais (precisam estar no mesmo diretório deste arquivo .tex)
+%---------------------------------------------------------------------
+
+\logo{images/logo_uerj_cinza.png}
+\marcadagua{images/marcadagua_uerj_cinza.png}{1}{160}{255}
+
+%---------------------------------------------------------------------
+% Informações da instituição
+%---------------------------------------------------------------------
+
+\instituicao{Universidade do Estado do Rio de Janeiro}
+            {centro} 
+            {unidade} 
+            {patrono} 
+
+%---------------------------------------------------------------------
+% Informações da autoria do documento
+%---------------------------------------------------------------------
+
+\autor{Nome}
+      {Sobrenome}
+      {Iniciais. Do. Nome.}
+
+\titulo{Título do trabalho acadêmico}
+% se não for usar a quarta palavra chave, deixar o campo vazio: {}
+\palavraschaves{primeira palavra chave}
+               {segunda palavra chave}
+               {terceira palavra chave}
+               {}
+
+\title{Title of dissertation}
+\keywords{first keyword}
+         {second keyword}
+         {third keyword}
+         {}
+
+\orientador{Cargo Titulação} 
+           {Nome}{Sobrenome} 
+           {Unidade -- Instituição} 
+
+%coorientador é opcional
+\coorientador{Cargo Titulação} 
+             {Nome}{Sobrenome} 
+             {Unidade -- Instituição} 
+
+%---------------------------------------------------------------------
+% Grau pretendido (Doutor, Mestre, Bacharel, Licenciado) e Curso
+%---------------------------------------------------------------------
+
+\grau{Doutor}  
+\curso{Curso}
+
+% área de concentração é opcional
+%\areadeconcentracao{área}
+
+%---------------------------------------------------------------------
+% Informações adicionais (local, data e paginas)
+%---------------------------------------------------------------------
+
+\local{Cidade} 
+\data{dd}{Mês}{aaaa} 
+
+% ********************************************************************
+% ********************************************************************
 % Configurações de aparência do PDF final
-\input{config/PDF_final_view}
+% ********************************************************************
+% ********************************************************************
 
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+%\definecolor{apricot}{RGB}{251,206,177}
+
+% informações do PDF
+\hypersetup{%
+  %backref=true,
+  %pagebackref=true,
+  %bookmarks=true,
+  unicode=false,
+  pdftitle={\UERJtitulo},
+  pdfauthor={\UERJautor},
+  pdfsubject={\UERJpreambulo},
+  pdfkeywords={PALAVRAS}{CHAVES}{\chaveA}{\chaveB}{\chaveC}{\chaveD},
+  pdfproducer={\packagename},       % producer of the document
+  pdfcreator={\UERJautor},
+  colorlinks=true,       % false: boxed links; true: colored links
+  linkcolor=black,       % color of internal links blue
+  citecolor=black,       % color of links to bibliography blue
+  filecolor=black,       % color of file links magenta
+  urlcolor=black,
+  bookmarksdepth=4
+}
+
+% ********************************************************************
+% ********************************************************************
 % Início do documento
+% ********************************************************************
+% ********************************************************************
 % ---
 % compila o índice; se não for usar, comentar
 % ---
-% \makeindex % acho q não é a melhor opção --> http://ftp.math.purdue.edu/mirrors/ctan.org/macros/latex/contrib/glossaries/glossaries-user.pdf
-% Já definido em packages.tex
+\makeindex
 % ---
-
+% ********************************************************************
+% ********************************************************************
 \begin{document}
+% ----------------------------------------------------------
+% ELEMENTOS PRE-TEXTUAIS
+% ----------------------------------------------------------
+\frontmatter
+% ----------------------------------------------------------
+% Capa e a folha de rosto
+% ----------------------------------------------------------
+\capa
+\folhaderosto
+% ----------------------------------------------------------
+% Inserir a ficha catalográfica
+% ----------------------------------------------------------
 
-%\input{chapters/pre-textual}
+% A biblioteca deverá providenciar a ficha catalográfica. Salve a ficha no formato PDF.
+% Use o nome do arquivo PDF como argumento do comando. Exemplo: ficha catalográfica
+% no arquivo 'ficha.pdf'
 
+%\fichacatalografica{ficha.pdf}
+
+% Enquanto não possuir a ficha catalográfica, use o comando sem argumentos...
+
+\fichacatalografica{}
+
+% ----------------------------------------------------------
+% Folha de aprovação
+% ----------------------------------------------------------
+% membros da banca: máximo 6
+\begin{folhadeaprovacao}
+  \assinatura{primeiro membro titular da banca}{instituição}
+  \assinatura{segundo membro titular da banca}{instituição}
+  \assinatura{terceiro membro titular da banca}{instituição}
+% suplente só é incluído se efetivamente substitui um titular
+  \assinatura{primeiro membro suplente da banca}{instituição}
+  \assinatura{segundo membro suplente da banca}{instituição}
+  \assinatura{terceiro membro suplente da banca}{instituição instituição instituição instituição }
+\end{folhadeaprovacao}
+% ----------------------------------------------------------
+% Dedicatória
+% ----------------------------------------------------------
+\pretextualchapter{Dedicatória}
+
+\vfill
+Texto da dedicatória
+% ----------------------------------------------------------
+% Agradecimentos
+% ----------------------------------------------------------
+\pretextualchapter{Agradecimentos}
+
+Texto de agradecimento
+% ----------------------------------------------------------
+% Epigrafe (opcional)
+% ----------------------------------------------------------
+\pretextualchapter{}
+
+  \vfill\
+  \begin{flushright}
+    Texto da epígrafe
+  \end{flushright}
+% ----------------------------------------------------------
+% RESUMO
+% ----------------------------------------------------------
+\pretextualchapter{Resumo}
+
+\referencia
+
+Texto do resumo em português.\\
+
+\imprimirchaves
+% ----------------------------------------------------------
+% Abstract
+% ----------------------------------------------------------
+\pretextualchapter{Abstract}
+
+\reference
+
+Abstract in English.\\
+
+\printkeys
+% ----------------------------------------------------------
+% Listas de ilustrações e tabelas
+% ----------------------------------------------------------
+\listadefiguras
+\listadetabelas
+% ----------------------------------------------------------
+% Outras listas
+% ----------------------------------------------------------
+\listadealgoritmos
+% ----------------------------------------------------------
+% Lista de abreviaturas e siglas
+% ----------------------------------------------------------
+\pretextualchapter{Lista de abreviaturas e siglas}
+
+\abreviatura{sigla1}{por extenso}
+\abreviatura{sigla2}{por extenso}
+\abreviatura{sigla3}{por extenso}
+% ----------------------------------------------------------
+% Lista de simbolos
+% ----------------------------------------------------------
+\pretextualchapter{Lista de símbolos}
+
+\simbolo{simbolo1}{significado e/ou valor}
+\simbolo{simbolo2}{significado e/ou valor}
+\simbolo{simbolo3}{significado e/ou valor}
+% ----------------------------------------------------------
+% Sumario
+% ----------------------------------------------------------
+\sumario
+% ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
 \mainmatter
+%=====================================================================
+\chapter*{Introdução}
+%=====================================================================
 
-% Formas de citar referências neste documento:
-%     \cite{bib:Amado1991} --> (AUTOR, ano)
-%     \citeonline{bib:Amado1991} --> Autor (ano)
-%     \citeauthoronline{bib:Andrade1997} --> Autor
-%     \citeyear{bib:Andrade1997} --> ano
-%     \citeauthor{bib:Andrade1997} --> AUTOR
+Texto da introdução. Texto, texto texto \cite{bib:Amado1991}, texto \citeonline{bib:Amado1991}. Texto \citeauthoronline{bib:Andrade1997} em \citeyear{bib:Andrade1997}, texto \citeauthor{bib:Andrade1997},  texto.
 
-% verificação da gramática
-% grammarly.com
+%=====================================================================
+\chapter{T\'itulo do cap\'itulo 1}
+%=====================================================================
 
-% sugestões de como escrever textos acadêmicos em inglês
-% http://www.phrasebank.manchester.ac.uk/
+Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.rotulo}\subref{subrotulo1}.
 
-\chapter*{Introduction}
-\label{ch:0}
-\input{chapters/intro}
+% \begin{figure ou table}[posição]{largura da figura}
 
-%\begin{figure}[htb]
-%  \centering
-%  \input{images/tikz_code/code_hopfield.tex}
-%  \caption{tikz image input from \.tikz file}
-%  \label{fig:myfigure1}
-%\end{figure}
-\begin{figure}[htb]{\textwidth}
-%  \input{images/tikz_figs/fig_hopfield}
-  \input{images/tikz_figs/hopfield}
+\begin{figure}[!ht]{6cm}
+  \caption{Título da figura.} \label{rotulo}
+  \includegraphics[width=\hsize]{images/logo_uerj_cor.jpg}
+  \legend{Texto da legenda.}
+  \source{Citação da fonte ou `O autor.'.}
 \end{figure}
 
-\chapter{Boltzmann Machines}
-\label{ch:1}
-\input{chapters/theory}
-%\chapter{The Brazilian Distributed Generation}
-%\label{ch:1}
-%\input{chapters/part1}
-%
-%\chapter{General concepts about blockchain applications}
-%\label{ch:2}
-%\input{chapters/part2}
-%
-%\chapter{The application proposal}
-%\label{ch:3}
-%\input{chapters/part3}
-%
-%\chapter{Conclusion}
-%% \setcounter{chapter}{4}
-%\label{ch:final}
-%\input{chapters/ending}
-%
-%\input{chapters/pos-textual}
 
+\begin{figure}[!ht]{11cm}
+  \caption{Título da figura.} \label{outro.rotulo}
+  \subfloat[][]{\label{subrotulo1}
+    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cinza.png}}}\hfill
+  \subfloat[][]{\label{subrotulo2}
+    \fbox{\includegraphics[width=0.45\hsize]{images/marcadagua_uerj_cinza.png}}}\\
+  \subfloat[][]{\label{subrotulo3}
+    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cor.jpg}}}\hfill
+  \legend{Texto da legenda. \subref{subrotulo1} Texto da imagem.
+          \subref{subrotulo2} Texto da imagem.
+          \subref{subrotulo3} Texto da imagem.}
+  \source{Citação da fonte ou `O autor'.}
+\end{figure}
+
+\begin{table}[!ht]{4cm}
+  \caption{Título da tabela.}\label{mais.rotulo}
+  \hfill\begin{tabular}{l|l}
+    \hline
+      X & Y\\
+    \hline
+      1,20 & 15,7\\
+      1,23 & 15,6\\
+      1,19 & 15,3\\
+      1,26 & 15,1\\
+      1,22 & 15,5\\
+      1,16 & 15,3\\
+      1,37 & 15,7\\
+    \hline
+  \end{tabular}\hfill
+  \legend{Texto da legenda.}
+  \source{Citação da fonte ou `O autor.'.}
+\end{table}
+
+%=====================================================================
+\chapter{T\'itulo do cap\'itulo 2}
+%=====================================================================
+
+Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
+
+\begin{algorithm}[!ht]
+    \caption{Título do algoritmo.} \label{alg:modelo}
+    \begin{pseudocode}
+      \LinhaEmBranco
+      \Documentacao
+        \Titulo{Nome do algoritmo\\}
+        \Proposito{Propósito do algoritmo.\\}
+        \Metodo{Método utilizado no algoritmo.\\}
+        \Entradas{%
+          a, m: multiplicador e módulo\\
+          n0: semente\\
+          i: contador auxiliar\\
+        }
+        \Saidas{%
+          n: número aleatório\\
+        }
+        \Observacoes{Observações, restrições e requisitos.\\}
+        \Algoritmo{Identificação}
+          \Declarar{$a, m, i$}{numéricos}{}{}
+          \Declarar{$n0, n$}{numéricos}{}{}
+          \Ins{$m \leftarrow 13$}
+          \Ins{$n0 \leftarrow 1$}
+          \ParaDeAtePasso[para cada possível valor de `a']{$a$}{2}{$m-1$}{}
+            \Escrever{``a = '', $a$, ``: n = \{''}
+            \Ins[reinicia a geração com a semente n0]{$n \leftarrow n0$}
+            \ParaDeAtePasso{$i$}{0}{$m-1$}{}
+              \Ins[gerador de números aleatórios]{$n \leftarrow resto(a*n, m)$}
+              \SeEntao[se fim da sequencia ...]{$n == n0$}
+                \Escrever{$n$,``\}''}
+                \Parar
+              \Senao
+                \Escrever{$n$}
+              \FimSe
+            \FimPara
+          \FimPara
+        \Continua
+    \end{pseudocode}
+\end{algorithm}
+
+\alglinenumbersoff
+\begin{algorithm*}[!ht]
+    \caption{Título do algoritmo. (continuação)}
+    \begin{pseudocode*}
+        \LinhaEmBranco
+        \Continuacao
+%          \LinhaEmBranco
+          \Ins{$a \leftarrow 1$}
+          \Enquanto[comentário]{$a<10$}
+            \Escrever{$a$}
+            \Ins{$a \leftarrow a+1$}
+          \FimEnquanto
+          \Ins{$a \leftarrow 1$}
+          \Repetir[comentário]
+            \Escrever{$a$}
+            \Ins{$a \leftarrow a+1$}
+          \AteQue{$a\ge10$}
+          \LinhaEmBranco
+          \Ins{$a \leftarrow 1$}
+          \Fazer[comentário]
+            \Escrever{$a$}
+            \Ins{$a \leftarrow a+1$}
+          \Enquanto{$a<10$}
+        \FimAlgoritmo
+      \FimDocumentacao
+    \end{pseudocode*}
+\end{algorithm*}
+
+\vfill~\\
+
+%=====================================================================
+\chapter*{Conclusão}
+%=====================================================================
+
+Texto da conclusão.
+
+% ----------------------------------------------------------
+% ELEMENTOS POS-TEXTUAIS
+% ----------------------------------------------------------
+\backmatter
+%=====================================================================
+% Referencias via BibTeX
+%=====================================================================
+\citeoption{abnt-options4}
+\bibliography{bibliografia}
+%=====================================================================
+
+%=====================================================================
+\postextualchapter*{Glossário}
+%=====================================================================
+\definicao{termo}{significado}
+\definicao{termo}{significado}
+\definicao{termo}{significado}
+% ----------------------------------------------------------
+% Apêndices (opcionais)
+% ----------------------------------------------------------
+% ---
+% Inicia os apêndices
+% ---
+\appendix
+%=====================================================================
+\postextualchapter{Primeiro apêndice}
+%=====================================================================
+\section{Primeira seção}
+
+Texto da primeira seção.
+
+\subsection{Primeira subseção}
+
+Texto da primeira subseção.
+
+\subsubsection{Primeira subsubseção}
+
+Texto da primeira subsubseção.
+%=====================================================================
+\postextualchapter{Segundo apêndice}
+%=====================================================================
+\section{Primeira seção}
+
+Texto da primeira seção.
+
+\subsection{Primeira subseção}
+
+Texto da primeira subseção.
+
+\subsubsection{Primeira subsubseção}
+
+Texto da primeira subsubseção.
+% ----------------------------------------------------------
+% Anexos (opcionais)
+% ----------------------------------------------------------
+% ---
+% Inicia os anexos
+% ---
+\annex
+%=====================================================================
+\postextualchapter{Primeiro anexo}
+%=====================================================================
+\section{Primeira seção}
+
+Texto da primeira seção.
+
+\subsection{Primeira subseção}
+
+Texto da primeira subseção.
+
+\subsubsection{Primeira subsubseção}
+
+Texto da primeira subsubseção.
+%=====================================================================
+\postextualchapter{Segundo anexo}
+%=====================================================================
+\section{Primeira seção}
+
+Texto da primeira seção.
+
+\subsection{Primeira subseção}
+
+Texto da primeira subseção.
+
+\subsubsection{Primeira subsubseção}
+
+Texto da primeira subsubseção.
+%---------------------------------------------------------------------
+% INDICE REMISSIVO (relativo ao makeindex)
+%---------------------------------------------------------------------
+\printindex
+%=====================================================================
 \end{document}
-

@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 % desenvolvido por Prof. Luis Fernando de Oliveira IF/UERJ
-\ProvidesPackage{config/repUERJformat}[2013/06/01 v7.0 repUERJformat.sty]
+\ProvidesPackage{repUERJformat}[2013/06/01 v7.0 repUERJformat.sty]
 
 \RequirePackage{ifthen}
 \RequirePackage{enumitem}
@@ -128,7 +128,7 @@
 % Comandos de dados - logo da UERJ
 % ---
 \newcommand{\logo}[1] {%
-  \newcommand{\UERJlogo}{config/#1}
+  \newcommand{\UERJlogo}{#1}
 }
 % ---
 
@@ -136,7 +136,7 @@
 % Comandos de dados - marca d'agua da folha de rosto
 % ---
 \newcommand{\marcadagua}[4] {%
-  \newcommand{\UERJmarcadagua}{config/#1}
+  \newcommand{\UERJmarcadagua}{#1}
   \newcommand{\imgscale}{#2}
   \newcommand{\imgposX}{#3}
   \newcommand{\imgposY}{#4}
@@ -449,7 +449,7 @@
       \vfill\vfill
       \UERJautor\par
       \vfill\vfill
-      {\bfseries\UERJtitle}\par
+      {\bfseries\UERJtitulo}\par
       \vfill\vfill\vfill\vfill\vfill
       \UERJlocal\\[0.3\baselineskip]
 %    \end{onehalfspace}
@@ -634,8 +634,7 @@
       \UERJpreambulo
     \end{minipage}%
     \vspace{1.3cm}
-    \noindent Aprovada em \_\_\_\_\_\_ de \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ de \UERJano.\par
-    % \noindent Aprovada em \UERJdia\ de \UERJmes\ de \UERJano.\par
+    \noindent Aprovada em \UERJdia\ de \UERJmes\ de \UERJano.\par
     \noindent Banca Examinadora:\\[-1.5\baselineskip]
       \assinatura{\UERJorientador\ (\UERJsurpevisor)}{\UERJorientadorinstituicao}
       \ifnotempty{\UERJcoorientador}{
