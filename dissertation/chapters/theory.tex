@@ -2,7 +2,7 @@ Here we begin by explaining the theory behind Boltzmann Machines
 
 \section{Boltzmann Machines}
 
-Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units are symmetrical $w_{ij} = w_{ji}$ [HERTZ]. This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution. Boltzmann Machines were named after the Boltzmann distribution. Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ]. According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
+Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units, which are described by $w$, are symmetrical, i.e., $w_{ij} = w_{ji}$ [HERTZ]. This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution. Boltzmann Machines were named after the Boltzmann distribution. Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ]. According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
 
 
 Boltzamann Machines have visible and hidden units. The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012]. In BM, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout.
@@ -17,10 +17,10 @@ Units $x_{i}$ in BM are split into two kinds: visible and hidden units. The visi
 BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
 \begin{equation}
   x_{i} =
-    \begin{cases*}
-      1 & with probability $g(h_{i})$, \\
-      0 & with probability $1 - g(h_{i})$
-    \end{cases*},
+    \begin{cases}
+      1 \; \text{with probability} \; g(h_{i}) \\
+      0 \; \text{with probability} \; 1 - g(h_{i})
+    \end{cases},
   \label{eq:eq1}
 \end{equation}
 where
@@ -30,6 +30,17 @@ where
 \end{equation}
 and
 \begin{equation}
-  g(h_{i}) = \frac{1}{1 + e^{2 \beta h_{i}}}.
+  g(h_{i}) = \frac{1}{1 + e^{-2 \beta h_{i}}}.
   \label{eq:eq3}
+\end{equation}
+
+Due to the symmetrical connections, there is an energy function give by
+\begin{equation}
+  H(\vec{x}) = - \sum_{i} \sum_{j} w_{ij}x_{i}x_{j} - \sum_{i} w_{ii}x_{i},
+  \label{eq:eq4}
+\end{equation}
+where $\vec{x} = (x_{1}, x_{2}, \dots, x_{n})$, and $n$ is equal to the number of units in the network, and the above energy function has minimum when there is a stable state characterised by
+\begin{equation}
+  x_{i} = sgn(h_{i}).
+  \label{eq:eq5}
 \end{equation}

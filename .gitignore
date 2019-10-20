@@ -13,3 +13,8 @@
 *.ist
 *.fls
 *.fdb_latexmk
+*.bbl
+*.blg
+*.ilg
+*.ind
+*.synctex.gz
