@@ -44,3 +44,43 @@ where $\vec{x} = (x_{1}, x_{2}, \dots, x_{n})$, and $n$ is equal to the number o
   x_{i} = sgn(h_{i}).
   \label{eq:eq5}
 \end{equation}
+
+The probability $P$ of finding the system in a given state $\vec{x}$ after the equilibrium is reached can be computed as follows:
+\begin{equation}
+  P(\vec{x}) = \frac{1}{Z} e^{- \beta H(\vec{x})},
+  \label{eq:eq6}
+\end{equation}
+where
+\begin{equation}
+  Z = \sum_{\vec{x}'} e^{- \beta H(\vec{x}')}
+  \label{eq:eq7}
+\end{equation}
+is the partition function.
+
+The learning process of a Boltzmann Machine consists in ajusting the connections $w_{ij}$ in such a way that the state of the visible units have a particular desired probability distribution.
+
+Let us identify the state of the visible units by an index $\alpha$ and the state of the hidden units by an index $\beta$. Considering a system which has N visible units and K hidden units, the whole system have $2^{N + K}$ possibilities of states in which it can be found.
+
+The joint probability $P_{\alpha \beta}$ is the probability of finding the visible and hidden units in the states $\alpha$ and $\beta$, respectively. This probabiblity measument is given by the Boltzmann distribution:
+\begin{equation}
+  P_{\alpha \beta} = \frac{e^{-\frac{1}{T}}H_{\alpha \beta}}{Z},
+  \label{eq:eq8}
+\end{equation}
+where
+\begin{equation}
+  Z = \sum_{u} \sum_{k} e^{\frac{1}{T}H_{u k}},
+  \label{eq:eq9}
+\end{equation}
+and
+\begin{equation}
+  H_{\alpha \beta} = - \sum_{i} \sum_{j} w_{ij} x^{\alpha \beta}_{i} x^{\alpha \beta}_{j} - \sum_{i} w_{ii} x^{\alpha \beta}_{i}.
+  \label{eq:eq10}
+\end{equation}
+
+As metioned above, the problem a Boltzmann Machine is trying to solve is determining the connections $w_{ij}$ between units such that the visible units have a certain probability distribution. In order to do that, we need to find the marginal probability of the state $\alpha$ in which the visible units are found regardless of the state $\beta$ of the hidden units. The marginal probability $P_{\alpha}$ is given by
+\begin{equation}
+  P_{\alpha} = \sum_{\beta} P_{\alpha \beta} = \sum_{\beta} \frac{e^{\frac{1}{T} H_{\alpha \beta}}}{Z}.
+  \label{eq:eq11}
+\end{equation}
+
+Although we know that $P_{\alpha}$ is a function of the connections $w_{ij}$, and that this is the probability of finding the visible units in the state $\alpha$. We want
