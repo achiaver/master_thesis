@@ -50,6 +50,8 @@
 \usepackage{graphicx}       % Inclusão de gráficos
 \usepackage{subfig}
 \usepackage{amsmath}        % pacote matemático
+\usepackage{amssymb}        % pacote extra
+\usepackage{mathrsfs}       % pacote extra
 % ---
 % Pacote auxiliar para as normas da UERJ
 % ---
@@ -377,7 +379,7 @@ Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
             \Ins[reinicia a geração com a semente n0]{$n \leftarrow n0$}
             \ParaDeAtePasso{$i$}{0}{$m-1$}{}
               \Ins[gerador de números aleatórios]{$n \leftarrow resto(a*n, m)$}
-              \SeEntao[se fim da sequencia ...]{$n == n0$}
+              \SeEntao[se fim da sequencia...]{$n == n0$}
                 \Escrever{$n$,``\}''}
                 \Parar
               \Senao

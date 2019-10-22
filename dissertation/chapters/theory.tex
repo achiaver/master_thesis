@@ -4,8 +4,9 @@ EXPLICAR OS ELEMENTOS DE PROBABILIDADE COM OS QUAIS ESTAMOS LIDANDO:%
 QUEM S\~{A}O AS VARI\'{A}VEIS ALEAT\'{O}RIAS E COMO VAMOS DOMIN\'{A}-LAS NO TEXTO, 
 COMENTAR QUE ESTAMOS TRATANDO COM VARI\'{A}VEIS DISCRETAS, COMO VAMOS IDENTIFICAR AS PROBABILIDADES,$\ldots$
 
+EXPLICAR O QUE OS \'{I}NDICES REPResentam, e as vari\'{a}veis,
 
-
+MUDAR de alfa e beta para v e h.
 
 \section{Boltzmann Machines}
 
@@ -55,58 +56,115 @@ and
 
 Due to the symmetrical connections, there is an energy function give by
 \begin{equation}
-  H(\vec{x}) = - \sum_{i} \sum_{j} w_{ij}x_{i}x_{j} - \sum_{i} w_{ii}x_{i},
+  H(\mathbf{x}) = - \sum_{i} \sum_{j} w_{ij}x_{i}x_{j} - \sum_{i} w_{ii}x_{i},
   \label{eq:eq4}
 \end{equation}
-where $\vec{x} = (x_{1}, x_{2}, \dots, x_{n})$, and $n$ is equal to the number of units in the network, and the above energy function has minimum when there is a stable state characterised by
+where $\mathbf{x} = (x_{1}, x_{2}, \dots, x_{n})$, and $n$ is equal to the number of units in the network, and the above energy function has minimum when there is a stable state characterised by
 \begin{equation}
   x_{i} = sgn(h_{i}).
   \label{eq:eq5}
 \end{equation}
 
-The probability $P$ of finding the system in a given state $\vec{x}$ after the equilibrium is reached can be computed as follows:
+The probability $P$ of finding the system in a given state $\mathbf{x}$ after the equilibrium is reached can be computed as follows:
 \begin{equation}
-  P(\vec{x}) = \frac{1}{Z} e^{- \beta H(\vec{x})},
+  P(\mathbf{x}) = \frac{1}{Z} e^{-\beta H(\mathbf{x})},
   \label{eq:eq6}
 \end{equation}
 where
 \begin{equation}
-  Z = \sum_{\vec{x}'} e^{- \beta H(\vec{x}')}
+  Z = \sum_{\mathbf{x}'} e^{-\beta H(\mathbf{x}')}
   \label{eq:eq7}
 \end{equation}
 is the partition function.
 
 The learning process of a Boltzmann Machine consists in ajusting the connections $w_{ij}$ in such a way that the state of the visible units have a particular desired probability distribution.
 
-Let us identify the state of the visible units by an index $\alpha$ and the state of the hidden units by an index $\beta$. 
+Let us identify the state of the visible units by an index $v$ and the state of the hidden units by an index $h$. 
 Considering a system which has N visible units and K hidden units, the whole system have $2^{N + K}$ possibilities of states in which it can be found.
 
-The joint probability $P_{\alpha \beta}$ is the probability of finding the visible and hidden units in the states $\alpha$ and $\beta$, respectively. 
+The joint probability $P_{v h}$ is the probability of finding the visible and hidden units in the states $v$ and $h$, respectively. 
 This probabiblity measument is given by the Boltzmann distribution:
 \begin{equation}
-  P_{\alpha \beta} = \frac{e^{-\frac{1}{T}}H_{\alpha \beta}}{Z},
+  P_{v h} = \frac{e^{-\beta H_{v h}}}{Z},
   \label{eq:eq8}
 \end{equation}
 where
 \begin{equation}
-  Z = \sum_{u} \sum_{k} e^{\frac{1}{T}H_{u k}},
+  Z = \sum_{u} \sum_{k} e^{-\beta H_{u k}},
   \label{eq:eq9}
 \end{equation}
 and
 \begin{equation}
-  H_{\alpha \beta} = - \sum_{i} \sum_{j} w_{ij} x^{\alpha \beta}_{i} x^{\alpha \beta}_{j} - \sum_{i} w_{ii} x^{\alpha \beta}_{i}.
+  H_{v h} = - \sum_{i} \sum_{j} w_{ij} x^{v h}_{i} x^{v h}_{j} - \sum_{i} w_{ii} x^{v h}_{i}.
   \label{eq:eq10}
 \end{equation}
 
 As metioned above, the problem a Boltzmann Machine is trying to solve is determining the connections $w_{ij}$ between units such that the visible units have a certain probability distribution. 
-In order to do that, we need to find the marginal probability of the state $\alpha$ in which the visible units are found regardless of the state $\beta$ of the hidden units. The marginal probability $P_{\alpha}$ is given by
+In order to do that, we need to find the marginal probability of the state $v$ in which the visible units are found regardless of the state $h$ of the hidden units. The marginal probability $P_{v}$ is given by
 \begin{equation}
-  P_{\alpha} = \sum_{\beta} P_{\alpha \beta} = \sum_{\beta} \frac{e^{\frac{1}{T} H_{\alpha \beta}}}{Z}.
-  \label{eq:eq11}
+  P_{v} = \sum_{h} P_{v h} = \sum_{h} \frac{e^{-\beta H_{v h}}}{Z}.
+  \label{eq:marginal_prob}
 \end{equation}
 
-Although we know that $P_{\alpha}$ is a function of the connections $w_{ij}$, and that this is the probability of finding the visible units in the state $\alpha$. We want the states to have a certain probability $Q_{\alpha}$, i.e., a desired probability. 
+Although we know that $P_{v}$ is a function of the connections $w_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $Q_{v}$, i.e., a desired probability. 
 This means that ideally we would like to match the empirical distribution of the data, even though we do not have access to the correct distribution, only to what the observed data has given us as an input to training the model.
 
-One way to evaluate the difference between two probability distribution, for example, $P_{\alpha}$ and $Q_{\alpha}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function. 
+One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $Q_{v}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function. 
 (EXPLICAR FUN\c{C}\~{A}O DE CUSTO e $D_{KL}$!!!).
+\begin{equation}
+  E = \sum_{v} Q_{v} \ln{\left(\frac{Q_{v}}{P_{v}}\right)}.
+  \label{eq:DKL}
+\end{equation}
+
+The relative entropy $E$ has the property of always being equal or greater than zero. 
+It reaches zero only if $P_{v} = Q_{v}$, which means that we are able to retrieve the exactly probability distribution of the input data at the visible units.
+\begin{equation}
+  \begin{split}
+    E & = \sum_{v} Q_{v} \ln{\left( \frac{Q_{v}}{P_{v}} \right)} \\
+      & \geq \sum_{v} Q_{v} \left( 1 - \frac{P_{v}}{Q_{v}} \right) \\
+      & = \sum_{v} \left( Q_{v} - P_{v} \right) \\
+      & = \sum_{v} Q_{v} - \sum_{v} P_{v} = 1 - 1 \\
+      & \Rightarrow E \geq 0.
+  \end{split}
+\end{equation}
+
+From the gradient descent equation
+\begin{equation}
+  \Delta w_{ij} = -\eta \frac{\partial E}{\partial w_{ij}},
+  \label{eq:gradient}
+\end{equation}
+where
+\begin{equation}
+  \begin{split}
+    E & = \sum_{v} Q_{v} \ln{\left(\frac{Q_{v}}{P_{v}}\right)} \\
+      & = \sum_{v} \left[ \ln{(Q_{v})} - \ln{(P_{v})} \right].
+  \end{split}
+  \label{eq:entropy1}
+\end{equation}
+
+In the following steps, we present the gradient descent derivation
+\begin{equation}
+  \begin{split}
+    \Delta w_{ij} & = - \eta \frac{\partial E}{\partial w_{ij}} \\
+                  & = - \eta \frac{\partial}{\partial w_{ij}} \left[ \sum_{v} Q_{v} \left( \ln{(Q_{v})} - \ln{(P_{v})} \right) \right] \\
+                  & = \eta \frac{\partial}{\partial w_{ij}} \left[ \sum_{v} Q_{v} \ln{(P_{v})} \right] \\
+                  & = \eta \sum_{v} Q_{v} \frac{\partial}{\partial w_{ij}} \left[ \ln{(P_{v})} \right] \\
+                  \Rightarrow & \Delta w_{ij} = \eta \sum_{v} \frac{Q_{v}}{P_{v}} \frac{\partial P_{v}}{\partial w_{ij}}.
+  \end{split}
+  \label{eq:grad1}
+\end{equation}
+
+To continue with the computation of $\Delta w_{ij}$, we have to find the derivative of $\partial P_{v}/\partial w_{ij}$, from the marginal probability, equation~\ref{eq:marginal_prob}, 
+\begin{equation}
+  P_{v} = \frac{\sum_{h} e^{-\beta H_{v h}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}},
+  \label{eq:marginal_prob_expansion}
+\end{equation}
+thus the derivative of $P_{v}$ follows
+\begin{equation}
+  \begin{split}
+    \frac{\partial P_{v}}{\partial w_{ij}} & = \frac{\partial}{\partial w_{ij}} \left[ \frac{\sum_{h} e^{-\beta H_{v h}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \right] \\
+    & = \frac{1}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \sum_{h} (-\beta) e^{-\beta H_{v h}} \frac{\partial H_{v h}}{\partial w_{ij}} - \sum_{h} e^{-\beta H_{v h}} \frac{1}{\left( \sum_{u} \sum_{k} e^{-\beta H_{u k}} \right)^{2}} \sum_{u} \sum_{k} e^{-\beta H_{u k}} (-\beta) \frac{\partial H_{u k}}{\partial w_{ij}}
+  \end{split}
+  \label{eq:eq14}
+\end{equation}
+
