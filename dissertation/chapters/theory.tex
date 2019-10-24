@@ -1,4 +1,4 @@
-Here we begin by explaining the theory behind Boltzmann Machines
+ere we begin by explaining the theory behind Boltzmann Machines
 
 EXPLICAR OS ELEMENTOS DE PROBABILIDADE COM OS QUAIS ESTAMOS LIDANDO:%
 QUEM S\~{A}O AS VARI\'{A}VEIS ALEAT\'{O}RIAS E COMO VAMOS DOMIN\'{A}-LAS NO TEXTO, 
@@ -163,7 +163,8 @@ thus the derivative of $P_{v}$ follows
 \begin{equation}
   \begin{split}
     \frac{\partial P_{v}}{\partial w_{ij}} & = \frac{\partial}{\partial w_{ij}} \left[ \frac{\sum_{h} e^{-\beta H_{v h}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \right] \\
-    & = \frac{1}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \sum_{h} (-\beta) e^{-\beta H_{v h}} \frac{\partial H_{v h}}{\partial w_{ij}} - \sum_{h} e^{-\beta H_{v h}} \frac{1}{\left( \sum_{u} \sum_{k} e^{-\beta H_{u k}} \right)^{2}} \sum_{u} \sum_{k} e^{-\beta H_{u k}} (-\beta) \frac{\partial H_{u k}}{\partial w_{ij}}
+    & = \frac{1}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \sum_{h} (-\beta) e^{-\beta H_{v h}} \frac{\partial H_{v h}}{\partial w_{ij}} \\
+    & - \sum_{h} e^{-\beta H_{v h}} \frac{1}{{\left( \sum_{u} \sum_{k} e^{-\beta H_{u k}} \right)}^{2}} \sum_{u} \sum_{k} e^{-\beta H_{u k}} (-\beta) \frac{\partial H_{u k}}{\partial w_{ij}}
   \end{split}
   \label{eq:eq14}
 \end{equation}
