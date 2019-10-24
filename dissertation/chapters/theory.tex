@@ -164,9 +164,18 @@ thus the derivative of $P_{v}$ follows
   \begin{split}
     \frac{\partial P_{v}}{\partial w_{ij}} & = \frac{\partial}{\partial w_{ij}} \left[ \frac{\sum_{h} e^{-\beta H_{v h}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \right] \\
     & = \frac{1}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}} \sum_{h} (-\beta) e^{-\beta H_{v h}} \frac{\partial H_{v h}}{\partial w_{ij}} \\
-    & - \sum_{h} e^{-\beta H_{v h}} \frac{1}{{\left( \sum_{u} \sum_{k} e^{-\beta H_{u k}} \right)}^{2}} \sum_{u} \sum_{k} e^{-\beta H_{u k}} (-\beta) \frac{\partial H_{u k}}{\partial w_{ij}}
+    & - \sum_{h} e^{-\beta H_{v h}} \frac{1}{{\left( \sum_{u} \sum_{k} e^{-\beta H_{u k}} \right)}^{2}} \sum_{u} \sum_{k} e^{-\beta H_{u k}} (-\beta) \frac{\partial H_{u k}}{\partial w_{ij}}.
   \end{split}
   \label{eq:eq14}
 \end{equation}
+
+Following the equation~\ref{eq:eq14}, we need to compute the term $\partial H_{v h}/\partial w_{ij}$,
+\begin{equation}
+  \begin{split}
+      \frac{\partial H_{vh}}{\partial w_{ij}} & = \frac{\partial}{\partial w_{ij}} \left[ -\sum_{m} \sum_{n} w_{mn} x^{vh}_{m} x^{vh}_{n} - \sum_{m} w_{mm} x^{vh}_{m} \right] \\
+                                              & = \frac{\partial}{\partial w_{ij}} \left[ -\sum_{m \neq i}  \right]
+  \end{split}
+\end{equation}
+
 
 
