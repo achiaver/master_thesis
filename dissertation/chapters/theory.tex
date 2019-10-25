@@ -6,7 +6,7 @@ COMENTAR QUE ESTAMOS TRATANDO COM VARI\'{A}VEIS DISCRETAS, COMO VAMOS IDENTIFICA
 
 EXPLICAR O QUE OS \'{I}NDICES REPResentam, e as vari\'{a}veis,
 EXPLICAR OS TERMOS $\omega$ e $\phi$. $\omega$ \'{E} para os pesos, e $\phi$ para o bias de cada unidade.
-
+EXPLICAR MINHA NOTA\c{C}\~{A}O sobre o sobre-escrito entre par\^{e}nteses!!!
 
 \section{Boltzmann Machines}
 
@@ -172,10 +172,14 @@ thus the derivative of $P_{v}$ follows
 Following the equation~\ref{eq:eq14}, we need to compute the term $\partial H_{vh}/\partial \omega_{ij}$,
 \begin{equation}
   \begin{split}
-      \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[ -\sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \sum_{m} \omega_{mm} x^{(vh)}_{m} \right] \\
-                                              & = \frac{\partial}{\partial \omega_{ij}} \left[ -\sum_{m \neq i,j} \sum_{n \neq i,j} -  \right]
+      \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \sum_{m} \phi_{mm} x^{(vh)}_{m} \right] \\
+                                                   & = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m \neq i,j} \sum_{n \neq i,j} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \frac{1}{2} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \frac{1}{2} \omega_{ji} x^{(vh)}_{j} x^{(vh)}_{i} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right],
   \end{split}
+  \label{eq:eq15}
 \end{equation}
-
+as the connections between units are symmetric, i.e., $\omega_{ij} = \omega_{ji}$, then we can simplify equation~\ref{eq:eq15},
+\begin{equation}
+    \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right]
+\end{equation}
 
 
