@@ -1,7 +1,7 @@
 Here we begin by explaining the theory behind Boltzmann Machines
 
 EXPLICAR OS ELEMENTOS DE PROBABILIDADE COM OS QUAIS ESTAMOS LIDANDO:%
-QUEM S\~{A}O AS VARI\'{A}VEIS ALEAT\'{O}RIAS E COMO VAMOS DOMIN\'{A}-LAS NO TEXTO, 
+QUEM S\~{A}O AS VARI\'{A}VEIS ALEAT\'{O}RIAS E COMO VAMOS DOMIN\'{A}-LAS NO TEXTO,
 COMENTAR QUE ESTAMOS TRATANDO COM VARI\'{A}VEIS DISCRETAS, COMO VAMOS IDENTIFICAR AS PROBABILIDADES,$\ldots$
 
 EXPLICAR O QUE OS \'{I}NDICES REPResentam, e as vari\'{a}veis.
@@ -12,28 +12,28 @@ EXPLICAR MINHA NOTA\c{C}\~{A}O sobre o sobre-escrito entre par\^{e}nteses!!!
 
 \section{Boltzmann Machines}
 
-Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$ [HERTZ]. 
-This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution. 
-Boltzmann Machines were named after the Boltzmann distribution. 
-Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ]. 
+Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$ [HERTZ].
+This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution.
+Boltzmann Machines were named after the Boltzmann distribution.
+Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ].
 According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
 
 
-Boltzamann Machines have visible and hidden units. 
-The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012]. 
+Boltzamann Machines have visible and hidden units.
+The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012].
 In BM, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout.
 
 Training Boltzmann Machines means finding the right connection between the units.
 
-Boltzmann Machines (BM) are stochastics neural networks with symmetric connections, i.e., $\omega_{ij} = \omega_{ji}$. 
-Boltzmann Machines use the Boltzmann distribution to determine the probability of the state of the system of the network. 
-BM ressambles the Hopfield networks with the inclusion of hidden units. 
+Boltzmann Machines (BM) are stochastics neural networks with symmetric connections, i.e., $\omega_{ij} = \omega_{ji}$.
+Boltzmann Machines use the Boltzmann distribution to determine the probability of the state of the system of the network.
+BM ressambles the Hopfield networks with the inclusion of hidden units.
 Finding the right connections between the hidden units without knowing it from the training patterns what the hidden units represent is part of the solving the Boltzmann Machine problem.
 
-Units $x_{i}$ in BM are split into two kinds: visible and hidden units. 
-The visible units have connection to the outside world and are the units that receive the data input. 
-On the other hand, the hidden units do not have any connection to the outside of the network and they are resposible to find the data relation from the input. 
-In a BM, the connections between units can be complete or not. 
+Units $x_{i}$ in BM are split into two kinds: visible and hidden units.
+The visible units have connection to the outside world and are the units that receive the data input.
+On the other hand, the hidden units do not have any connection to the outside of the network and they are resposible to find the data relation from the input.
+In a BM, the connections between units can be complete or not.
 Regardless of how the connections are, every connection in a BM is symmetric.
 
 BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
@@ -81,10 +81,10 @@ is the partition function.
 
 The learning process of a Boltzmann Machine consists in ajusting the connections $\omega_{ij}$ in such a way that the state of the visible units have a particular desired probability distribution.
 
-Let us identify the state of the visible units by an index $v$ and the state of the hidden units by an index $h$. 
+Let us identify the state of the visible units by an index $v$ and the state of the hidden units by an index $h$.
 Considering a system which has N visible units and K hidden units, the whole system have $2^{N + K}$ possibilities of states in which it can be found.
 
-The joint probability $P_{vh}$ is the probability of finding the visible and hidden units in the states $v$ and $h$, respectively. 
+The joint probability $P_{vh}$ is the probability of finding the visible and hidden units in the states $v$ and $h$, respectively.
 This probabiblity measument is given by the Boltzmann distribution:
 \begin{equation}
   P_{vh} = \frac{e^{-\beta H_{vh}}}{Z},
@@ -101,24 +101,24 @@ and
   \label{eq:eq10}
 \end{equation}
 
-As metioned above, the problem a Boltzmann Machine is trying to solve is determining the connections $\omega_{ij}$ between units such that the visible units have a certain probability distribution. 
+As metioned above, the problem a Boltzmann Machine is trying to solve is determining the connections $\omega_{ij}$ between units such that the visible units have a certain probability distribution.
 In order to do that, we need to find the marginal probability of the state $v$ in which the visible units are found regardless of the state $h$ of the hidden units. The marginal probability $P_{v}$ is given by
 \begin{equation}
   P_{v} = \sum_{h} P_{vh} = \sum_{h} \frac{e^{-\beta H_{vh}}}{Z}.
   \label{eq:marginal_prob}
 \end{equation}
 
-Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $Q_{v}$, i.e., a desired probability. 
+Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $Q_{v}$, i.e., a desired probability.
 This means that ideally we would like to match the empirical distribution of the data, even though we do not have access to the correct distribution, only to what the observed data has given us as an input to training the model.
 
-One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $Q_{v}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function. 
+One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $Q_{v}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function.
 (EXPLICAR FUN\c{C}\~{A}O DE CUSTO e $D_{KL}$!!!).
 \begin{equation}
   E = \sum_{v} Q_{v} \ln{\left(\frac{Q_{v}}{P_{v}}\right)}.
   \label{eq:DKL}
 \end{equation}
 
-The relative entropy $E$ has the property of always being equal or greater than zero. 
+The relative entropy $E$ has the property of always being equal or greater than zero.
 It reaches zero only if $P_{v} = Q_{v}$, which means that we are able to retrieve the exactly probability distribution of the input data at the visible units.
 \begin{equation}
   \begin{split}
@@ -156,7 +156,7 @@ In the following steps, we present the gradient descent derivation
   \label{eq:grad1}
 \end{equation}
 
-To continue with the computation of $\Delta \omega_{ij}$, we have to find the derivative of $\partial P_{v}/\partial \omega_{ij}$, from the marginal probability, equation~\ref{eq:marginal_prob}, 
+To continue with the computation of $\Delta \omega_{ij}$, we have to find the derivative of $\partial P_{v}/\partial \omega_{ij}$, from the marginal probability, equation~\ref{eq:marginal_prob},
 \begin{equation}
   P_{v} = \frac{\sum_{h} e^{-\beta H_{vh}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}},
   \label{eq:marginal_prob_expansion}
@@ -222,8 +222,14 @@ In the above derivation, we have used the following relations,
   P_{h|v} = \frac{P_{vh}}{P_{v}},
   \label{eq:conditional_prob1}
 \end{equation}
-and
+which is the conditional probability equation.
+In our scenario this equation means that the probability distribution of the hidden units in state $h$ given the state $v$ of the visible units is the joint probability distribution of both states, $v$ and $h$, divided by the marginal probability distribution of the visible units in state $v$.
+
+The second term in equation~\ref{eq:learning_term2}, is the average of units $i$ and $j$ over all combinations of states $v$ and $h$ of the system. 
+In other words, we would have to compute all possible combination of states of visible and hidden units, $v$ and $h$, and then average over the specific units $i$ and $j$. 
+
+iThe first term can be simplified
 \begin{equation}
-  
+
 \end{equation}
 
