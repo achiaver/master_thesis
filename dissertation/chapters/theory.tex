@@ -4,8 +4,10 @@ EXPLICAR OS ELEMENTOS DE PROBABILIDADE COM OS QUAIS ESTAMOS LIDANDO:%
 QUEM S\~{A}O AS VARI\'{A}VEIS ALEAT\'{O}RIAS E COMO VAMOS DOMIN\'{A}-LAS NO TEXTO, 
 COMENTAR QUE ESTAMOS TRATANDO COM VARI\'{A}VEIS DISCRETAS, COMO VAMOS IDENTIFICAR AS PROBABILIDADES,$\ldots$
 
-EXPLICAR O QUE OS \'{I}NDICES REPResentam, e as vari\'{a}veis,
+EXPLICAR O QUE OS \'{I}NDICES REPResentam, e as vari\'{a}veis.
+
 EXPLICAR OS TERMOS $\omega$ e $\phi$. $\omega$ \'{E} para os pesos, e $\phi$ para o bias de cada unidade.
+
 EXPLICAR MINHA NOTA\c{C}\~{A}O sobre o sobre-escrito entre par\^{e}nteses!!!
 
 \section{Boltzmann Machines}
@@ -172,14 +174,56 @@ thus the derivative of $P_{v}$ follows
 Following the equation~\ref{eq:eq14}, we need to compute the term $\partial H_{vh}/\partial \omega_{ij}$,
 \begin{equation}
   \begin{split}
-      \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \sum_{m} \phi_{mm} x^{(vh)}_{m} \right] \\
-                                                   & = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m \neq i,j} \sum_{n \neq i,j} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \frac{1}{2} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \frac{1}{2} \omega_{ji} x^{(vh)}_{j} x^{(vh)}_{i} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right],
+      \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[- \frac{1}{2} \sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \sum_{m} \phi_{mm} x^{(vh)}_{m} \right] \\
+                                                   & = \frac{\partial}{\partial \omega_{ij}} \left[- \frac{1}{2} \sum_{m \neq i,j} \sum_{n \neq i,j} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \frac{1}{2} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \frac{1}{2} \omega_{ji} x^{(vh)}_{j} x^{(vh)}_{i} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right],
   \end{split}
   \label{eq:eq15}
 \end{equation}
 as the connections between units are symmetric, i.e., $\omega_{ij} = \omega_{ji}$, then we can simplify equation~\ref{eq:eq15},
 \begin{equation}
-    \frac{\partial H_{vh}}{\partial \omega_{ij}}  = \frac{\partial}{\partial \omega_{ij}} \left[ - \frac{1}{2} \sum_{m} \sum_{n} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right]
+  \begin{split}
+    \frac{\partial H_{vh}}{\partial \omega_{ij}} & = \frac{\partial}{\partial \omega_{ij}} \left[- \frac{1}{2} \sum_{m \neq i,j} \sum_{n \neq i,j} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} - \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{m} \phi_{m} x^{(vh)}_{m} \right] \\
+    & = \frac{\partial}{\partial \omega_{ij}} \left[- \frac{1}{2} \sum_{m \neq i,j} \sum_{n \neq i,j} \omega_{mn} x^{(vh)}_{m} x^{(vh)}_{n} \right] + \frac{\partial}{\partial \omega_{ij}} \left[- \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} \right] + \frac{\partial}{\partial \omega_{ij}} \left[- \sum_{m} \phi_{m} x^{(vh)}_{m} \right] \\
+    \Rightarrow & \frac{\partial H_{vh}}{\partial \omega_{ij}} = - x^{(vh)}_{i} x^{(vh)}_{j}.
+  \end{split}
+  \label{eq:eq16}
 \end{equation}
 
+Analagous to $\partial H_{vh}/\partial \omega_{ij}$, we have $H_{uk}$ derivative, which is
+\begin{equation}
+  \frac{\partial H_{uk}}{\partial \omega_{ij}} = - x^{(uk)}_{i} x^{(uk)}_{j}.
+  \label{eq:eq17}
+\end{equation}
+
+Going back to equation~\ref{eq:eq14}, we can replace the derivatives of $H$, and solve the derivative of the marginal probability $P_{v}$,
+\begin{equation}
+  \begin{split}
+    \frac{\partial P_{v}}{\partial \omega_{ij}} & = \frac{1}{Z} \sum_{h} e^{-\beta H_{vh}} (-\beta) (-x^{(vh)}_{i} x^{(vh)}_{j}) - \frac{1}{Z^{2}} \sum_{h} e^{-\beta H_{vh}} \sum_{u} \sum_{k} e^{-\beta H_{uk}} (-\beta) (-x^{(uk)}_{i} x^{(uk)}_{j}) \\
+    & = \beta \left[ \sum_{h} \frac{e^{-\beta H_{vh}}}{Z} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{h} \frac{e^{-\beta H_{vh}}}{Z} \sum_{u} \sum_{k} \frac{e^{-\beta H_{uk}}}{Z} x^{(uk)}_{i} x^{(uk)}_{j}  \right] \\
+    & = \beta \left[ \sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \sum_{u} \sum_{k} P_{uk} x^{(uk)}_{i} x^{(uk)}_{j} \right] \\
+    \Rightarrow & \frac{\partial P_{v}}{\partial \omega_{ij}} = \beta \left[ \sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \langle x_{i} x_{j} \rangle  \right].
+  \end{split}
+  \label{eq:eq18}
+\end{equation}
+
+Given the derivative of $P_{v}$ in relation to $\omega_{ij}$, we can compute the learning term $\Delta \omega_{ij}$, from equation~\ref{eq:grad1},
+\begin{equation}
+  \begin{split}
+    \Delta \omega_{ij} & = \eta \sum_{v} \frac{Q_{v}}{P_{v}} \beta \left[ \sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \langle x_{i} x_{j} \rangle \right]  \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} \frac{Q_{v}}{P_{v}} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} \frac{Q_{v}}{P_{v}} P_{v} \langle x_{i} x_{j} \rangle \right] \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} Q_{v} \frac{P_{vh}}{P_{v}} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} Q_{v} \langle x_{i} x_{j} \rangle \right] \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} Q_{v} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} - \langle x_{i} x_{j} \rangle \right].
+  \end{split}
+  \label{eq:learning_term2}
+\end{equation}
+
+In the above derivation, we have used the following relations,
+\begin{equation}
+  P_{h|v} = \frac{P_{vh}}{P_{v}},
+  \label{eq:conditional_prob1}
+\end{equation}
+and
+\begin{equation}
+  
+\end{equation}
 
