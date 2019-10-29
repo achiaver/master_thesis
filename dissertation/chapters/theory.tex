@@ -228,8 +228,16 @@ In our scenario this equation means that the probability distribution of the hid
 The second term in equation~\ref{eq:learning_term2}, is the average of units $i$ and $j$ over all combinations of states $v$ and $h$ of the system. 
 In other words, we would have to compute all possible combination of states of visible and hidden units, $v$ and $h$, and then average over the specific units $i$ and $j$. 
 
-iThe first term can be simplified
+The first term can be simplified by
 \begin{equation}
-
+  \sum_{v} Q_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} Q_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle.
+  \label{eq:clamped_term}
 \end{equation}
 
+Then equation~\ref{eq:learning_term2} becomes
+\begin{equation}
+  \Delta \omega_{ij} = \eta \beta \left[ \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{clamped} - \langle x_{i} x_{j} \rangle_{free} \right],
+  \label{eq:learning_term3}
+\end{equation}
+it is important to notice that the subscripts \textit{clamped} means that we have to fix a certain $v$ state on the visible units otherwise the second term in the equation does not have a reference. 
+On the other hand, the subscript \textit{free} identify the $\ldots$
