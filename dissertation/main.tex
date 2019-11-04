@@ -108,7 +108,7 @@
 
 \orientador{Cargo Titulação} 
            {Nome}{Sobrenome} 
-           {Unidade -- Instituição} 
+           {Unidade -- Instituição}
 
 %coorientador é opcional
 \coorientador{Cargo Titulação} 
@@ -182,8 +182,8 @@
 % ----------------------------------------------------------
 % Capa e a folha de rosto
 % ----------------------------------------------------------
-\capa
-\folhaderosto
+\capa%
+\folhaderosto%
 % ----------------------------------------------------------
 % Inserir a ficha catalográfica
 % ----------------------------------------------------------
@@ -238,30 +238,30 @@ Texto de agradecimento
 % ----------------------------------------------------------
 \pretextualchapter{Resumo}
 
-\referencia
+\referencia%
 
 Texto do resumo em português.\\
 
-\imprimirchaves
+\imprimirchaves%
 % ----------------------------------------------------------
 % Abstract
 % ----------------------------------------------------------
 \pretextualchapter{Abstract}
 
-\reference
+\reference%
 
 Abstract in English.\\
 
-\printkeys
+\printkeys%
 % ----------------------------------------------------------
 % Listas de ilustrações e tabelas
 % ----------------------------------------------------------
-\listadefiguras
-\listadetabelas
+\listadefiguras%
+\listadetabelas%
 % ----------------------------------------------------------
 % Outras listas
 % ----------------------------------------------------------
-\listadealgoritmos
+\listadealgoritmos%
 % ----------------------------------------------------------
 % Lista de abreviaturas e siglas
 % ----------------------------------------------------------
@@ -281,11 +281,11 @@ Abstract in English.\\
 % ----------------------------------------------------------
 % Sumario
 % ----------------------------------------------------------
-\sumario
+\sumario%
 % ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
-\mainmatter
+\mainmatter%
 %=====================================================================
 \chapter*{Introdução}
 %=====================================================================
@@ -295,11 +295,11 @@ Texto da introdução. Texto, texto texto \cite{bib:Amado1991}, texto \citeonlin
 %=====================================================================
 \chapter{Boltzmann Machines}
 %=====================================================================
-\input{chapters/theory}
+\input{chapters/bm-theory.tex}
 
 
 %=====================================================================
-\chapter{T\'itulo do cap\'itulo 1}
+\chapter{T\'{i}tulo do cap\'{i}tulo 1}
 %=====================================================================
 
 Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.rotulo}\subref{subrotulo1}.
@@ -348,7 +348,7 @@ Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.r
 \end{table}
 
 %=====================================================================
-\chapter{T\'itulo do cap\'itulo 2}
+\chapter{Título do capítulo 2}
 %=====================================================================
 
 Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
@@ -356,8 +356,8 @@ Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
 \begin{algorithm}[!ht]
     \caption{Título do algoritmo.} \label{alg:modelo}
     \begin{pseudocode}
-      \LinhaEmBranco
-      \Documentacao
+      \LinhaEmBranco%
+      \Documentacao%
         \Titulo{Nome do algoritmo\\}
         \Proposito{Propósito do algoritmo.\\}
         \Metodo{Método utilizado no algoritmo.\\}
@@ -380,43 +380,43 @@ Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
             \Ins[reinicia a geração com a semente n0]{$n \leftarrow n0$}
             \ParaDeAtePasso{$i$}{0}{$m-1$}{}
               \Ins[gerador de números aleatórios]{$n \leftarrow resto(a*n, m)$}
-              \SeEntao[se fim da sequencia...]{$n == n0$}
+              \SeEntao[se fim da sequencia $\dots$]{$n == n0$}
                 \Escrever{$n$,``\}''}
-                \Parar
-              \Senao
+                \Parar%
+              \Senao%
                 \Escrever{$n$}
-              \FimSe
-            \FimPara
-          \FimPara
-        \Continua
+              \FimSe%
+            \FimPara%
+          \FimPara%
+        \Continua%
     \end{pseudocode}
 \end{algorithm}
 
-\alglinenumbersoff
+\alglinenumbersoff%
 \begin{algorithm*}[!ht]
     \caption{Título do algoritmo. (continuação)}
     \begin{pseudocode*}
-        \LinhaEmBranco
-        \Continuacao
+        \LinhaEmBranco%
+        \Continuacao%
 %          \LinhaEmBranco
           \Ins{$a \leftarrow 1$}
           \Enquanto[comentário]{$a<10$}
             \Escrever{$a$}
             \Ins{$a \leftarrow a+1$}
-          \FimEnquanto
+          \FimEnquanto%
           \Ins{$a \leftarrow 1$}
           \Repetir[comentário]
             \Escrever{$a$}
             \Ins{$a \leftarrow a+1$}
           \AteQue{$a\ge10$}
-          \LinhaEmBranco
+          \LinhaEmBranco%
           \Ins{$a \leftarrow 1$}
           \Fazer[comentário]
             \Escrever{$a$}
             \Ins{$a \leftarrow a+1$}
           \Enquanto{$a<10$}
-        \FimAlgoritmo
-      \FimDocumentacao
+        \FimAlgoritmo%
+      \FimDocumentacao%
     \end{pseudocode*}
 \end{algorithm*}
 
@@ -431,7 +431,7 @@ Texto da conclusão.
 % ----------------------------------------------------------
 % ELEMENTOS POS-TEXTUAIS
 % ----------------------------------------------------------
-\backmatter
+\backmatter%
 %=====================================================================
 % Referencias via BibTeX
 %=====================================================================
@@ -486,7 +486,7 @@ Texto da primeira subsubseção.
 % ---
 % Inicia os anexos
 % ---
-\annex
+\annex%
 %=====================================================================
 \postextualchapter{Primeiro anexo}
 %=====================================================================
