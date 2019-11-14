@@ -1,0 +1,64 @@
+\newcommand{\refimage}[9]{
+
+\begin{figure}[h!tb]{\textwidth}
+	\caption{#9}
+    \centering
+    
+    % definition of circles
+    \def\fcircle{(90:1.2) circle (2)} % HARDWARE
+	\def\scircle{(210:1.2) circle (2)} % MARKET
+    \def\tcircle{(330:1.2) circle (2)} % OPERATION
+    
+    %definition of image background
+    \def\sil{3.5} % (sil = Square Image Limit)
+    \def\bcksqr{\filldraw[fill=gray!10, draw=gray!80, thick, rounded corners=0.2cm] (-\sil,-\sil) rectangle (\sil,\sil)} % POLICY AND REGULATION
+    
+    % Venn diagram
+    \begin{tikzpicture}
+      % background
+      \bcksqr;
+      % circles area
+      \draw[fill=white] \fcircle;
+      \draw[fill=white] \scircle;
+      \draw[fill=white] \tcircle;
+      % R_1
+      \begin{scope}
+        \clip \fcircle;
+        \draw[draw=none, fill=gray!35] \scircle;
+      \end{scope}
+      % R_2
+      \begin{scope}
+        \clip \scircle;
+        \draw[draw=none, fill=gray!35] \tcircle;
+      \end{scope}
+      % R_3
+      \begin{scope}
+        \clip \fcircle;
+        \draw[draw=none, fill=gray!35] \tcircle;
+      \end{scope}
+      % STAKEHOLDER
+      \begin{scope}
+        \clip \fcircle;
+        \clip \scircle;
+        \fill[fill=gray!60] \tcircle;
+      \end{scope}
+      % circle edge
+      \draw[draw=gray!80, thick] \fcircle;
+      \draw[draw=gray!80, thick] \scircle;
+      \draw[draw=gray!80, thick] \tcircle;
+      % tag names
+      \node [align=center]	{#1};
+      \node at (0,2)		{#2};
+      \node at (-2,-0.75)	{#3};
+      \node at (2,-0.75)	{#4};
+      \node at (1.25,0.75)	{#5};
+      \node at (0,-1.5)		{#6};
+      \node at (-1.25,0.75) {#7};
+      \node at (0,-3.15)	{#8};
+    \end{tikzpicture}
+    
+%     \legend{Texto da legenda.}
+% 	\source{Citação da fonte ou `O autor.'.}
+\end{figure}
+
+}

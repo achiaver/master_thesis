@@ -1,0 +1,90 @@
+% ----------------------------------------------------------
+% ELEMENTOS POS-TEXTUAIS
+% ----------------------------------------------------------
+\backmatter
+
+%=====================================================================
+% Referencias via BibTeX
+%=====================================================================
+\citeoption{abnt-options4}
+% \bibliography{bibs/references} % não usa o padrão "nome sobrenome", mas "sobrenome, nome" --> parece que isso é o erro
+\bibliography{bibs/bibliografia,bibs/bib-sbpo,bibs/bib-ieee,bibs/bib-urbcomp}
+%=====================================================================
+
+%=====================================================================
+% \postextualchapter*{Glossário}
+% \printnoidxglossary[type=main] % still not working
+% \printglossary[type=main]
+% \printglossary
+
+% \gls{}
+% \Gls{}
+% \glspl{ }
+% \Glspl{ }
+
+% ----------------------------------------------------------
+% Apêndices (opcionais)
+% ----------------------------------------------------------
+% ---
+% Inicia os apêndices
+% ---
+\appendix
+% %=====================================================================
+\postextualchapter{Overview about the electricity sector}
+\label{appen:elect}
+\input{appen-elect}
+% 
+% %=====================================================================
+\postextualchapter{Terms used throughout the development course}
+\label{appen:terms}
+\input{appen-terms}
+% 
+% %=====================================================================
+\postextualchapter{UML class diagram}
+\label{appen:uml}
+\input{appen-uml}
+% 
+% %=====================================================================
+\postextualchapter{Smart contracts}
+\label{appen:sm}
+\input{appen-sc}
+% % ----------------------------------------------------------
+% % Anexos (opcionais)
+% % ----------------------------------------------------------
+% % ---
+% % Inicia os anexos
+% % ---
+% \annex
+% %=====================================================================
+% \postextualchapter{Primeiro anexo}
+% %=====================================================================
+% \section{Primeira seção}
+
+% Texto da primeira seção.
+
+% \subsection{Primeira subseção}
+
+% Texto da primeira subseção.
+
+% \subsubsection{Primeira subsubseção}
+
+% Texto da primeira subsubseção.
+% %=====================================================================
+% \postextualchapter{Segundo anexo}
+% %=====================================================================
+% \section{Primeira seção}
+
+% Texto da primeira seção.
+
+% \subsection{Primeira subseção}
+
+% Texto da primeira subseção.
+
+% \subsubsection{Primeira subsubseção}
+
+% Texto da primeira subsubseção.
+%---------------------------------------------------------------------
+% INDICE REMISSIVO (relativo ao makeindex)
+%---------------------------------------------------------------------
+\printindex
+%=====================================================================

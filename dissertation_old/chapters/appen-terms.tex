@@ -1,0 +1,66 @@
+% \begin{table}[h!btp]{\textwidth}
+    % \centering
+    % \caption{Terms used throughout the development course.}
+    % \label{tab:terms}
+    % \frame{
+    % \begin{tabular}{m{\textwidth}}
+        \begin{description}[align=right, labelwidth=2.5cm, leftmargin=\labelwidth+\labelsep]
+            \item[stakeholder] an independent agent which interacts with the blockchain ledger
+            \item[reader] a stakeholder with access to only read the blockchain public information (eg.: power utility)
+            \item[user] a stakeholder with an account on the blockchain platform, i.e., it has a pair of keys (public and private) and the permission to write on the blockchain
+            \item[member] a user that has gained access from a group to interact on a particular environment of the general blockchain platform, however, on the first call to this environment, the user instantly becomes a member (the first one of the group)
+            \item[group] several members united under the Brazilian \gls{gd} legislation which shares a particular blockchain environment to exchange energy assets
+            \item[caller] a user whose interacts with the group's smart-contract
+            \item[power] the capacity to generate electricity (unit: $W$)
+            \item[energy] the amount of power during a given time of 1 hour (unit: $Wh$)
+            \item[quota] the share value a member has in relation to the total power generation of the group (unit: \%)
+            \item[token] the digital currency (crypto-currency) of the group used to exchange quotas (unit: \emph{SEB})
+            \item[fee] the value to pay for a transaction on the blockchain (usually in terms of specific crypto-currency)
+            \item[expense] the amount spent with administrative subjects (may be crypto- or fiat money)
+            \item[cost] the amount spent to finance a service/product of the group's interest (fiat money only)
+            \item[exchange] the act of giving tokens in return of quotas regardless of the source (from a member or from a new power plant funding)
+            \item[transaction] any exchange or interaction between members/functions
+            \item[membership] something related to the user qualification as a member
+            \item[process] a series of operations performed in the making or treatment of a given group resolution
+            \item[ballot] a group voting process to determine something
+            \item[change] a specific process which deals with the variety of group's registering data
+            \item[smart-contract] a series of functions and logic operations written in some human-readable computer programming language that supports the development of \gls{dapp}
+            \item[address] the public identification of both smart-contracts and users through a hash number, usually a 17 bytes long
+            \item[public key] the public identification of a user through a hash number, usually a 33 bytes long
+            \item[private key] the private identification of a user through a hash number, usually a 32 bytes long
+            \item[statement] the description about a transaction (do I really need this?)
+            \item[proposal] the description of a process that it is also used to generate its own unique identity through a hash number, usually a 20 bytes long
+            \item[timeframe] a period during which a process takes place or is projected to occur, normally a wait time for voting or to implement a new power plant.
+            % \item[alguma coisa do TGsm?]
+        \end{description}
+%     \end{tabular}
+%     }
+% \end{table}
+
+% Each member of a coop is identified as a \verb|user| for the system with basic attributes to fill the database.
+
+% \begin{table}[h!tb]{13cm}
+% 	\centering
+%     \caption{Ontology?}
+%     \begin{adjustwidth}{0in}{-1in}% adjust the L and R margins
+%     \begin{tabular}{|c|p{3cm}|p{8cm}|}
+%         \hline
+%         attribute & name & description \\
+%         \hline
+%         \verb|coopID| & cooperative ID number & This number can be the registered number at Govern... It keeps easy and clean to find other informations about the coop, such as registered name, number of members, energy capacity installed and so on at government database. \\
+%         \verb|utilID| & utility ID number & Must be the same number registered at \gls{aneel}. It facilitates to identify geographic location of operation, number of costumers... \\
+%         \verb|CPF/CNPJ| & ... & ... \\
+%         \verb|membID| & member ID number & A unique identifier (is it the main hash? Will be used for exchanges?) \\
+%         \verb|pwrGen| & mean power generation [$kWh$] & Depends on installed power capacity $W_{p}$ and local insulation mean.* \\
+%         \verb|pwrCon| & mean power consumption [$kWh$] & Depends on each member power bill historic data.** \\
+%         (\verb|sigPwrRec|, \verb|seller|) & contracted power [$kWh$] received by another member & The amount of power bought from another member at coop energy market.*** \\
+%         (\verb|sigPwrInj|, \verb|buyer|) & contracted power [$kWh$] injected to another member & The amount of power sold to another member at coop energy market.*** \\
+%         \verb|manager?| & give manager permissions & A boolean statement to give special attributes to the \verb|user|.**** \\
+%         \verb|admin?| & give admin permissions & A boolean statement to give special attributes to the \verb|user|.**** \\
+%         \verb|startdate| & & for \verb|manager| and \verb|admin|... How get log event of user? \\
+%         \verb|enddate| & & for \verb|manager| and \verb|admin|... How get log event of user? \\
+%         \verb|term| & & for \verb|manager| and \verb|admin|... How get log event of user? \\
+%         \hline
+%     \end{tabular}
+%     \end{adjustwidth}
+% \end{table}

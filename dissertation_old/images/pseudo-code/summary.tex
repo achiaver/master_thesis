@@ -1,0 +1,107 @@
+\begin{tikzpicture}
+
+    % Specification of nodes
+    \node (start) [terminal]                    {Activity starts.};
+    
+    \node (d1)    [decision, below=of start]    {Were all the required inputs provided?};
+    \node (d2)    [decision, below=of d1]       {Is the invoker not a member and the ID argument an address?};
+    
+    \node (e1)    [i-o, right=of d1]            {Displays an error message.};
+    
+    \node (o1)    [onchain, below=of d2]        {Gets the inputs provided.};
+    
+    \node (d3)          [decision, below=of o1]       {Is the \emph{key} a member address?};
+        \node (d4)      [decision, right=of d3]       {Is the optional argument empty?};
+            \node (e2)  [i-o, right=of d4]            {Returns a member's dataset information.};
+        \node (d5)      [decision, below=of d4]       {Is the optional argument equal to \verb|"detailed"|?};
+            \node (e3)  [i2o, right=of d5]            {Returns a member's dataset information and all PP IDs she/he has a quota on.};
+        \node (o2)      [onchain, below=of d5]        {The optional argument is equal to something else.};
+        \node (e4)      [i-o, right=of o2]            {Returns the respective information stored.};
+    
+    
+    \node (d6)      [decision, left=of d3]       {Is the \emph{key} a PP ID?};
+        \node (d7)  [decision, left=of d6]       {Is the PP operational?};
+            
+            % Yes, PP is operational.
+            \node (d8)      [decision, left=of d7]      {Is the optional argument empty?};
+                \node (e5)  [i-o, left=of d8]           {Returns a PP's dataset information.};
+            \node (d9)      [decision, below=of d8]     {Is the optional argument equal to \verb|"detailed"|?};
+                \node (e6)  [i2o, left=of d9]           {Returns a PP's dataset information and all member addresses it has shares with.};
+            \node (o3)      [onchain, below=of d9]      {The optional argument is equal to something else.};
+            \node (e7)      [i-o, left=of o3]           {Returns the respective information stored.};
+        
+            % No, PP is not operational.
+            \node (d10)     [decision, below=of d7, yshift=-10cm] {Is the optional argument empty?};
+                \node (e8)  [i-o, left=of d10]                    {Returns a PP's crowdfunding information.};
+            \node (d11)     [decision, below=of d10]              {Is the optional argument equal to \verb|"detailed"|?};
+                \node (e9)  [i2o, left=of d11]                    {Returns a PP's crowdfunding information and all member addresses whose have bided on it if it has succeed.};
+            \node (o4)      [onchain, below=of d11]               {The optional argument is equal to something else.};
+            \node (e10)     [i-o, left=of o4]                     {Returns the respective information stored.};
+    
+    \node (d12)         [decision, below=of d3, yshift=-10cm]       {Is the \emph{key} a referendum ID?};
+        \node (d13)     [decision, right=of d12]                    {Is the optional argument empty?};
+            \node (e11) [i-o, right=of d13]                         {Returns a referendum's process information.};
+        \node (o5)      [onchain, below=of d13]                     {The optional argument is equal to something else.};
+        \node (e12)     [i-o, right=of o5]                          {Returns the respective information stored.};
+    
+    \node (o6)      [onchain, below=of d12, yshift=-5cm]        {The \emph{key} is equal to something else.};
+    \node (e13)     [i-o, right=of o6]                          {Returns a summary of the group.};
+    
+    \node (end)   [terminal, below=of e13, yshift=-4cm]       {Activity ends.};
+    
+    \node[right=of end, xshift=8cm] (ref1) {};
+    \node[left=of end, xshift=-28cm] (ref2) {};
+
+    % Specification of lines between nodes defined above with additional nodes for description.
+    \draw[->] (start) -- (d1);
+    \draw[->]    (o1) -- (d3);
+    \draw[->]    (o2) -- (e4);
+    \draw[->]    (o3) -- (e7);
+    \draw[->]    (o4) -- (e10);
+    \draw[->]    (o5) -- (e12);
+    \draw[->]    (o6) -- (e13);
+
+    \draw[->]     (d1) -- node[left=2.5mm]  {Yes} (d2);
+    \draw[->]     (d2) -- node[left=2.5mm]  {Yes} (o1);
+    \draw[->]     (d3) -- node[above=2.5mm] {Yes} (d4);
+    \draw[->]     (d4) -- node[above=2.5mm] {Yes} (e2);
+    \draw[->]     (d5) -- node[above=2.5mm] {Yes} (e3);
+    \draw[->]     (d6) -- node[above=2.5mm] {Yes} (d7);
+    \draw[->]     (d7) -- node[above=2.5mm] {Yes} (d8);
+    \draw[->]     (d8) -- node[above=2.5mm] {Yes} (e5);
+    \draw[->]     (d9) -- node[above=2.5mm] {Yes} (e6);
+    \draw[->]    (d10) -- node[above=2.5mm] {Yes} (e8);
+    \draw[->]    (d11) -- node[above=2.5mm] {Yes} (e9);
+    \draw[->]    (d12) -- node[above=2.5mm] {Yes} (d13);
+    \draw[->]    (d13) -- node[above=2.5mm] {Yes} (e11);
+
+    \draw[->]     (d1) -- node[above=2.5mm] {No}  (e1);
+    \draw[->]     (d3) -- node[above=2.5mm] {No}  (d6);
+    \draw[->]     (d4) -- node[left=2.5mm]  {No}  (d5);
+    \draw[->]     (d5) -- node[left=2.5mm]  {No}  (o2);
+    \draw[->]     (d7) -- node[left=2.5mm]  {No}  (d10);
+    \draw[->]     (d8) -- node[left=2.5mm]  {No}  (d9);
+    \draw[->]     (d9) -- node[left=2.5mm]  {No}  (o3);
+    \draw[->]    (d10) -- node[left=2.5mm]  {No}  (d11);
+    \draw[->]    (d11) -- node[left=2.5mm]  {No}  (o4);
+    \draw[->]    (d12) -- node[left=2.5mm]  {No}  (o6);
+    \draw[->]    (d13) -- node[left=2.5mm]  {No}  (o5);
+    
+    \draw[->]     (d2) -| node[pos=0.25, above=2.5mm] {No}  (e1);
+    \draw[->]     (d6) |- node[pos=0.25, left=2.5mm]  {No}  (d12);
+    
+    \draw[->]    (e1) -| (ref1) -- (end);
+    \draw[->]    (e2) -| (ref1) -- (end);
+    \draw[->]    (e3) -| (ref1) -- (end) ;
+    \draw[->]    (e4) -| (ref1) -- (end) ;
+    \draw[->]    (e5) -| (ref2) -- (end);
+    \draw[->]    (e6) -| (ref2) -- (end);
+    \draw[->]    (e7) -| (ref2) -- (end) ;
+    \draw[->]    (e8) -| (ref2) -- (end) ;
+    \draw[->]    (e9) -| (ref2) -- (end) ;
+    \draw[->]   (e11) -| (ref1) -- (end);
+    \draw[->]   (e10) |- (end) ;
+    \draw[->]   (e12) |- (end) ;
+    \draw[->]   (e13) -- (end);
+    
+\end{tikzpicture}

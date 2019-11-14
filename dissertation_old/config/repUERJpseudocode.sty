@@ -1,0 +1,436 @@
+\NeedsTeXFormat{LaTeX2e}
+% desenvolvido por Prof. Luis Fernando de Oliveira IF/UERJ
+\ProvidesPackage{config/repUERJpseudocode}[2015/11/11 v3 repUERJpseudocode.sty]
+
+\RequirePackage{ifthen}
+\RequirePackage{calc}
+\RequirePackage{caption}
+%\RequirePackage{xcolor}
+%\RequirePackage{enumitem}
+%\RequirePackage{pifont}
+%\RequirePackage{keyval}
+
+\RequirePackage{amsmath}
+%\setlength{\mathindent}{0pt}
+
+\ProcessOptions
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Elemento textual - Configuração dos parâmetros de algoritmo
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\newboolean{algline}
+\setboolean{algline}{true}
+
+% turn on/off the line number printing
+\newcommand{\alglinenumberson}{\setboolean{algline}{true}}
+\newcommand{\alglinenumbersoff}{\setboolean{algline}{false}}
+
+% font size of line numbers
+\newcommand{\pseudocodefontsize}{\normalsize}
+\newcommand{\pseudocodenumbefontsize}{\scriptsize}
+
+\newlength{\tab} % tabbulation length
+\setlength{\tab}{1.5em}
+
+\newcounter{contlin}  % line counter
+\newcounter{conttab}  % tabbulation counter
+\newcounter{contitab} % initial tabbulation counter
+
+% increment and decrement tabbulation
+\newcommand{\backward}{\addtocounter{conttab}{-1}}
+\newcommand{\forward}{\addtocounter{conttab}{1}}
+
+% paragraph tabbulation and incremental tabbulation
+\newcommand{\partab}{\hspace*{\value{contitab}\tab}\ignorespaces}
+\newcommand{\inctab}{\hspace*{\tab}\ignorespaces}
+
+% print the line number or not
+\newcommand{\nlin}{
+  \ifthenelse{\boolean{algline}}
+    % if option algline=yes
+    {\refstepcounter{contlin}{\partab\pseudocodenumbefontsize\makebox[\tab][l]{\thecontlin.}}\ignorespaces}
+    % if option algline=no
+    {\partab\inctab}
+}
+
+\def\again#1#2{\count0=#1 \loop \ifnum\count0>0 \advance\count0 by -1 #2\repeat}
+
+% tabbulation before printed instructions
+%\newcommand{\tabulacao}{\nlin\hspace*{\value{conttab}\tab}\ignorespaces}
+\newcommand{\tabulacao}{\nlin\again{\value{conttab}}{\hspace*{0.2\tab}$\vert$\hspace*{0.7\tab}\ignorespaces}}
+
+\newcommand{\delin}{\{}
+\newcommand{\delout}{\}}
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Elemento pre-textual - Lista de algoritmos
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+%---
+\makeatletter
+%---
+
+\newcommand{\algorithmname}{Algoritmo}
+
+\newenvironment{pseudocode}
+  {\setcounter{contlin}{0}
+   \setcounter{conttab}{0}
+   \setcounter{contitab}{0}
+   \pseudocodefontsize\begingroup}
+  {\endgroup}
+
+\newenvironment{pseudocode*}
+  {\pseudocodefontsize\begingroup}
+  {\endgroup}
+
+\newcounter{algorithm}
+\renewcommand \thealgorithm {\@arabic\c@algorithm}
+
+\def\fps@algorithm{htbp}
+\def\ftype@algorithm{3}
+\def\ext@algorithm{loa}
+\def\fnum@algorithm{\algorithmname\nobreakspace\thealgorithm}
+
+\newenvironment{algorithm}
+  {\@float{algorithm}}
+  {\end@float}
+
+\newenvironment{algorithm*}
+  {\addtocounter{algorithm}{-1}
+   \captionsetup{list=no}
+   \@dblfloat{algorithm}}
+  {\end@dblfloat}
+
+\DeclareCaptionListFormat{algorithmfmt}{\algorithmname\hfill#2 - }
+\captionsetup[algorithm]{listformat=algorithmfmt}
+
+\newcommand*\l@algorithm{\@dottedtocline{0}{0em}{6.8em}}
+
+\newcommand{\listalgorithmname}{Lista de algoritmos}
+\newcommand\listofalgorithms{%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \pretextualchapter{\listalgorithmname}%
+    \@starttoc{loa}%
+    \if@restonecol\twocolumn\fi
+    }
+
+%---
+\makeatother
+%---
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% Elemento textual - Estrutura de algoritmos
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------
+% Estrutura de Documentação Externa
+% ------------------------------------------------------------------------
+
+\newcommand{\Documentacao}{
+  \addtocounter{contitab}{1}
+  \textsc{Documenta\c{c}\~ao}\\
+}
+
+\newcommand{\FimDocumentacao}{
+  \addtocounter{contitab}{-1}
+  \textsc{Fim documenta\c{c}\~ao}\\
+}
+
+\newcommand{\Titulo}[1]{
+  \partab\textsc{T\'itulo}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{\textbf{#1}}\\
+}
+
+\newcommand{\Proposito}[1]{
+  \partab\textsc{Prop\'osito}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{#1}\\
+}
+
+\newcommand{\Metodo}[1]{
+  \partab\textsc{M\'etodo}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{#1}\\
+}
+
+\newcommand{\Entradas}[1]{
+  \partab\textsc{Entradas}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{#1}\\
+}
+
+\newcommand{\Saidas}[1]{
+  \partab\textsc{Sa\'idas}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{#1}\\
+}
+
+\newcommand{\Observacoes}[1]{
+  \partab\textsc{Observa\c{c}\~oes, Restri\c{c}\~oes, Requisitos}\\
+  \partab\inctab\parbox[t]{\textwidth-2\tab}{#1}\\
+}
+
+% ------------------------------------------------------------------------
+% Estrutura de Pseudocódigo
+% ------------------------------------------------------------------------
+
+\newcommand{\Algoritmo}[1]{
+  \partab{\textsc{algoritmo} \ifnotempty{#1}{\textsc{#1}}}\\
+}
+
+\newcommand{\FimAlgoritmo}{
+  \partab{\textsc{fim algoritmo}}\\
+}
+
+\newcommand{\Programa}[1]{
+  \partab{\textsc{programa} \ifnotempty{#1}{\textsc{#1}}}\\
+}
+
+\newcommand{\FimPrograma}{
+  \partab{\textsc{fim programa}}\\
+}
+
+\newcommand{\Funcao}[2]{
+  \partab{\textsc{função} \textsc{#1} (#2)}\\
+}
+
+\newcommand{\FimFuncao}{
+  \partab{\textsc{fim função}}\\
+}
+
+\newcommand{\Subrotina}[2]{
+  \partab{\textsc{subrotina} \textsc{#1} (#2)}\\
+}
+
+\newcommand{\FimSubrotina}{
+  \partab{\textsc{fim subrotina}}\\
+}
+
+\newcommand{\Procedimento}[2]{
+  \partab{\textsc{procedimento} \textsc{#1} (#2)}\\
+}
+
+\newcommand{\FimProcedimento}{
+  \partab{\textsc{fim procedimento}}\\
+}
+
+\newcommand{\Continua}{
+  \partab\inctab--- \textsl{continua} ---\\
+}
+
+\newcommand{\Continuacao}{
+  \partab\inctab--- \textsl{continua\c{c}\~ao} ---\\
+}
+
+\newcommand{\LinhaEmBranco}{
+  \partab\inctab\\
+}
+
+% Comandos
+
+\newcommand{\String}[1]{``#1''}
+
+\newcommand{\tdefinir}{\color{DarkOrange}definir}
+\newcommand{\tregistro}{\color{DarkOrange}registro}
+\newcommand{\tfimreg}{\color{DarkOrange}fim registro}
+
+\newcommand{\tdeclarar}{\color{Maroon}declarar}
+\newcommand{\tconstante}{\color{black}constante}
+\newcommand{\tporcopia}{\color{Maroon}por cópia}
+\newcommand{\tporref}{\color{Maroon}por referência}
+
+\newcommand{\tnumerico}{\color{DarkBlue}numérico}
+\newcommand{\tnumericos}{\color{DarkBlue}numéricos}
+\newcommand{\tnumerica}{\color{DarkBlue}numérica}
+\newcommand{\tnumericas}{\color{DarkBlue}numéricas}
+
+\newcommand{\tliteral}{\color{DarkBlue}literal}
+\newcommand{\tliterais}{\color{DarkBlue}literais}
+
+\newcommand{\tlogico}{\color{DarkBlue}lógico}
+\newcommand{\tlogicos}{\color{DarkBlue}lógicos}
+\newcommand{\tlogica}{\color{DarkBlue}lógica}
+\newcommand{\tlogicas}{\color{DarkBlue}lógicas}
+
+\newcommand{\tler}{\color{red}ler}
+\newcommand{\tescrever}{\color{red}escrever}
+
+\newcommand{\tretornar}{\color{blue}retornar}
+\newcommand{\tparar}{\color{blue}parar}
+
+\newcommand{\tfazer}{\color{DarkGreen}fazer}
+\newcommand{\trepetir}{\color{DarkGreen}repetir}
+\newcommand{\tenquanto}{\color{DarkGreen}enquanto}
+\newcommand{\tpara}{\color{DarkGreen}para}
+\newcommand{\tde}{\color{DarkGreen}de}
+\newcommand{\tate}{\color{DarkGreen}at\'e}
+\newcommand{\tque}{\color{DarkGreen}que}
+\newcommand{\tfimenquanto}{\color{DarkGreen}fim enquanto}
+\newcommand{\tfimpara}{\color{DarkGreen}fim para}
+\newcommand{\tfimfazer}{\color{DarkGreen}fim fazer}
+
+\newcommand{\tse}{\color{violet}se}
+\newcommand{\tentao}{\color{violet}ent\~ao}
+\newcommand{\tsenao}{\color{violet}sen\~ao}
+\newcommand{\tfimse}{\color{violet}fim se}
+
+% Instrucoes
+
+\newcommand{\Comentario}[1]{
+  \partab\inctab\delin \textsl{#1}\delout\\
+}
+
+\newcommand{\Declarar}[5][]{
+  \alglinenumbersoff
+  \tabulacao\textbf{\tdeclarar} #2 \textbf{#3}\ifnotempty{#4}{(#4)}\ignorespaces
+  \ifnotempty{#5}{\textbf{#5}}\ifnotempty{#1}{\delin \textsl{#1}\delout}\ignorespaces\\
+  \alglinenumberson
+}
+
+%---
+\makeatletter
+%---
+\newcommand{\Definir}[1]{
+  \alglinenumbersoff
+    \expandafter\def\csname t#1\endcsname{\color{RedOrange}#1}
+    \expandafter\def\csname t#1s\endcsname{\color{RedOrange}#1s}
+  \tabulacao\textbf{\tdefinir\ \tregistro} {\color{RedOrange}#1}\\
+  \forward
+}
+%---
+\makeatother
+%---
+
+\newcommand{\FimRegistro}{
+  \backward
+  \alglinenumbersoff
+  \tabulacao\textbf{\tfimreg}\\
+%  \alglinenumberson
+}
+
+\newcommand{\Retornar}[1]{
+  \tabulacao\textbf{\tretornar} #1\\
+}
+
+\newcommand{\Ler}[1]{
+  \tabulacao\textbf{\tler} #1\\
+}
+
+\newcommand{\Escrever}[1]{
+  \tabulacao\textbf{\tescrever} #1\\
+}
+
+\newcommand{\SeEntao}[2][]{
+  \tabulacao\textbf{\tse} (#2), \textbf{\tentao}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward
+}
+
+\newcommand{\Senao}[1][]{
+  \backward
+  \tabulacao\textbf{\tsenao}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward
+}
+
+\newcommand{\SenaoSeEntao}[2][]{
+  \backward
+  \tabulacao\textbf{\tsenao\ \tse} (#2),
+    \textbf{\tentao}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward
+}
+
+\newcommand{\FimSe}{
+  \backward
+  \tabulacao\textbf{\tfimse}\\
+}
+
+\newboolean{enq}
+\setboolean{enq}{false}
+
+\newcommand{\Fazer}[1][]{
+  \tabulacao\textbf{\tfazer}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward\setboolean{enq}{true}
+}
+
+\newcommand{\Enquanto}[2][]{
+  \ifthenelse{\boolean{enq}}
+    {
+      \setboolean{enq}{false}\backward
+      \tabulacao\textbf{\tenquanto} (#2)\\
+    }
+    {
+      \tabulacao\textbf{\tenquanto} (#2),
+        \textbf{\tfazer}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+      \forward
+    }
+}
+
+\newcommand{\FimEnquanto}{
+  \backward
+  \tabulacao\textbf{\tfimenquanto}\\
+}
+
+\newcommand{\FimFazer}{
+  \backward
+  \tabulacao\textbf{\tfimfazer}\\
+}
+
+\newcommand{\Repetir}[1][]{
+  \tabulacao\textbf{\trepetir}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward
+}
+
+\newcommand{\AteQue}[1]{
+  \backward
+  \tabulacao\textbf{\tate\ \tque} (#1)\\
+}
+
+\newcommand{\ParaDeAtePasso}[5][]{
+  \tabulacao\textbf{\tpara} #2 \textbf{\tde} #3 \textbf{\tate} #4\ignorespaces
+  \ifnotempty{#5}{\textbf{ passo} #5\ignorespaces},
+  \textbf{\tfazer}\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \forward
+}
+
+\newcommand{\FimPara}{
+  \backward
+  \tabulacao\textbf{\tfimpara}\\
+}
+
+\newcommand{\Parar}{ %parar
+  \tabulacao\textbf{\tparar}\\
+}
+
+\newcommand{\Alocar}[2]{ %parar
+  \tabulacao\textbf{alocar}(#1,#2)\\
+}
+
+\newcommand{\Desalocar}[1]{ %parar
+  \tabulacao\textbf{desalocar}(#1)\\
+}
+
+%---
+\makeatletter
+%---
+\newlength{\ltab}
+\newcommand{\Ins}[2][]{
+  \setlength{\ltab}{\textwidth-2\tab-\value{conttab}\tab}
+  \sbox\@tempboxa{#2}
+  \ifdim \wd\@tempboxa < \ltab
+    \tabulacao#2\ifnotempty{#1}{\inctab\delin \textsl{#1}\delout}\\
+  \else
+    \tabulacao\parbox[t]{\ltab}{\setlength\hangindent{\tab}#2}\vspace{0.35\baselineskip}
+  \fi
+}
+%---
+\makeatother
+%---
+
+\let\listadealgoritmos\listofalgorithms
+

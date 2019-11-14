@@ -1,0 +1,46 @@
+\begin{figure}[h!tbp]{\textwidth}
+    \centering
+    \caption{Classification of \gls{gd} under the Brazilian legislation, and its positioning in the power sector chain.}
+    \label{fig:gd-categories}
+    
+    \tikzstyle{arrow} = [thick, ->, >=stealth, line width=1pt]
+    \tikzstyle{drew} = [draw, fill=white, rounded corners=0.1cm, align=center]
+    \tikzstyle{powers} = [align=center]
+    
+    \begin{tikzpicture}[level 1/.style={powers,level distance=1.8cm},%
+                        level 2/.style={powers, level distance=1.5cm, sibling distance=4.5cm},%
+                        level 3/.style={powers, level distance=1.5cm, sibling distance=2.3cm}]
+        % place dimensions
+        \draw[gray, thick, dashed, fill=gray!50, rounded corners=0.1cm] (-2,-7.3) rectangle (11.1,1.3);
+        \draw[drew, thick, dashed] (1.5,-1) rectangle (11,-7.2);
+        \draw[gray, thick, dashed, fill=gray!20, rounded corners=0.1cm] (-1.9,-0.8) rectangle (7.3,1.2);
+        
+        % place nodes
+        \node[drew] at (-0.7,0)             (g) {Generation};
+        \path (g.east)+(2,0) node[drew]     (t) {Transmission};
+        \path (t.east)+(2,0) node[drew]     (d) {Distribution};
+		\path (d.south)+(0,-1.5) node[drew] (c) {Consumption}
+		    child { node {Distributed Generation\\(micro/mini grid)}
+		        child { node {self-consumption}
+		            child { node {local} }
+		            child { node {remote} }
+		        }
+		        child { node {shareable\\consumption}
+    		        child { node {shareable\\generation} }
+    		        child { node {condominium} }
+    		    }
+	        };
+        \path (g.north)+(0,0.5)	node[anchor=west] (o) {Commercialization};
+        \path (o.east)+(6.5,0) node               (r) {Regulation};
+        \path (r.south)+(0,-2.2) node[align=center] {Captive\\Consumers};
+
+        % draw connections
+        \draw[arrow] (g) -- (t);
+        \draw[arrow] (t) -- (d);
+        \draw[arrow] (d) -- (c);
+        
+    \end{tikzpicture}
+    
+%   	\legend{Although the \gls{gd} is a tiny portion of the whole sector, it has a huge impact on the captive consumers.}
+    \source{Author.}
+\end{figure}
