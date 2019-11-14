@@ -17,7 +17,6 @@ The value a random variable can assume is represented by $x$.
 Assuming a discrete scenario, the probability of a random variable $\mathrm{x}_{i}$ of assuming a certain value $x_{i}$ is $P(\mathrm{x}_{i} = x_{i})$. 
 
 
-
 \section{Boltzmann Machines}
 
 Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$ [HERTZ].
@@ -26,10 +25,10 @@ Boltzmann Machines were named after the Boltzmann distribution.
 Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ].
 According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
 
-
 Boltzamann Machines have visible and hidden units.
 The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012].
 In BM, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout.
+\input{dissertation/images/tikz_figs/bm_diagram.tex}
 
 Training Boltzmann Machines means finding the right connection between the units.
 
@@ -44,24 +43,26 @@ On the other hand, the hidden units do not have any connection to the outside of
 In a BM, the connections between units can be complete or not.
 Regardless of how the connections are, every connection in a BM is symmetric.
 
-BM are made of stochastics units $x_{i}$ which each of them can assume a binary value with a certain probabily as follows:
+BM are made of stochastics units $x_{i}$.
+Stochastics units are random variables that can assume a binary value with a certain probability. 
+We will consider that a random variable $\mathrm{x}_{i}$ can assume a value $x_{i} \in \{0, 1\}$, i. e.,
 \begin{equation}
   x_{i} =
     \begin{cases}
       1 \; \text{with probability} \; g(h_{i}) \\
       0 \; \text{with probability} \; 1 - g(h_{i})
     \end{cases},
-  \label{eq:eq1}
+  \label{eq:stochastic-unit-values}
 \end{equation}
-where
+where the probability is given by
 \begin{equation}
-  h_{i} = \sum_{j}\omega_{ij}x_{j},
-  \label{eq:eq2}
+  g(h_{i}) = \frac{1}{1 + e^{-2 \beta h_{i}}},
+  \label{eq:stochastic-unit-prob}
 \end{equation}
 and
 \begin{equation}
-  g(h_{i}) = \frac{1}{1 + e^{-2 \beta h_{i}}}.
-  \label{eq:eq3}
+  h_{i} = \sum_{j}\omega_{ij}x_{j}.
+  \label{eq:stochastic-unit-input}
 \end{equation}
 
 Due to the symmetrical connections, there is an energy function give by

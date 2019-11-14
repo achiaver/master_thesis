@@ -1,4 +1,5 @@
-Grande Área: Ciências Exatas e da TerraÁrea: Ciência da Computação
+Grande Área: Ciências Exatas e da Terra
+Área: Ciência da Computação
 Sub Área: Matemática da Computação
 
 Palavras Chave:  Inteligência Computacional, Reconhecimento de padrões, Redes Neuronais Profundas

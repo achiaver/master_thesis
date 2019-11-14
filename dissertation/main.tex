@@ -52,6 +52,13 @@
 \usepackage{amsmath}        % pacote matemático
 \usepackage{amssymb}        % pacote extra
 \usepackage{mathrsfs}       % pacote extra
+\usepackage{tikz}				    % awesome drawings
+\usetikzlibrary{calc}               % to get node width and height
+\usetikzlibrary{positioning}        % to use the relative positioning commands
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{shapes.geometric}   % to use diamond shape
+\usetikzlibrary{backgrounds}  
 
 % ---
 % Pacote auxiliar para as normas da UERJ
@@ -89,18 +96,18 @@
 % Informações da autoria do documento
 %---------------------------------------------------------------------
 
-\autor{Nome}
-      {Sobrenome}
-      {Iniciais. Do. Nome.}
+\autor{Artur}
+      {Chiaperini Grover}
+      {A. C. G.}
 
-\titulo{Título do trabalho acadêmico}
+\titulo{Computational Intelligence Using Deep Neural Networks (BM)}
 % se não for usar a quarta palavra chave, deixar o campo vazio: {}
 \palavraschaves{primeira palavra chave}
                {segunda palavra chave}
                {terceira palavra chave}
                {}
 
-\title{Title of dissertation}
+\title{Intelig\^{e}ncia Computacional Usando Redes Neuronais Profundas}
 \keywords{first keyword}
          {second keyword}
          {third keyword}
@@ -129,7 +136,7 @@
 % Informações adicionais (local, data e paginas)
 %---------------------------------------------------------------------
 
-\local{Cidade} 
+\local{Rio de Janeiro} 
 \data{dd}{Mês}{aaaa} 
 
 % ********************************************************************
@@ -229,10 +236,12 @@ Texto de agradecimento
 % ----------------------------------------------------------
 \pretextualchapter{}
 
-  \vfill\
-  \begin{flushright}
-    Texto da epígrafe
-  \end{flushright}
+\vfill\
+\begin{flushright}
+    If no one died, it is just another story to be told.
+    
+    [Daniel Mirolhaum]
+\end{flushright}
 % ----------------------------------------------------------
 % RESUMO
 % ----------------------------------------------------------
