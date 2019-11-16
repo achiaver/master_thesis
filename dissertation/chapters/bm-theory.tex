@@ -117,24 +117,24 @@ In order to do that, we need to find the marginal probability of the state $v$ i
   \label{eq:marginal_prob}
 \end{equation}
 
-Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $Q_{v}$, i.e., a desired probability.
+Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $R_{v}$, i.e., a desired probability.
 This means that ideally we would like to match the empirical distribution of the data, even though we do not have access to the correct distribution, only to what the observed data has given us as an input to training the model.
 
-One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $Q_{v}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function.
+One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $R_{v}$, is using the Kullback-Leibler divergence, which can also be referred to relative entropy, $E$, which will be our cost function.
 (EXPLICAR FUN\c{C}\~{A}O DE CUSTO e $D_{KL}$!!!).
 \begin{equation}
-  E = \sum_{v} Q_{v} \ln{\left(\frac{Q_{v}}{P_{v}}\right)}.
+  E = \sum_{v} R_{v} \ln{\left(\frac{R_{v}}{P_{v}}\right)}.
   \label{eq:DKL}
 \end{equation}
 
 The relative entropy $E$ has the property of always being equal or greater than zero.
-It reaches zero only if $P_{v} = Q_{v}$, which means that we are able to retrieve the exactly probability distribution of the input data at the visible units.
+It reaches zero only if $P_{v} = R_{v}$, which means that we are able to retrieve the exactly probability distribution of the input data at the visible units.
 \begin{equation}
   \begin{split}
-    E & = \sum_{v} Q_{v} \ln{\left( \frac{Q_{v}}{P_{v}} \right)} \\
-      & \geq \sum_{v} Q_{v} \left( 1 - \frac{P_{v}}{Q_{v}} \right) \\
-      & = \sum_{v} \left( Q_{v} - P_{v} \right) \\
-      & = \sum_{v} Q_{v} - \sum_{v} P_{v} = 1 - 1 \\
+    E & = \sum_{v} R_{v} \ln{\left( \frac{R_{v}}{P_{v}} \right)} \\
+      & \geq \sum_{v} R_{v} \left( 1 - \frac{P_{v}}{R_{v}} \right) \\
+      & = \sum_{v} \left( R_{v} - P_{v} \right) \\
+      & = \sum_{v} R_{v} - \sum_{v} P_{v} = 1 - 1 \\
       & \Rightarrow E \geq 0.
   \end{split}
 \end{equation}
@@ -147,8 +147,8 @@ From the gradient descent equation
 where
 \begin{equation}
   \begin{split}
-    E & = \sum_{v} Q_{v} \ln{\left(\frac{Q_{v}}{P_{v}}\right)} \\
-      & = \sum_{v} \left[ \ln{(Q_{v})} - \ln{(P_{v})} \right].
+    E & = \sum_{v} R_{v} \ln{\left(\frac{R_{v}}{P_{v}}\right)} \\
+      & = \sum_{v} \left[ \ln{(R_{v})} - \ln{(P_{v})} \right].
   \end{split}
   \label{eq:entropy1}
 \end{equation}
@@ -157,10 +157,10 @@ In the following steps, we present the gradient descent derivation
 \begin{equation}
   \begin{split}
     \Delta \omega_{ij} & = - \eta \frac{\partial E}{\partial \omega_{ij}} \\
-                  & = - \eta \frac{\partial}{\partial \omega_{ij}} \left[ \sum_{v} Q_{v} \left( \ln{(Q_{v})} - \ln{(P_{v})} \right) \right] \\
-                  & = \eta \frac{\partial}{\partial \omega_{ij}} \left[ \sum_{v} Q_{v} \ln{(P_{v})} \right] \\
-                  & = \eta \sum_{v} Q_{v} \frac{\partial}{\partial \omega_{ij}} \left[ \ln{(P_{v})} \right] \\
-                  \Rightarrow & \Delta \omega_{ij} = \eta \sum_{v} \frac{Q_{v}}{P_{v}} \frac{\partial P_{v}}{\partial \omega_{ij}}.
+                  & = - \eta \frac{\partial}{\partial \omega_{ij}} \left[ \sum_{v} R_{v} \left( \ln{(R_{v})} - \ln{(P_{v})} \right) \right] \\
+                  & = \eta \frac{\partial}{\partial \omega_{ij}} \left[ \sum_{v} R_{v} \ln{(P_{v})} \right] \\
+                  & = \eta \sum_{v} R_{v} \frac{\partial}{\partial \omega_{ij}} \left[ \ln{(P_{v})} \right] \\
+                  \Rightarrow & \Delta \omega_{ij} = \eta \sum_{v} \frac{R_{v}}{P_{v}} \frac{\partial P_{v}}{\partial \omega_{ij}}.
   \end{split}
   \label{eq:grad1}
 \end{equation}
@@ -218,10 +218,10 @@ Going back to equation~\ref{eq:eq14}, we can replace the derivatives of $H$, and
 Given the derivative of $P_{v}$ in relation to $\omega_{ij}$, we can compute the learning term $\Delta \omega_{ij}$, from equation~\ref{eq:grad1},
 \begin{equation}
   \begin{split}
-    \Delta \omega_{ij} & = \eta \sum_{v} \frac{Q_{v}}{P_{v}} \beta \left[ \sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \langle x_{i} x_{j} \rangle \right]  \\
-    & = \eta \beta \left[ \sum_{v} \sum_{h} \frac{Q_{v}}{P_{v}} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} \frac{Q_{v}}{P_{v}} P_{v} \langle x_{i} x_{j} \rangle \right] \\
-    & = \eta \beta \left[ \sum_{v} \sum_{h} Q_{v} \frac{P_{vh}}{P_{v}} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} Q_{v} \langle x_{i} x_{j} \rangle \right] \\
-    & = \eta \beta \left[ \sum_{v} \sum_{h} Q_{v} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} - \langle x_{i} x_{j} \rangle \right].
+    \Delta \omega_{ij} & = \eta \sum_{v} \frac{R_{v}}{P_{v}} \beta \left[ \sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \langle x_{i} x_{j} \rangle \right]  \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} \frac{R_{v}}{P_{v}} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} \frac{R_{v}}{P_{v}} P_{v} \langle x_{i} x_{j} \rangle \right] \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} R_{v} \frac{P_{vh}}{P_{v}} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} R_{v} \langle x_{i} x_{j} \rangle \right] \\
+    & = \eta \beta \left[ \sum_{v} \sum_{h} R_{v} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} - \langle x_{i} x_{j} \rangle \right].
   \end{split}
   \label{eq:learning_term2}
 \end{equation}
@@ -239,7 +239,7 @@ In other words, we would have to compute all possible combination of states of v
 
 The first term can be simplified by
 \begin{equation}
-  \sum_{v} Q_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} Q_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle.
+  \sum_{v} R_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} R_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle.
   \label{eq:clamped_term}
 \end{equation}
 
