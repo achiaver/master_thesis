@@ -317,7 +317,7 @@ Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.r
 % \begin{figure ou table}[posição]{largura da figura}
 
 \begin{figure}[!ht]{6cm}
-  \caption{Título da figura.} \label{rotulo}
+  \caption{Título da figura.}\label{rotulo}
   \includegraphics[width=\hsize]{images/logo_uerj_cor.jpg}
   \legend{Texto da legenda.}
   \source{Citação da fonte ou `O autor.'.}
@@ -325,7 +325,7 @@ Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.r
 
 
 \begin{figure}[!ht]{11cm}
-  \caption{Título da figura.} \label{outro.rotulo}
+  \caption{Título da figura.}\label{outro.rotulo}
   \subfloat[][]{\label{subrotulo1}
     \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cinza.png}}}\hfill
   \subfloat[][]{\label{subrotulo2}
@@ -364,7 +364,7 @@ Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.r
 Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
 
 \begin{algorithm}[!ht]
-    \caption{Título do algoritmo.} \label{alg:modelo}
+    \caption{Título do algoritmo.}\label{alg:modelo}
     \begin{pseudocode}
       \LinhaEmBranco%
       \Documentacao%
@@ -446,7 +446,7 @@ Texto da conclusão.
 % Referencias via BibTeX
 %=====================================================================
 \citeoption{abnt-options4}
-\bibliography{bibliografia}
+\bibliography{bibs/bibliografia}
 %=====================================================================
 
 %=====================================================================
