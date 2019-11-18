@@ -21,9 +21,14 @@ We begin this chapter by introducing the Hopfield Network. The reason is because
 
 \section{Hopfield Networks}
 
-Hopfield networks are a simple neural network architecture, often called as associative memory network~\cite{bib:geron2017}. 
-%~\cite{bib:hopfield1982}. 
-Energy-based model, because property derives from global energy function.
+Hopfield networks are a simple neural network architecture, often referred to as an associative memory network~\cite{bib:hertz1991}. As~\cite{bib:geron2017} mentioned, this kind of network is first taught a few patterns, and then when exposed to new patterns it will output the closest learned pattern. Figure~\ref{fig:hopfield-diagram} shows that a Hopfield network is a fully connected graph, this means that each unit is connected to every other single unit of the network. It is a different units arrangement compared to perceptron, for instance~\cite{bib:hopfield1982}.
+\input{images/tikz_figs/hopfield_diagram.tex}
+
+This kind of network is an energy-based model, because there is a global energy function associated to the network. This global energy function evolves to a low-energy state during training phase of the network, i.e., the network weights are modified so that the energy decreases. When connections $\omega$ between units, also know as weights or \textit{synaptic strenght}, are symmetrical, i.e., $\omega_{ij} = \omega{ji}$, then~\cite{bib:hopfield1982} presented that the energy function is give by
+\begin{equation}\label{eq:hopfield-energy}
+  H = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
+\end{equation}
+
 Binary units with recurrent connections between them.
 Is the connections are symmetric, there is a global energy function: each binary configuration of the whole network has an energy. Binary threshold decision rule causes the network to settle to a minimum of this energy function.
 Energy function is the sum of many contributions. Each contribution depends on one connection weight and the ninary state of two neurons is. (Energy is bad, so that is why we have a minus sign. The less energy, the better.)
@@ -40,7 +45,6 @@ the energy gap equation can also be read as the difference between the energy wh
 The Hopfield network will go down hill in this global energy. To find the energy minimum, start from random state, update this unit one at a time in random order. Update each unit to whichever of its two states gives the lowest global energy.
 Hopfield
 According to [HOPFIELD], memories could be seen as energy minima. One way of interpreting this is that an item could be accessed by just knowing some parts of it. An interesting analogy expose by [HINTON] is that Hopfield networks is like reconstructing a dinosaur from a few bones. FALTA COLOCAR A REGRA DE ATUALIZACAO DOS PESOS\@! PARA MOSTRAR COMO AS MEMORIAS SAO ARMAZENADAS.\@
-\input{images/tikz_figs/hopfield_diagram.tex}
 
 
  
