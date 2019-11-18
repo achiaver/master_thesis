@@ -9,53 +9,67 @@ EXPLICAR OS TERMOS $\omega$ e $\phi$. $\omega$ \'{E} para os pesos, e $\phi$ par
 EXPLICAR MINHA NOTA\c{C}\~{A}O sobre o sobre-escrito entre par\^{e}nteses!!!
 
 
-In this chapter will expose the Boltzmann Machine theory. 
-A few considerations regarding the notation used in this exposition is required before stepping forward into the main content. 
+In this chapter will expose the Boltzmann Machine theory.
+A few considerations regarding the notation used in this exposition is required before stepping forward into the main content.
 A single random variables is denoted by $\mathrm{x}$.
-A vector of random variables of size $n$ is represented by $\mathrm{\mathbf{x}} = (\mathrm{x}_{1}, \mathrm{x}_{2}, \dots, \mathrm{x}_{n})$, where each $\mathrm{x}_{i}$, $i \in \{1, 2, \dots, n\}$, represents a single unit of the network. 
-The value a random variable can assume is represented by $x$. 
-Assuming a discrete scenario, the probability of a random variable $\mathrm{x}_{i}$ of assuming a certain value $x_{i}$ is $P(\mathrm{x}_{i} = x_{i})$. 
+A vector of random variables of size $n$ is represented by $\mathbf{x} = (\mathrm{x}_{1}, \mathrm{x}_{2}, \dots, \mathrm{x}_{n})$, where each $\mathrm{x}_{i}$, $i \in \{1, 2, \dots, n\}$, represents a single unit of the network.
+The value a random variable can assume is represented by $x$.
+Assuming a discrete scenario, the probability of a random variable $\mathrm{x}_{i}$ of assuming a certain value $x_{i}$ is $P(\mathrm{x}_{i} = x_{i})$.
 
-We begin this chapter by introducing the Hopfield Network. The reason is because the Boltzmann Machine is a generalization of the Hopfield Network. In Hopfield Networks units are deterministic while, in Boltzmann Machines, units are stochastic. 
+We begin this chapter by briefly introducing the Hopfield Network.
+The reason is because the Boltzmann Machine is a generalization of the Hopfield Network.
+In Hopfield Networks units are deterministic while, in Boltzmann Machines, units are stochastic.
 
 
-\section{Hopfield Networks}
+\section{Hopfield Networks}%
+\label{ch:bm:hopfield}%
 
-Hopfield networks are a simple neural network architecture, often referred to as an associative memory network~\cite{bib:hertz1991}. As~\cite{bib:geron2017} mentioned, this kind of network is first taught a few patterns, and then when exposed to new patterns it will output the closest learned pattern. Figure~\ref{fig:hopfield-diagram} shows that a Hopfield network is a fully connected graph, this means that each unit is connected to every other single unit of the network. It is a different units arrangement compared to perceptron, for instance~\cite{bib:hopfield1982}.
+Hopfield networks are a simple neural network architecture, often referred to as an associative memory network~\cite{bib:hertz1991}.
+Each unit $\mathrm{x}_{i}$ in a Hopfield network is a binary unit that can assume a value $x_{i} \in \{0, 1\}$.
+As~\cite{bib:geron2017} mentioned, this kind of network is first taught a few patterns, and then when exposed to new patterns it will output the closest learned pattern.
+In the context of image recognition, we consider that each pixel of a binary image maps to one neuron of the network, then the previous statement can be read as the case where the training set contains images of characters, for instance, which are the stored memories of the network; if a new image of a character is presented, the network will recall from the memory the closest character.
+
+In Figure~\ref{fig:hopfield-diagram}, we can see a diagram of the architecture of a Hopfield network.
+It is a fully connected graph of binary units, which means that each unit is connected to every other unit of the network.
+It is a different network arrangement compared to perceptron, for instance, where there is no back-coupling~\cite{bib:hopfield1982}.
 \input{images/tikz_figs/hopfield_diagram.tex}
 
-This kind of network is an energy-based model, because there is a global energy function associated to the network. This global energy function evolves to a low-energy state during training phase of the network, i.e., the network weights are modified so that the energy decreases. When connections $\omega$ between units, also know as weights or \textit{synaptic strenght}, are symmetrical, i.e., $\omega_{ij} = \omega{ji}$, then~\cite{bib:hopfield1982} presented that the energy function is give by
+Hopfield network is an energy-based model, because there is a global energy function associated to the network.
+This global energy function evolves to a low-energy state during training phase, i.e., the network connections between units are modified so that the energy decreases; the less energy, the better.
+When connections $\omega$ between units, also know as weights or \textit{synaptic strenght}, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$, where the subscript identify the connection between unit $i$ and $j$, then~\cite{bib:hopfield1982} presented that the energy function is give by
 \begin{equation}\label{eq:hopfield-energy}
-  H = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
+  H(\mathbf{x}) = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
 \end{equation}
+where $\mathbf{x} = (x_{1}, x_{2}, \dots, x_{n})$ is the vector of binary values that each unit of the network has for in a particular state, and $n$ is the number of units in the network.
+Equation~(\ref{eq:hopfield-energy}) shows that the energy is the sum of many contributions.
+Each contribution depends on one connection weight $\omega_{ij}$ and the binary state in which each neuron is, $x_{i}$ and $x_{j}$, first term of the equation.
+And the second term only involves the state of each individual unit weighted by bias $\phi_{i}$. 
 
-Binary units with recurrent connections between them.
-Is the connections are symmetric, there is a global energy function: each binary configuration of the whole network has an energy. Binary threshold decision rule causes the network to settle to a minimum of this energy function.
-Energy function is the sum of many contributions. Each contribution depends on one connection weight and the ninary state of two neurons is. (Energy is bad, so that is why we have a minus sign. The less energy, the better.)
-\begin{equation}\label{eq:hopfield-energy}
-  H = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
-\end{equation}
-where the first term is the symmetric connection between neurons $\omega_{ij}$ and the activity of the two connected neurons $x_{i}$ and $x_{j}$. The second term only involves the state of individual units.
-
-The quadraticc energy function makes it possible for each unit to compute locally how it's state affects the global energy, in another words, how each unit affects the global energy when its state is changed. Define the energy gap $\Delta H_{i}$ for a unit $x_{i}$, this measure is the global energy function difference when the unit $x_{i}$ has its state changed.
+The quadratic energy function, equation~(\ref{eq:hopfield-energy}), makes it possible for each unit to compute locally how its state affects the global energy, in another words, how each unit affects the global energy when its state is changed. 
+Define the energy gap $\Delta H_{i}$ for a unit $x_{i}$, as the measure of the global energy function difference when the unit $x_{i}$ has its state changed.
 \begin{equation}\label{eq:hopfield-energy-gap}
-  \Delta H_{i} = H(x_{i} = 0) - H(x_{i} = 1) = \sum_{j} \omega_{ij} x_{j} + \phi_{i}
+  \Delta H_{i} = H(x_{i} = 0) - H(x_{i} = 1) = \sum_{j} \omega_{ij} x_{j} + \phi_{i},
 \end{equation}
-the energy gap equation can also be read as the difference between the energy when $x_{i}$ is off and the energy when $x_{i}$ is on. The energy gap can also be computed by differenciating the energy function $H$, equation~(\ref{eq:hopfield-energy}). Refer to appendix (N\'{u}mero) for differenciation.
-The Hopfield network will go down hill in this global energy. To find the energy minimum, start from random state, update this unit one at a time in random order. Update each unit to whichever of its two states gives the lowest global energy.
-Hopfield
-According to [HOPFIELD], memories could be seen as energy minima. One way of interpreting this is that an item could be accessed by just knowing some parts of it. An interesting analogy expose by [HINTON] is that Hopfield networks is like reconstructing a dinosaur from a few bones. FALTA COLOCAR A REGRA DE ATUALIZACAO DOS PESOS\@! PARA MOSTRAR COMO AS MEMORIAS SAO ARMAZENADAS.\@
+the energy gap equation can also be read as the difference between the energy when $x_{i}$ is off, $x_{i} = 0$, and the energy when $x_{i}$ is on, $x_{i} = 1$. 
+In addition, it can also be computed by differenciating the energy function $H$, equation~(\ref{eq:hopfield-energy}). [Derivation to be added to appendix]. 
+The Hopfield network will go down hill in this global energy. 
+To find the energy minimum, start from a random state, update each unit one at a time in random order. Update each unit to whichever of its two states gives the lowest global energy. 
+
+According to~\cite{bib:hopfield1982}, memories can be seen as energy minima. 
+Furthermore, by just knowing some parts of an energy minima, its possible to access that memory. 
+An interesting analogy, is that Hopfield networks are like reconstructing a dinosaur from a few bones. 
+
+%FALTA COLOCAR A REGRA DE ATUALIZACAO DOS PESOS\@! PARA MOSTRAR COMO AS MEMORIAS SAO ARMAZENADAS.\@
 
 
- 
-
-\section{Boltzmann Machines}
+\section{Boltzmann Machines}%
+\label{ch:bm:bm}%
 
 Boltzmann Machines (BM) are a type of stochastic neural networks (SNN) where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$~\cite{bib:hertz1991}.
 This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution.
 Boltzmann Machines were named after the Boltzmann distribution.
-Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution [HERTZ].
-According to [MONTUFAR, 2018], BM can be seen as an extension of Hopfield networks to include hidden units.
+Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution~\cite{bib:hertz1991}.
+According to~\cite{bib:montufar2018}, BM can be seen as an extension of Hopfield networks to include hidden units.
 
 Boltzamann Machines have visible and hidden units.
 The visible units are linked to the external world and they correspond to the components of an observation. On the other hand, the hidden units do not have any connection outside of the network and model the dependencies between the components of the observations [FISCHER, 2012].
@@ -76,8 +90,8 @@ In a BM, the connections between units can be complete or not.
 Regardless of how the connections are, every connection in a BM is symmetric.
 
 BM are made of stochastics units $x_{i}$.
-Stochastics units are random variables that can assume a binary value with a certain probability. 
-We will consider that a random variable $\mathrm{x}_{i}$ can assume a value $x_{i} \in \{0, 1\}$, i\. e\.,
+Stochastics units are random variables that can assume a binary value with a certain probability.
+We will consider that a random variable $\mathrm{x}_{i}$ can assume a value $x_{i} \in \{0, 1\}$, i.e.,
 \begin{equation}
   x_{i} =
     \begin{cases}
@@ -266,8 +280,8 @@ In the above derivation, we have used the following relations,
 which is the conditional probability equation.
 In our scenario this equation means that the probability distribution of the hidden units in state $h$ given the state $v$ of the visible units is the joint probability distribution of both states, $v$ and $h$, divided by the marginal probability distribution of the visible units in state $v$.
 
-The second term in equation~\ref{eq:learning_term2}, is the average of units $i$ and $j$ over all combinations of states $v$ and $h$ of the system. 
-In other words, we would have to compute all possible combination of states of visible and hidden units, $v$ and $h$, and then average over the specific units $i$ and $j$. 
+The second term in equation~\ref{eq:learning_term2}, is the average of units $i$ and $j$ over all combinations of states $v$ and $h$ of the system.
+In other words, we would have to compute all possible combination of states of visible and hidden units, $v$ and $h$, and then average over the specific units $i$ and $j$.
 
 The first term can be simplified by
 \begin{equation}
@@ -280,5 +294,5 @@ Then equation~\ref{eq:learning_term2} becomes
   \Delta \omega_{ij} = \eta \beta \left[ \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{clamped} - \langle x_{i} x_{j} \rangle_{free} \right],
   \label{eq:learning_term3}
 \end{equation}
-it is important to notice that the subscripts \textit{clamped} means that we have to fix a certain $v$ state on the visible units otherwise the second term in the equation does not have a reference. 
+it is important to notice that the subscripts \textit{clamped} means that we have to fix a certain $v$ state on the visible units otherwise the second term in the equation does not have a reference.
 On the other hand, the subscript \textit{free} identify the $\ldots$

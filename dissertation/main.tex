@@ -89,9 +89,9 @@
 %---------------------------------------------------------------------
 
 \instituicao{Universidade do Estado do Rio de Janeiro}
-            {centro} 
-            {unidade} 
-            {patrono} 
+            {Centro de Tecnologia e Ci\^{e}ncias} 
+            {Instituto de Matem\'{a}tica e Estat\'{i}stica} 
+            {} 
 
 %---------------------------------------------------------------------
 % Informações da autoria do documento
@@ -101,27 +101,27 @@
       {Chiaperini Grover}
       {A. C. G.}
 
-\titulo{Computational Intelligence Using Deep Neural Networks (BM)}
+      \titulo{Intelig\^{e}ncia Computacional Usando M\'{a}quinas de Boltzmann}
 % se não for usar a quarta palavra chave, deixar o campo vazio: {}
-\palavraschaves{primeira palavra chave}
-               {segunda palavra chave}
+\palavraschaves{m\'{a}quina de Boltzmann}
+               {m\'{a}quina restrita de Boltzmann}
                {terceira palavra chave}
                {}
 
-\title{Intelig\^{e}ncia Computacional Usando Redes Neuronais Profundas}
-\keywords{first keyword}
-         {second keyword}
+\title{Computational Intelligence Using Boltzmann Machines}
+\keywords{Boltzmann machine}
+         {restricted Boltzmann machine}
          {third keyword}
          {}
 
-\orientador{Cargo Titulação} 
-           {Nome}{Sobrenome} 
-           {Unidade -- Instituição}
+\orientador{Dra.} 
+           {Roseli Suzi}{Wedemann} 
+           {IME/CComp -- UERJ}
 
 %coorientador é opcional
-\coorientador{Cargo Titulação} 
-             {Nome}{Sobrenome} 
-             {Unidade -- Instituição} 
+%\coorientador{Cargo Titulação} 
+%             {Nome}{Sobrenome} 
+%             {Unidade -- Instituição} 
 
 %---------------------------------------------------------------------
 % Grau pretendido (Doutor, Mestre, Bacharel, Licenciado) e Curso
@@ -211,13 +211,13 @@
 % ----------------------------------------------------------
 % membros da banca: máximo 6
 \begin{folhadeaprovacao}
-  \assinatura{primeiro membro titular da banca}{instituição}
-  \assinatura{segundo membro titular da banca}{instituição}
-  \assinatura{terceiro membro titular da banca}{instituição}
+  \assinatura{Dra. Patr\'{i}cia Nunes da Silva}{IME/CComp -- UERJ}
+  \assinatura{Dra. Zochil Gonz\'{a}lez Arenas}{IME/CComp -- UERJ}
+%  \assinatura{terceiro membro titular da banca}{instituição}
 % suplente só é incluído se efetivamente substitui um titular
-  \assinatura{primeiro membro suplente da banca}{instituição}
-  \assinatura{segundo membro suplente da banca}{instituição}
-  \assinatura{terceiro membro suplente da banca}{instituição instituição instituição instituição }
+%  \assinatura{primeiro membro suplente da banca}{instituição}
+%  \assinatura{segundo membro suplente da banca}{instituição}
+%  \assinatura{terceiro membro suplente da banca}{instituição instituição instituição instituição }
 \end{folhadeaprovacao}
 % ----------------------------------------------------------
 % Dedicatória
@@ -271,23 +271,25 @@ Abstract in English.\\
 % ----------------------------------------------------------
 % Outras listas
 % ----------------------------------------------------------
-\listadealgoritmos%
+%\listadealgoritmos%
 % ----------------------------------------------------------
 % Lista de abreviaturas e siglas
 % ----------------------------------------------------------
-\pretextualchapter{Lista de abreviaturas e siglas}
+%\pretextualchapter{Lista de abreviaturas e siglas}
+\pretextualchapter{List of abbreviations and acronyms}
 
-\abreviatura{sigla1}{por extenso}
-\abreviatura{sigla2}{por extenso}
-\abreviatura{sigla3}{por extenso}
+\input{chapters/abbreviation.tex}
+%\abreviatura{sigla1}{por extenso}
+%\abreviatura{sigla2}{por extenso}
+%\abreviatura{sigla3}{por extenso}
 % ----------------------------------------------------------
 % Lista de simbolos
 % ----------------------------------------------------------
-\pretextualchapter{Lista de símbolos}
+%\pretextualchapter{Lista de símbolos}
 
-\simbolo{simbolo1}{significado e/ou valor}
-\simbolo{simbolo2}{significado e/ou valor}
-\simbolo{simbolo3}{significado e/ou valor}
+%\simbolo{simbolo1}{significado e/ou valor}
+%\simbolo{simbolo2}{significado e/ou valor}
+%\simbolo{simbolo3}{significado e/ou valor}
 % ----------------------------------------------------------
 % Sumario
 % ----------------------------------------------------------
@@ -297,146 +299,154 @@ Abstract in English.\\
 % ----------------------------------------------------------
 \mainmatter%
 %=====================================================================
-\chapter*{Introduction}
+\chapter*{Introduction}%
 %=====================================================================
+\label{ch:intro}%
 \input{chapters/introduction.tex}
 %Texto da introdução. Texto, texto texto \cite{bib:Amado1991}, texto \citeonline{bib:Amado1991}. Texto \citeauthoronline{bib:Andrade1997} em \citeyear{bib:Andrade1997}, texto \citeauthor{bib:Andrade1997},  texto.
 
 %=====================================================================
-\chapter{Boltzmann Machines}
+\chapter{Boltzmann Machines}%
 %=====================================================================
+\label{ch:bm}%
 \input{chapters/bm-theory.tex}
 
 
 %=====================================================================
-\chapter{T\'{i}tulo do cap\'{i}tulo 1}
+%\chapter{T\'{i}tulo do cap\'{i}tulo 1}
 %=====================================================================
 
-Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.rotulo}\subref{subrotulo1}.
+%Texto do capítulo. Texto, texto, Figura~\ref{rotulo}. Texto Figura~\ref{outro.rotulo}\subref{subrotulo1}.
 
 % \begin{figure ou table}[posição]{largura da figura}
 
-\begin{figure}[!ht]{6cm}
-  \caption{Título da figura.}\label{rotulo}
-  \includegraphics[width=\hsize]{images/logo_uerj_cor.jpg}
-  \legend{Texto da legenda.}
-  \source{Citação da fonte ou `O autor.'.}
-\end{figure}
+%\begin{figure}[!ht]{6cm}
+%  \caption{Título da figura.}\label{rotulo}
+%  \includegraphics[width=\hsize]{images/logo_uerj_cor.jpg}
+%  \legend{Texto da legenda.}
+%  \source{Citação da fonte ou `O autor.'.}
+%\end{figure}
 
 
-\begin{figure}[!ht]{11cm}
-  \caption{Título da figura.}\label{outro.rotulo}
-  \subfloat[][]{\label{subrotulo1}
-    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cinza.png}}}\hfill
-  \subfloat[][]{\label{subrotulo2}
-    \fbox{\includegraphics[width=0.45\hsize]{images/marcadagua_uerj_cinza.png}}}\\
-  \subfloat[][]{\label{subrotulo3}
-    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cor.jpg}}}\hfill
-  \legend{Texto da legenda. \subref{subrotulo1} Texto da imagem.
-          \subref{subrotulo2} Texto da imagem.
-          \subref{subrotulo3} Texto da imagem.}
-  \source{Citação da fonte ou `O autor'.}
-\end{figure}
+%\begin{figure}[!ht]{11cm}
+%  \caption{Título da figura.}\label{outro.rotulo}
+%  \subfloat[][]{\label{subrotulo1}
+%    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cinza.png}}}\hfill
+%  \subfloat[][]{\label{subrotulo2}
+%    \fbox{\includegraphics[width=0.45\hsize]{images/marcadagua_uerj_cinza.png}}}\\
+%  \subfloat[][]{\label{subrotulo3}
+%    \fbox{\includegraphics[width=0.45\hsize]{images/logo_uerj_cor.jpg}}}\hfill
+%  \legend{Texto da legenda. \subref{subrotulo1} Texto da imagem.
+%          \subref{subrotulo2} Texto da imagem.
+%          \subref{subrotulo3} Texto da imagem.}
+%  \source{Citação da fonte ou `O autor'.}
+%\end{figure}
 
-\begin{table}[!ht]{4cm}
-  \caption{Título da tabela.}\label{mais.rotulo}
-  \hfill\begin{tabular}{l|l}
-    \hline
-      X & Y\\
-    \hline
-      1,20 & 15,7\\
-      1,23 & 15,6\\
-      1,19 & 15,3\\
-      1,26 & 15,1\\
-      1,22 & 15,5\\
-      1,16 & 15,3\\
-      1,37 & 15,7\\
-    \hline
-  \end{tabular}\hfill
-  \legend{Texto da legenda.}
-  \source{Citação da fonte ou `O autor.'.}
-\end{table}
-
-%=====================================================================
-\chapter{Título do capítulo 2}
-%=====================================================================
-
-Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
-
-\begin{algorithm}[!ht]
-    \caption{Título do algoritmo.}\label{alg:modelo}
-    \begin{pseudocode}
-      \LinhaEmBranco%
-      \Documentacao%
-        \Titulo{Nome do algoritmo\\}
-        \Proposito{Propósito do algoritmo.\\}
-        \Metodo{Método utilizado no algoritmo.\\}
-        \Entradas{%
-          a, m: multiplicador e módulo\\
-          n0: semente\\
-          i: contador auxiliar\\
-        }
-        \Saidas{%
-          n: número aleatório\\
-        }
-        \Observacoes{Observações, restrições e requisitos.\\}
-        \Algoritmo{Identificação}
-          \Declarar{$a, m, i$}{numéricos}{}{}
-          \Declarar{$n0, n$}{numéricos}{}{}
-          \Ins{$m \leftarrow 13$}
-          \Ins{$n0 \leftarrow 1$}
-          \ParaDeAtePasso[para cada possível valor de `a']{$a$}{2}{$m-1$}{}
-            \Escrever{``a = '', $a$, ``: n = \{''}
-            \Ins[reinicia a geração com a semente n0]{$n \leftarrow n0$}
-            \ParaDeAtePasso{$i$}{0}{$m-1$}{}
-              \Ins[gerador de números aleatórios]{$n \leftarrow resto(a*n, m)$}
-              \SeEntao[se fim da sequencia $\dots$]{$n == n0$}
-                \Escrever{$n$,``\}''}
-                \Parar%
-              \Senao%
-                \Escrever{$n$}
-              \FimSe%
-            \FimPara%
-          \FimPara%
-        \Continua%
-    \end{pseudocode}
-\end{algorithm}
-
-\alglinenumbersoff%
-\begin{algorithm*}[!ht]
-    \caption{Título do algoritmo. (continuação)}
-    \begin{pseudocode*}
-        \LinhaEmBranco%
-        \Continuacao%
-%          \LinhaEmBranco
-          \Ins{$a \leftarrow 1$}
-          \Enquanto[comentário]{$a<10$}
-            \Escrever{$a$}
-            \Ins{$a \leftarrow a+1$}
-          \FimEnquanto%
-          \Ins{$a \leftarrow 1$}
-          \Repetir[comentário]
-            \Escrever{$a$}
-            \Ins{$a \leftarrow a+1$}
-          \AteQue{$a\ge10$}
-          \LinhaEmBranco%
-          \Ins{$a \leftarrow 1$}
-          \Fazer[comentário]
-            \Escrever{$a$}
-            \Ins{$a \leftarrow a+1$}
-          \Enquanto{$a<10$}
-        \FimAlgoritmo%
-      \FimDocumentacao%
-    \end{pseudocode*}
-\end{algorithm*}
-
-\vfill~\\
+%\begin{table}[!ht]{4cm}
+%  \caption{Título da tabela.}\label{mais.rotulo}
+%  \hfill\begin{tabular}{l|l}
+%    \hline
+%      X & Y\\
+%    \hline
+%      1,20 & 15,7\\
+%      1,23 & 15,6\\
+%      1,19 & 15,3\\
+%      1,26 & 15,1\\
+%      1,22 & 15,5\\
+%      1,16 & 15,3\\
+%      1,37 & 15,7\\
+%    \hline
+%  \end{tabular}\hfill
+%  \legend{Texto da legenda.}
+%  \source{Citação da fonte ou `O autor.'.}
+%\end{table}
 
 %=====================================================================
-\chapter*{Conclusão}
+%\chapter{Título do capítulo 2}
 %=====================================================================
 
-Texto da conclusão.
+%Texto do capítulo. Texto, texto Algoritmo~\ref{alg:modelo}. Texto.
+%
+%\begin{algorithm}[!ht]
+%    \caption{Título do algoritmo.}\label{alg:modelo}
+%    \begin{pseudocode}
+%      \LinhaEmBranco%
+%      \Documentacao%
+%        \Titulo{Nome do algoritmo\\}
+%        \Proposito{Propósito do algoritmo.\\}
+%        \Metodo{Método utilizado no algoritmo.\\}
+%        \Entradas{%
+%          a, m: multiplicador e módulo\\
+%          n0: semente\\
+%          i: contador auxiliar\\
+%        }
+%        \Saidas{%
+%          n: número aleatório\\
+%        }
+%        \Observacoes{Observações, restrições e requisitos.\\}
+%        \Algoritmo{Identificação}
+%          \Declarar{$a, m, i$}{numéricos}{}{}
+%          \Declarar{$n0, n$}{numéricos}{}{}
+%          \Ins{$m \leftarrow 13$}
+%          \Ins{$n0 \leftarrow 1$}
+%          \ParaDeAtePasso[para cada possível valor de `a']{$a$}{2}{$m-1$}{}
+%            \Escrever{``a = '', $a$, ``: n = \{''}
+%            \Ins[reinicia a geração com a semente n0]{$n \leftarrow n0$}
+%            \ParaDeAtePasso{$i$}{0}{$m-1$}{}
+%              \Ins[gerador de números aleatórios]{$n \leftarrow resto(a*n, m)$}
+%              \SeEntao[se fim da sequencia $\dots$]{$n == n0$}
+%                \Escrever{$n$,``\}''}
+%                \Parar%
+%              \Senao%
+%                \Escrever{$n$}
+%              \FimSe%
+%            \FimPara%
+%          \FimPara%
+%        \Continua%
+%    \end{pseudocode}
+%\end{algorithm}
+%
+%\alglinenumbersoff%
+%\begin{algorithm*}[!ht]
+%    \caption{Título do algoritmo. (continuação)}
+%    \begin{pseudocode*}
+%        \LinhaEmBranco%
+%        \Continuacao%
+%%          \LinhaEmBranco
+%          \Ins{$a \leftarrow 1$}
+%          \Enquanto[comentário]{$a<10$}
+%            \Escrever{$a$}
+%            \Ins{$a \leftarrow a+1$}
+%          \FimEnquanto%
+%          \Ins{$a \leftarrow 1$}
+%          \Repetir[comentário]
+%            \Escrever{$a$}
+%            \Ins{$a \leftarrow a+1$}
+%          \AteQue{$a\ge10$}
+%          \LinhaEmBranco%
+%          \Ins{$a \leftarrow 1$}
+%          \Fazer[comentário]
+%            \Escrever{$a$}
+%            \Ins{$a \leftarrow a+1$}
+%          \Enquanto{$a<10$}
+%        \FimAlgoritmo%
+%      \FimDocumentacao%
+%    \end{pseudocode*}
+%\end{algorithm*}
+%
+%\vfill~\\
+
+%=====================================================================
+\chapter*{Future Development}%
+%=====================================================================
+\label{ch:future}%
+\input{chapters/future-dev.tex}
+
+%=====================================================================
+%\chapter*{Conclusion}
+%=====================================================================
+
+%Texto da conclusão.
 
 % ----------------------------------------------------------
 % ELEMENTOS POS-TEXTUAIS
@@ -463,8 +473,9 @@ Texto da conclusão.
 % ---
 \appendix
 %=====================================================================
-\postextualchapter{Kullback-Leibler Divergence or Relative Entropy}
+\postextualchapter{Kullback-Leibler Divergence or Relative Entropy}%
 %=====================================================================
+\label{app:dkl}%
 \input{chapters/appendix-kl_divergence.tex}
 %\section{Primeira seção}
 %
