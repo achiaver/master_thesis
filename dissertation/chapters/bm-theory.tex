@@ -16,6 +16,31 @@ A vector of random variables of size $n$ is represented by $\mathrm{\mathbf{x}} 
 The value a random variable can assume is represented by $x$. 
 Assuming a discrete scenario, the probability of a random variable $\mathrm{x}_{i}$ of assuming a certain value $x_{i}$ is $P(\mathrm{x}_{i} = x_{i})$. 
 
+\section{Hopfield Networks}
+
+Hopfield networks are a simple neural network architecturei that can be used for storing memories of patterns of activities.
+Energy-based model, because property derives from global energy function.
+Binary units with recurrent connections between them.
+Is the connections are symmetric, there is a global energy function: each binary configuration of the whole netwark has an energy. Binary threshold decision rule causes the network to settle to a minimum of this energy function.
+Energy function is the sum of many contributions. Each contribution depends on one connection weight and the ninary state of two neurons is. (Energy is bad, so that is why we have a minus sign. The less energy, the better.)
+\begin{equation}\label{eq:hopfield-energy}
+  H = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
+\end{equation}
+where the first term is the symmetric connection between neurons $\omega_{ij}$ and the activity of the two connected neurons $x_{i}$ and $x_{j}$. The second term only involves the state of individual units.
+
+The quadraticc energy function makes it possible for each unit to compute locally how it's state affects the global energy, in another words, how each unit affects the global energy when its state is changed. Define the energy gap $\Delta H_{i}$ for a unit $x_{i}$, this measure is the global energy function difference when the unit $x_{i}$ has its state changed.
+\begin{equation}\label{eq:hopfield-energy-gap}
+  \Delta H_{i} = H(x_{i} = 0) - H(x_{i} = 1) = \sum_{j} \omega_{ij} x_{j} + \phi_{i}
+\end{equation}
+the energy gap equation can also be read as the difference between the energy when $x_{i}$ is off and the energy when $x_{i}$ is on. The energy gap can also be computed by differenciating the energy function $H$, equation~(\ref{eq:hopfield-energy}). Refer to appendix (N\'{u}mero) for differenciation.
+The Hopfield network will go down hill in this global energy. To find the energy minimum, start from random state, update this unit one at a time in random order. Update each unit to whichever of its two states gives the lowest global energy.
+Hopfield
+According to [HOPFIELD], memories could be seen as energy minima. One way of interpreting this is that an item could be accessed by just knowing some parts of it. An interesting analogy expose by [HINTON] is that Hopfield networks is like reconstructing a dinosaur from a few bones. FALTA COLOCAR A REGRA DE ATUALIZACAO DOS PESOS! PARA MOSTRAR COMO AS MEMORIAS SAO ARMAZENADAS.
+
+
+
+
+ 
 
 \section{Boltzmann Machines}
 
