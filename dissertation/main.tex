@@ -138,7 +138,7 @@
 %---------------------------------------------------------------------
 
 \local{Rio de Janeiro} 
-\data{dd}{Mês}{aaaa} 
+\data{22}{Novembro}{2019} 
 
 % ********************************************************************
 % ********************************************************************
@@ -222,16 +222,16 @@
 % ----------------------------------------------------------
 % Dedicatória
 % ----------------------------------------------------------
-\pretextualchapter{Dedicatória}
-
-\vfill
-Texto da dedicatória
+%\pretextualchapter{Dedicatória}
+%
+%\vfill
+%Texto da dedicatória
 % ----------------------------------------------------------
 % Agradecimentos
 % ----------------------------------------------------------
-\pretextualchapter{Agradecimentos}
-
-Texto de agradecimento
+%\pretextualchapter{Agradecimentos}
+%
+%Texto de agradecimento
 % ----------------------------------------------------------
 % Epigrafe (opcional)
 % ----------------------------------------------------------
@@ -297,9 +297,9 @@ Abstract in English.\\
 % ----------------------------------------------------------
 \mainmatter%
 %=====================================================================
-\chapter*{Introdução}
+\chapter*{Introduction}
 %=====================================================================
-
+\input{chapters/introduction.tex}
 %Texto da introdução. Texto, texto texto \cite{bib:Amado1991}, texto \citeonline{bib:Amado1991}. Texto \citeauthoronline{bib:Andrade1997} em \citeyear{bib:Andrade1997}, texto \citeauthor{bib:Andrade1997},  texto.
 
 %=====================================================================
@@ -445,16 +445,16 @@ Texto da conclusão.
 %=====================================================================
 % Referencias via BibTeX
 %=====================================================================
-\citeoption{dissertation/bibs/abnt-options4.bib}
-\bibliography{dissertation/bibs/bibliografia.bib}
+\citeoption{abnt-options4.bib}
+\bibliography{bibs/bibliografia.bib}
 %=====================================================================
 
 %=====================================================================
-\postextualchapter*{Glossário}
+%\postextualchapter*{Glossário}
 %=====================================================================
-\definicao{termo}{significado}
-\definicao{termo}{significado}
-\definicao{termo}{significado}
+%\definicao{termo}{significado}
+%\definicao{termo}{significado}
+%\definicao{termo}{significado}
 % ----------------------------------------------------------
 % Apêndices (opcionais)
 % ----------------------------------------------------------
@@ -463,33 +463,34 @@ Texto da conclusão.
 % ---
 \appendix
 %=====================================================================
-\postextualchapter{Primeiro apêndice}
+\postextualchapter{Kullback-Leibler Divergence or Relative Entropy}
 %=====================================================================
-\section{Primeira seção}
-
-Texto da primeira seção.
-
-\subsection{Primeira subseção}
-
-Texto da primeira subseção.
-
-\subsubsection{Primeira subsubseção}
-
-Texto da primeira subsubseção.
+\input{chapters/appendix-kl_divergence.tex}
+%\section{Primeira seção}
+%
+%Texto da primeira seção.
+%
+%\subsection{Primeira subseção}
+%
+%Texto da primeira subseção.
+%
+%\subsubsection{Primeira subsubseção}
+%
+%Texto da primeira subsubseção.
 %=====================================================================
-\postextualchapter{Segundo apêndice}
+%\postextualchapter{Segundo apêndice}
 %=====================================================================
-\section{Primeira seção}
-
-Texto da primeira seção.
-
-\subsection{Primeira subseção}
-
-Texto da primeira subseção.
-
-\subsubsection{Primeira subsubseção}
-
-Texto da primeira subsubseção.
+%\section{Primeira seção}
+%
+%Texto da primeira seção.
+%
+%\subsection{Primeira subseção}
+%
+%Texto da primeira subseção.
+%
+%\subsubsection{Primeira subsubseção}
+%
+%Texto da primeira subsubseção.
 % ----------------------------------------------------------
 % Anexos (opcionais)
 % ----------------------------------------------------------
@@ -498,33 +499,33 @@ Texto da primeira subsubseção.
 % ---
 \annex%
 %=====================================================================
-\postextualchapter{Primeiro anexo}
+%\postextualchapter{Kullback-Leibler Divergence or Relative Entropy}
 %=====================================================================
-\section{Primeira seção}
-
-Texto da primeira seção.
-
-\subsection{Primeira subseção}
-
-Texto da primeira subseção.
-
-\subsubsection{Primeira subsubseção}
-
-Texto da primeira subsubseção.
+%\section{Primeira seção}
+%
+%Texto da primeira seção.
+%
+%\subsection{Primeira subseção}
+%
+%Texto da primeira subseção.
+%
+%\subsubsection{Primeira subsubseção}
+%
+%Texto da primeira subsubseção.
 %=====================================================================
-\postextualchapter{Segundo anexo}
+%\postextualchapter{Segundo anexo}
 %=====================================================================
-\section{Primeira seção}
-
-Texto da primeira seção.
-
-\subsection{Primeira subseção}
-
-Texto da primeira subseção.
-
-\subsubsection{Primeira subsubseção}
-
-Texto da primeira subsubseção.
+%\section{Primeira seção}
+%
+%Texto da primeira seção.
+%
+%\subsection{Primeira subseção}
+%
+%Texto da primeira subseção.
+%
+%\subsubsection{Primeira subsubseção}
+%
+%Texto da primeira subsubseção.
 %---------------------------------------------------------------------
 % INDICE REMISSIVO (relativo ao makeindex)
 %---------------------------------------------------------------------
