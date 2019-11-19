@@ -268,8 +268,8 @@ Given the derivative of $P_{v}$ in relation to $\omega_{ij}$, we can compute the
 
 In the above derivation, we have used the following relations,
 \begin{equation}
+  \label{eq:conditional-prob1}
   P_{h|v} = \frac{P_{vh}}{P_{v}},
-  \label{eq:conditional_prob1}
 \end{equation}
 which is the conditional probability equation.
 In our scenario this equation means that the probability distribution of the hidden units in state $h$ given the state $v$ of the visible units is the joint probability distribution of both states, $v$ and $h$, divided by the marginal probability distribution of the visible units in state $v$.
@@ -279,14 +279,15 @@ In other words, we would have to compute all possible combination of states of v
 
 The first term can be simplified by
 \begin{equation}
-  \sum_{v} R_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} R_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle.
-  \label{eq:clamped_term}
+  \label{eq:clamped-term}
+  \sum_{v} R_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} R_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle,
 \end{equation}
+which is the average value according to the probability distribution $R_{v}$ of the correlation between variables $x_{i}$ and $x_{j}$ when the visibles units are fixed at state $v$.
 
 Then equation~(\ref{eq:delta-omega-final}) becomes
 \begin{equation}
   \label{eq:delta-omega-final2}
   \Delta \omega_{ij} = \eta \beta \left[ \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{clamped} - \langle x_{i} x_{j} \rangle_{free} \right],
 \end{equation}
-it is important to notice that the subscripts \textit{clamped} means that we have to fix a certain $v$ state on the visible units otherwise the second term in the equation does not have a reference.
-On the other hand, the subscript \textit{free} identify the $\ldots$
+it is important to notice that the subscripts \textit{clamped} means that we have to fix a certain $v$ state on the visible units otherwise the second term in the equation does not have a reference to whom it should be trying to match.
+On the other hand, the subscript \textit{free} identify the case where the variables are allowed to vary freely without any restriction~\cite{bib:duda2000}. When the first and the second terms are equal, i.e., $\langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{clamped} = \langle x_{i} x_{j} \rangle_{free}$, the update in the weight is zero, $\Delta \omega_{ij} = 0$, thus the desired value of that connection is obtained.
