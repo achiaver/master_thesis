@@ -1,0 +1,46 @@
+\documentclass[lualatex]{beamer}
+%
+% Choose how your presentation looks.
+%
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+%
+\mode<presentation>
+{
+  \usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+} 
+
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{polyglossia}
+\usepackage{ragged2e}
+\usepackage{amsmath,amssymb,latexsym,mathrsfs}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\resetcounteronoverlays{saveenumi}
+
+\setbeamertemplate{caption}[numbered]
+
+\numberwithin{equation}{section}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+
+\title[Deep Learning]{Deep Learning - Probability}
+\author{Ian Goodfellow\texorpdfstring{\\ Yoshua Bengio \\ Aaron Courville}{ and Yoshua Bengio and Aaron Courville}}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\input{sections/00_probability_and_IT.tex}
+% \input{sections/section_00.tex}
+
+\end{document}
