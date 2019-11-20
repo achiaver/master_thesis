@@ -1,12 +1,16 @@
-\documentclass[lualatex]{beamer}
-%
+%\documentclass[lualatex]{beamer}
+\documentclass{beamer}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
 % Choose how your presentation looks.
-%
+
 % For more themes, color themes and font themes, see:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
-%
-\mode<presentation>
-{
+
+\mode<presentation>%
+{%
   \usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
   \usecolortheme{default} % or try albatross, beaver, crane, ...
   \usefonttheme{serif}  % or try serif, structurebold, ...
@@ -15,9 +19,18 @@
 
 \setbeamertemplate{footline}[frame number]
 
-\usepackage{polyglossia}
+%\usepackage{polyglossia} %lualatex
 \usepackage{ragged2e}
-\usepackage{amsmath,amssymb,latexsym,mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{images/}
+\usepackage[backend=biber, bibstyle=nature, sorting=nty, citestyle=numeric-comp]{biblatex}
+\addbibresource{bib.bib}
 
 \newcounter{saveenumi}
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
@@ -30,17 +43,23 @@
 \numberwithin{equation}{section}
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
 
-\title[Deep Learning]{Deep Learning - Probability}
-\author{Ian Goodfellow\texorpdfstring{\\ Yoshua Bengio \\ Aaron Courville}{ and Yoshua Bengio and Aaron Courville}}
+%\title[Boltzmann Machines]{Inteligência Computacional Usando Máquinas De Boltzmann}%
+\title[Boltzmann Machines]{Máquinas de Boltzmann}
+\author[Artur Chiaperini Grover]{Aluno: Artur Chiaperini Grover \\ Orientadora: Dra. Roseli Suzi Wedemann}
+\institute[UERJ]{PPG-CComp \\ Universidade do Estado do Rio de Janeiro}
 \date{\today}
 
 \begin{document}
-
 \begin{frame}
-  \titlepage
+  \titlepage%
 \end{frame}
 
-\input{sections/00_probability_and_IT.tex}
-% \input{sections/section_00.tex}
+\begin{frame}{Sumário}
+  \tableofcontents
+\end{frame}
+
+\input{sections/01-intro.tex}
+%\input{sections/00_probability_and_IT.tex}
+%\input{sections/section_00.tex}
 
 \end{document}

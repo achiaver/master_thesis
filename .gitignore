@@ -19,3 +19,7 @@
 *.ind
 *.synctex.gz
 *.dvi
+*.bcf
+*.nav
+*.run.xml
+*.snm

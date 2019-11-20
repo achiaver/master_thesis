@@ -60,7 +60,7 @@
 
 \begin{frame}{3.1 Why Probability?}
     \justifying
-    In many cases, it is more practical to use a simple but uncertain rule rather than a complex but certain one, even if the true rule is deterministic and our modeling system has the fidelity to accommodate a complex rule. For example, the simple rule ``Most birds fly'' is cheap to develop and is broadly useful, while a rule of the form, ``Birds fly, except for very young birds that have not yet learned to fly, sick or injured birds that have lost the ability to fly, flightless species of birds including the cassowary, ostrich and kiwi...'' is expensive to develop, maintain and communicate, and after all of this effort is still very brittle and prone to failure.
+    In many cases, it is more practical to use a simple but uncertain rule rather than a complex but certain one, even if the true rule is deterministic and our modeling system has the fidelity to accommodate a complex rule. For example, the simple rule ``Most birds fly'' is cheap to develop and is broadly useful, while a rule of the form, ``Birds fly, except for very young birds that have not yet learned to fly, sick or injured birds that have lost the ability to fly, flightless species of birds including the cassowary, ostrich and kiwi$\dots$'' is expensive to develop, maintain and communicate, and after all of this effort is still very brittle and prone to failure.
 \end{frame}
 
 \begin{frame}{3.1 Why Probability?}
@@ -309,7 +309,7 @@
 
 \begin{frame}{3.8 Expectation, Variance and Covariance}
     \justifying
-    For example, suppose we first sample a real number $x$ from a uniform distribution over the interval $[−1, 1]$. We next sample a random variable $s$. With probability $\frac{1}{2}$, we choose the value of $s$ to be $1$. Otherwise, we choose the value of $s$ to be $−1$. We can then generate a random variable $y$ by assigning $y = sx$. Clearly, $x$ and $y$ are not independent, because $x$ completely determines the magnitude of $y$. However, $Cov(x, y) = 0$.
+    For example, suppose we first sample a real number $x$ from a uniform distribution over the interval $[-1, 1]$. We next sample a random variable $s$. With probability $\frac{1}{2}$, we choose the value of $s$ to be $1$. Otherwise, we choose the value of $s$ to be $-1$. We can then generate a random variable $y$ by assigning $y = sx$. Clearly, $x$ and $y$ are not independent, because $x$ completely determines the magnitude of $y$. However, $Cov(x, y) = 0$.
 \end{frame}
 
 \begin{frame}{3.8 Expectation, Variance and Covariance}
@@ -363,7 +363,8 @@
 
 % --------------------------------------- Gaussian Distribution
 \subsubsection{3.9.3 Gaussian Distribution}
-\begin{frame}{3.9.3 Gaussian Distribution}
+\begin{frame}
+  {3.9.3 Gaussian Distribution}
     \justifying
     The most commonly used distribution over real numbers is the \textbf{normal distribution}, also known as the \textbf{Gaussian distribution}:
     \begin{equation}
