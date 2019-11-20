@@ -26,11 +26,12 @@
 \usepackage{latexsym}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
-\usepackage{hyperref}
+%\usepackage{hyperref}
+\usepackage{tikz}
 \usepackage{graphicx}
-\graphicspath{images/}
-\usepackage[backend=biber, bibstyle=nature, sorting=nty, citestyle=numeric-comp]{biblatex}
-\addbibresource{bib.bib}
+%\graphicspath{images/}
+%\usepackage[backend=biber, bibstyle=nature, sorting=nty, citestyle=numeric-comp]{biblatex}
+%\addbibresource{bib.bib}
 
 \newcounter{saveenumi}
 \newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
@@ -59,6 +60,11 @@
 \end{frame}
 
 \input{sections/01-intro.tex}
+\input{sections/02-ann.tex}
+\input{sections/03-hopfield.tex}
+\input{sections/04-stochastic.tex}
+\input{sections/05-bm.tex}
+
 %\input{sections/00_probability_and_IT.tex}
 %\input{sections/section_00.tex}
 
