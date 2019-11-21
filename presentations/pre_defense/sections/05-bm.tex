@@ -73,7 +73,7 @@
   Energia para rede com unidades visíveis no estado $v$, e escondidas, no estado $h$:
   \begin{equation}%
     \label{eq:bm-energy}
-    H_{vh} = -\frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i}.
+    H_{vh} = -\frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{i} \phi_{i} x^{(vh)}_{i}.
   \end{equation}
   \\~\\
   Podemos calcular a soma de todos os possíveis estados da rede pela função partição:
@@ -87,7 +87,7 @@
   A probabilidade $P_{v}$ de achar as unidades visíveis de uma máquina de Boltzmann em um determinado estado $v$, é
   \begin{equation}%
     \label{eq:bm-prob-marg}%
-    P_{v} = \sum_{h} \frac{1}{Z} e^{-\beta H_{vh}}
+    P_{v} = \sum_{h} \frac{1}{Z} e^{(-\beta H_{vh})}
   \end{equation}
 \end{frame}
 
@@ -116,22 +116,45 @@
   Pelo método do grandiente descendente, podemos calcular $\Delta \omega_{ij}$,
   \begin{equation}%
     \label{eq:omega-delta}
-    \Delta \omega_{ij} = -\eta \frac{\partial E}{\partial \omega_{ij}}.
+    \Delta \omega_{ij} = -\eta \frac{\partial E}{\partial \omega_{ij}},
   \end{equation}
+  onde $\eta$ é a taxa de aprendizagem.
   \\~\\
-  $E$ é função de $P_{v}$.
-  $P_{v}$ é função dos pesos $\omega_{ij}$.
+  $E(P_{v})$; $P_{v}(H_{vh})$; $H_{vh}(\omega_{ij})$.
 \end{frame} 
 
 \begin{frame}{Atualização de $\Delta \omega_{ij}$}%
   \justifying%
-  Por simplificação, vamos considerar que a função de energia para a rede no estado $v$ e $h$ é dada apenas pela correlação entre as unidades (primeiro termo da equação~(\ref{eq:bm-energy})).
+  Por simplificação, vamos considerar que a função de energia para a rede no estado $v$ e $h$ é dada apenas pela correlação entre as unidades (primeiro termo da equação~(\ref{eq:bm-energy})):
+  \begin{equation}%
+    \label{eq:bm-energy-simple}
+    H_{vh} = -\frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j}  
+  \end{equation}
 \end{frame}
 
-\subsection{next one $\dots$}
-
-\begin{frame}{frame teste}
-%  Suponhamos que queremos, que temos um problema onde queremos saber descrever a distribuição de probabilidade com que certos eventos acontecem.
-%  
-%  a partir de um conjunto de treinamento, determinar a distribuição de probabilidade de encontrar os estados mais estáveis da rede
+\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
+  \justifying%
+  Para se determinar $\Delta \omega_{ij}$, temos que passar por uma série de derivações$\dots$
+  \begin{align}
+    \phantom{\frac{\partial P_{v}}{\partial \omega_{ij}}}
+    & \onslide<1->{%
+    \begin{aligned}
+      \mathllap{\Delta \omega_{ij}} & = \eta \sum_{v} \frac{R_{v}}{P_{v}} \frac{\partial P_{v}}{\partial \omega_{ij}} 
+    \end{aligned} \\ }
+    & \onslide<2->{%
+    \begin{aligned}
+        \mathllap{\frac{\partial P_{v}}{\partial \omega_{ij}}} & = \beta \left[-\sum_{h} \frac{e^{-\beta H_{vh}}}{Z} \frac{\partial H_{vh}}{\partial \omega_{ij}} + \sum_{h} \frac{e^{-\beta H_{vh}}}{Z} \sum_{u} \sum_{k} \frac{e^{-\beta H_{uk}}}{Z} \frac{\partial H_{uk}}{\partial \omega_{ij}} \right] 
+    \end{aligned} \\ }
+    & \onslide<3->{%
+    \begin{aligned}
+        \mathllap{\frac{\partial H}{\partial \omega_{ij}}} & = - x_{i} x_{j} 
+    \end{aligned} }
+  \end{align}
 \end{frame}
+
+\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
+  \justifying%
+  
+\end{frame}
+
+
