@@ -36,7 +36,7 @@ It is a different network arrangement compared to perceptron, for instance, wher
 
 Hopfield network is an energy-based model, because there is a global energy function associated to the network.
 This global energy function evolves to a low-energy state during training phase, i.e., the network connections between units are modified so that the energy decreases; the less energy, the better.
-When connections $\omega$ between units, also know as weights or \textit{synaptic strenght}, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$, where the subscript identify the connection between unit $i$ and $j$, then~\citeonline{bib:hopfield1982} presented that the energy function is give by
+When connections $\omega$ between units, also know as weights or \textit{synaptic strenght}, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$, where the subscript identify the connection between unit $i$ and $j$, then~\citeonline{bib:hopfield1982} presented that the energy function is given by
 \begin{equation}\label{eq:hopfield-energy}
   H(\mathbf{x}) = -\frac{1}{2}\sum_{i} \sum_{j} \omega_{ij} x_{i} x_{j} - \sum_{i} \phi_{i} x_{i},
 \end{equation}
@@ -148,7 +148,7 @@ where
 and
 \begin{equation}
   \label{eq:bm-energy-function}
-  H_{vh} = - \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{i} \phi_{i} x^{(vh)}_{i}.
+  H_{vh} = - \frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{i} \phi_{i} x^{(vh)}_{i}.
 \end{equation}
 
 Equations~(\ref{eq:bm-joint-prob}),~(\ref{eq:bm-z}) and~(\ref{eq:bm-energy-function}) are ajustments to equations~(\ref{eq:stochastic-prob}),~(\ref{eq:stochastic-z}) and~(\ref{eq:hopfield-energy}), respectively, where now the different kind of units state is taken into consideration. 
@@ -165,7 +165,7 @@ Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, an
 This means that ideally we would like to match the empirical distribution of the data, even though we do not have access to the correct distribution, only to what the observed data has given us as an input to training the model.
 
 One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $R_{v}$, is using the Kullback-Leibler divergence $D_{KL}(R_{v}||P_{v})$, which can also be referred to as relative entropy, $E$, which will be our cost function. 
-Further comments about the ullback-Leibler divergence can be found on appendix~\ref{app:dkl}.
+Further comments about the Kullback-Leibler divergence can be found on appendix~\ref{app:dkl}.
 %(EXPLICAR FUN\c{C}\~{A}O DE CUSTO e $D_{KL}$!!!).
 \begin{equation}
   \label{eq:relative-entropy}
@@ -205,7 +205,7 @@ In the following steps, we present the derivation of the gradient descent, based
   \end{split}
 \end{equation}
 
-To continue with the computation of $\Delta \omega_{ij}$, we have to find the derivative of $\partial P_{v}/\partial \omega_{ij}$, from the marginal probability, equation~\ref{eq:bm-marginal-prob},
+To continue with the computation of $\Delta \omega_{ij}$, we have to find the derivative of $\partial P_{v}/\partial \omega_{ij}$, from the marginal probability, equation~(\ref{eq:bm-marginal-prob}),
 \begin{equation}
   \label{eq:bm-marginal-prob-expansion}
   P_{v} = \frac{\sum_{h} e^{-\beta H_{vh}}}{\sum_{u} \sum_{k} e^{-\beta H_{u k}}},
@@ -229,6 +229,7 @@ Following equation~(\ref{eq:bm-marginal-prob-grad}), we need to compute the term
   \end{split}
 \end{equation}
 as the connections between units are symmetric, i.e., $\omega_{ij} = \omega_{ji}$, we can simplify equation~(\ref{eq:bm-energy-grad-step1}),
+\textbf{RRUMAR OS ÍNDICES!!!}
 \begin{equation}
   \label{eq:bm-energy-grad-final}
   \begin{split}
