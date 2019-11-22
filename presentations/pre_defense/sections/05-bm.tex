@@ -1,13 +1,20 @@
 \section{Máquina de Boltzmann}
 
+\begin{frame}
+  \justifying%
+  \begin{alertblock}{}
+    \centering
+    Máquina de BOLTZMANN
+  \end{alertblock}
+\end{frame}
 
 \begin{frame}{Máquina de Boltzmann}%
-  \justiying%
+  \justifying%
   Rede estocástica com $\omega_{ij} = \omega_{ji}$.
   \\~\\
   Possui dois tipos de unidades distintas: unidades \textbf{visíveis} e unidades \textbf{escondidas}.
   \\~\\
-  \textbf{Visíveis}: ligadas ao meio externo; correspondentes as variáveis do problema.
+  \textbf{Visíveis}: ligadas ao meio externo; correspondem às variáveis do problema.
   \\~\\
   \textbf{Escondidas}: não tem ligação do o meio externo; determinam a relação entre as variáveis do problema.
 \end{frame}
@@ -15,16 +22,15 @@
 \subsection{Esquema}
 \begin{frame}{Arquitetura de BMs}%
   \begin{figure}[h]{}%
-    \label{fig:bm-diagram}%
+    \label{fig:bm-diagram-1}%
     \includegraphics[scale=0.5]{images/bm_1.png}
-    \caption{Diagrama de uma máquina de Boltzmann.\\
-            \;}
+    \caption{Diagrama de uma máquina de Boltzmann.}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Arquitetura de BMs}%
   \begin{figure}[h]{}%
-    \label{fig:bm-diagram}%
+    \label{fig:bm-diagram-2}%
     \includegraphics[scale=0.5]{images/bm_2.png}
     \caption{Diagrama de uma máquina de Boltzmann; unidades mais claras são as visíveis, e unidades mais escuras, as escondidas.}
   \end{figure}
@@ -36,7 +42,7 @@
   \onslide<1->{%
   Vamos considerar que temos uma rede com $N$ unidades visíveis, e $K$ unidades escondidas, }
   \onslide<2->{%
-  em que as unidades visíveis estão no estado $v$, e as escondidas, no estado $h$.}
+  em que as unidades visíveis estão no estado $v$, e as escondidas, no estado $h$.} 
   \\~\\
   \onslide<3->{%
   Temos $2^{(N + K)}$ possibidades de estados em que a rede pode ser encontrada.
@@ -49,7 +55,7 @@
 
 \subsection{Aprendizagem}%
 \begin{frame}{Objetivo da Máquina de Boltzmann}%
-  \justiying%
+  \justifying%
   \onslide<1->{%
   Na máquina de Boltzmann fazemos o ajuste das conexões $\omega_{ij}$ para termos um certo estado nas unidades visíveis com uma distribuição de probabilidade desejada.
   \\~\\
@@ -65,7 +71,6 @@
   \onslide<3->{%
   Lembrando que os pesos são ajustados baseados nos exemplos de treinamento que a rede recebe.  
   }
-
 \end{frame}
 
 \begin{frame}{Grandezas Importantes}%
@@ -87,19 +92,21 @@
   A probabilidade $P_{v}$ de achar as unidades visíveis de uma máquina de Boltzmann em um determinado estado $v$, é
   \begin{equation}%
     \label{eq:bm-prob-marg}%
-    P_{v} = \sum_{h} \frac{1}{Z} e^{(-\beta H_{vh})}
+    P_{v} = \sum_{h} \frac{1}{Z} e^{(-\beta H_{vh})}.
+  \end{equation}
+  \\~\\
+  Também pode ser escrito como
+  \begin{equation}%
+    \label{eq:bm-prob-marg2}
+    P_{v} = \frac{\sum_{h} e^{-\beta H_{vh}}}{\sum_{u} \sum_{k} e^{-\beta H_{uk}}}.
   \end{equation}
 \end{frame}
 
 \begin{frame}{Entropia Relativa - Divergência Kullback-Leibler}%
   \justifying%
   Se temos duas distribuições de probabilidade distintas, por exemplo, $P$ e $R$, sobre um mesmo espaço de estados, podemos calcular a diferença entre estas distribuições pela entropia relativa, $E$, (ou divergência de Kullback-Leibler, $D_{KL}(R||P)$).
-%  \begin{equation}%
-%    \label{eq:dkl}
-%    E = \sum_{v} R \ln \left[\frac{R}{P} \right]
-%  \end{equation}
 \end{frame}
-  
+
 \begin{frame}{Entropia Relativa - Divergência Kullback-Leibler}%
   \justifying%
   Com as máquinas de Boltzmann queremos determinar a probabilidade $P_{v}$ de achar as unidades visíveis em determinado estado $v$, como mostra a equação~(\ref{eq:bm-prob-marg}). Porém para este estado temos uma probabilidade deseja $R_{v}$.
@@ -181,23 +188,29 @@
     \label{eq:omega-deriv-2}%
     \Delta \omega_{ij} = \eta \beta \left[ \sum_{v} \sum_{h} R_{v} \frac{P_{vh}}{P_{v}} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} R_{v} \langle x_{i} x_{j} \rangle \right]
   \end{equation}
+  \\~\\
+  Considerando o probabilidade condicional 
+  \begin{equation}%
+    \label{eq:prob-condic}%
+    P_{h|v} = \frac{P_{vh}}{P_{v}},
+  \end{equation}
+  podemos rearranjar o primeiro termo de~(\ref{eq:omega-deriv-2}),
+  \begin{equation}%
+    \label{eq:omega-deriv-term1}%
+    \sum_{v} R_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} R_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle
+  \end{equation}
 \end{frame}
 
-\begin{frame}{FALTA NOME}
-colocar a simplificação final de delta omega
-
-explicar as probabilidades condicionais de Pvh
-
-explicar os termos livres e fixos
-
-FAlta a equação da probilidade Pv em funcao da funcao de particao
-
-FAlta a prob para uma rede estocastica
-
-Falta comentar sobre o valor que entra na unidade
-
-Falta falar dos proximos passos
-
-Apresentar cronogram
-
+\begin{frame}{$\Delta \omega_{ij}$}%
+  \justifying%
+  Por último, temos que o termo responsável pela atualização dos pesos é
+  \begin{equation}%
+    \label{eq:omega-deriv-final}
+    \Delta \omega_{ij} = \eta \beta \left[ \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{fixo} - \langle x_{i} x_{j} \rangle_{llivre}  \right]
+  \end{equation}
+  \\~\\
+  O primeiro termo corresponde ao valor médio de acordo com a distribuição de probabilidade $R_{v}$ do valor médio das correlações entre as unidades $i$ e $j$ quando as unidades visíveis estão no estado fixo $v$.
+  \\~\\
+  O segundo termo corresponde a média da correlação entre as unidades $i$ e $j$ para todas as combinações possíveis dos estados $v$ e $h$ do sistema.
 \end{frame}
+
