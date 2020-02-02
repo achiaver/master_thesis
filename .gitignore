@@ -1,5 +1,6 @@
 *.DS_Store
 /references
+*.ipynb_checkpoints/*
 *.aux
 *.idx
 *.loa
