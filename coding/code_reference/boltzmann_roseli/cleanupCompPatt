@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rm CompPatternsEnergies
+rm report_patterns_errors
+rm report_stored_patterns
+rm *~
+

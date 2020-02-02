@@ -1,0 +1,9 @@
+#!/bin/sh
+
+rm temp_find_stored_patterns_parameters
+rm temp_frequency_visited_stored_pattern_BM
+rm temp_frequency_visited_stored_pattern_GSA
+rm temp_init_stored_patterns
+rm temp_init_stored_patterns_GSA
+rm *~
+

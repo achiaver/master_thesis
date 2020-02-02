@@ -1,0 +1,3 @@
+#!/bin/csh
+
+gcc -g CompPatternsEnergies.c -o CompPatternsEnergies -lm
