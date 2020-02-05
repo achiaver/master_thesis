@@ -1,22 +1,19 @@
-typedef struct NEIGHBOR_INF {
-  int neigh_ID;
-  double wij;
-  struct NEIGHBOR_INF *prev_neigh;
-  struct NEIGHBOR_INF *next_neigh;
-} neighbor_inf;
+typedef struct NODE_INFO {
+  int node_id;
+  struct NODE_INFO *prev_node;
+  struct NODE_INFO *next_node;
+} node_info;
 
-
-typedef struct NODE_INF {
-  int num_neighbors;
-  int feature;
-  struct NEIGHBOR_INF *list_neighs;
-} node_inf;
-
-typedef struct ATOM_INF {
-  int num_neighbors;
-  int knowledge;
+typedef struct KNOWLEDGE_ATOM {
+  int k;
   int activation;
-  struct NEIGHBOR_INF *list_neighs;
-} atom_inf;
+  struct NODE_INFO *list_nodes;
+} knowledge_atom;
+
+typedef struct FEATURE_NODE {
+  int r;
+  struct NODE_INFO *list_nodes;
+} feature_node;
+
 
 
