@@ -4,7 +4,7 @@
 #include <math.h>
 #include <time.h>	  
 #include <string.h>	  
-#include <malloc.h>	  
+//#include <malloc.h>	  
 #define MAX 10
 #include "back_struct.h"
 
@@ -45,7 +45,7 @@ void   cabecalho(), parametros_iniciais_printar(), impressao_dos_parametros_arqu
 ********************************************************************************
 */
 
-void main()
+int main()
 {
 
 	/*   Leitura dos parametros da rede */
@@ -72,7 +72,8 @@ void main()
 
 	respostas_da_rede_backpropagation();
         fechar_programa();
-               
+        
+        return 0;
 } /*  end main()  */
 
 
