@@ -562,7 +562,7 @@ FILE		*patternf_BM, *patternf_GSA, *freq_visited_pattern_BM, *freq_visited_patte
 		total_patterns = total_patterns + freq_pattern_BM[j];
  		fprintf(freq_visited_pattern_BM, "\t%d\t%.20lf\n", j, freq_pattern_BM[j] / (double) total_trial_patterns);
 	  }
-	  fprintf(freq_visited_pattern_BM, "\t total_trial_patterns: %d\t total expected patterns: %lf\t num_patterns_BM: %d\n", 
+	  fprintf(freq_visited_pattern_BM, "\t total_trial_patterns: %ld\t total expected patterns: %lf\t num_patterns_BM: %ld\n", 
                        total_trial_patterns, total_patterns, num_patterns_BM);
 	}
 
@@ -574,7 +574,7 @@ FILE		*patternf_BM, *patternf_GSA, *freq_visited_pattern_BM, *freq_visited_patte
 		total_patterns = total_patterns + freq_pattern_GSA[j];
 		fprintf(freq_visited_pattern_GSA, "\t%d\t%.20lf\n", j, freq_pattern_GSA[j] / (double) total_trial_patterns);
 	  }
-	  fprintf(freq_visited_pattern_GSA, "\t total_trial_patterns: %d\t total expected patterns: %lf\t num_patterns_GSA: %d\n", 
+	  fprintf(freq_visited_pattern_GSA, "\t total_trial_patterns: %ld\t total expected patterns: %lf\t num_patterns_GSA: %ld\n", 
                        total_trial_patterns, total_patterns, num_patterns_GSA);
 	}
 
@@ -935,7 +935,7 @@ FILE		*patternf_BM, *patternf_GSA, *freq_visited_pattern_BM, *freq_visited_patte
 		free(previous_pattern->pattern);
 		free(previous_pattern);
 	  }
-	  fprintf(freq_visited_pattern_BM, "\t total_trial_patterns: %d\t total expected patterns: %lf\t num_patterns_BM: %d\n", 
+	  fprintf(freq_visited_pattern_BM, "\t total_trial_patterns: %ld\t total expected patterns: %lf\t num_patterns_BM: %ld\n", 
                        total_trial_patterns, total_patterns, num_patterns_BM);
 	}
 
@@ -963,7 +963,7 @@ FILE		*patternf_BM, *patternf_GSA, *freq_visited_pattern_BM, *freq_visited_patte
 		free(previous_pattern->pattern);
 		free(previous_pattern);
 	  }
-	  fprintf(freq_visited_pattern_GSA, "\t total_trial_patterns: %d\t total expected patterns: %lf\t num_patterns_GSA: %d\n", 
+	  fprintf(freq_visited_pattern_GSA, "\t total_trial_patterns: %ld\t total expected patterns: %lf\t num_patterns_GSA: %ld\n", 
                        total_trial_patterns, total_patterns, num_patterns_GSA);
 	}
 
@@ -1875,7 +1875,7 @@ calculate_clustering_coefficient()
                          Clustering coefficient undefined.\n\
                          In calculate_clustering_coefficient(), (boltz_functs.c).");
 	
-
+        return 0;
 } /*   end calculate_clustering_coefficient()    */
 
 

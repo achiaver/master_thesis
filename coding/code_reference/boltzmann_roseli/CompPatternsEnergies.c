@@ -9,7 +9,8 @@
 #include	<stdio.h>	  /* library with standard I/O functions */
 #include	<math.h>	  /* math functions library declarations */
 #include	<string.h>	  /* string functions library declarations */
-#include	<malloc.h>	  /* memory allocation library declarations */
+#include        <stdlib.h>
+//#include	<malloc.h>	  /* memory allocation library declarations */
 
 
 #define		false	0
@@ -53,7 +54,7 @@ FILE 	*errorf, *report_patternsf;
 /*	Main function of Program that compares Initial and Final (after learning) 
         stored patterns of Boltzmann Machine Psychoanalytic working through. */
 
-main()
+int main()
 {
 	void		sort_insert_in_Energy_list(), print_energies_of_stored_patterns();
 

@@ -124,7 +124,8 @@ simulator global variables:
 
 #include	<math.h>	  /* math functions library declarations */
 #include	<string.h>	  /* string functions library declarations */
-#include	<malloc.h>	  /* memory allocation library declarations */
+//#include        "/usr/include/sys/malloc.h"
+//#include	<malloc.h>	  /* memory allocation library declarations */
 #include 	<time.h>          /* CPU timing functions library declarations */
 #include 	<sys/time.h>      /* another CPU timing functions library declarations */
 #include	"common.h"	  /* general definitions  */
@@ -195,7 +196,7 @@ neuron_inf	**neuron;
 
 /*	Main Boltzmann Machine Neuroses Simulator Program (function)	*/
 
-main()
+int main()
 {
 	FILE		*patternf, *patternf_GSA, *configurationf;
 
@@ -1558,10 +1559,10 @@ print_time()
 	last_seconds_count = program_run_time->tv_sec;
 
 	if(output_to_monitor)
-	  printf(" \n\t Time = %s \t elapsed: %d seconds, \t total elapsed seconds: %d  \n\n", 
+	  printf(" \n\t Time = %s \t elapsed: %ld seconds, \t total elapsed seconds: %ld  \n\n", 
 			ctime(time_program), elapsed_seconds, global_clock);
 
-	fprintf(finalparamf, " \n\t Time = %s \t elapsed: %d seconds, \t total elapsed seconds: %d \n\n", 
+	fprintf(finalparamf, " \n\t Time = %s \t elapsed: %ld seconds, \t total elapsed seconds: %ld \n\n", 
 			ctime(time_program), elapsed_seconds, global_clock);
 
 	free(program_run_time);
@@ -1598,7 +1599,7 @@ long	iteration;
 	{
 	  printf("\n\n\n\n\n");
 	  printf("\t\t%s\n", error_text);
-	  printf("   \t\t temperature = %f, iteration = %d\n\n\n", 
+	  printf("   \t\t temperature = %f, iteration = %ld\n\n\n", 
 	         temperature, iteration);
 	}
 

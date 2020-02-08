@@ -27,7 +27,8 @@ Variables and functions initialized in file "simboltz.c"
 
 #include	<math.h>	  /* math functions library declarations */
 #include	<string.h>	  /* string functions library declarations */
-#include	<malloc.h>	  /* memory allocation library declarations */
+#include        <stdlib.h>
+//#include	<malloc.h>	  /* memory allocation library declarations */
 #include 	<time.h>          /* CPU timing functions library declarations */
 #include 	<sys/time.h>      /* another CPU timing functions library declarations */
 #include	"common.h"        /* Declarations of global variables and functions. */ 
