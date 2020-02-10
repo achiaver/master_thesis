@@ -1,3 +1,4 @@
 #!/bin/sh
 
-gcc -g simboltz.c boltz_functs.c check_point_found_patterns.c random.c -o simboltz -lm
+#gcc -g simboltz.c boltz_functs.c check_point_found_patterns.c random.c -o simboltz -lm
+cc -g simboltz.c boltz_functs.c check_point_found_patterns.c random.c -o simboltz -lm

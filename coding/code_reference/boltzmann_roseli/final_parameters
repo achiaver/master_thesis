@@ -1,0 +1,44 @@
+
+	 Initial Program Time 
+ 
+	 Time = Sat Feb  8 19:27:48 2020
+ 	 elapsed: 0 seconds, 	 total elapsed seconds: 0 
+
+
+         should output runtime information to monitor:						 1
+         should store found patterns in memory:							 1
+	 recovering from check point:									 1
+	 number of found patterns between checkpoints:						 0
+	 number of nodes in Boltzmann Machine:							 0
+	 number of nodes in memory No. 1:							 0
+	 number of nodes in memory No. 2:							 0
+	 number of symbol centers in each memory:						 0
+	 initial temperature for finding global minimum with simulated annealing:		 0.000000
+	 initial temperature for seeking local minima in net configuration: 			 0.000000
+	 termination temperature for simulated annealing:					 0.000000
+	 temperature decrease parameter for simulated annealing with global minimum search:	 0.000000
+	 temperature decrease parameter for loose simulated annealing (associative memory):	 0.000000
+	 parameter for determining no. iterations per temperature in simulated annealing:	 0
+	 number trial patterns for network stored pattern detection:				 0
+         parameter for initializing intercluster synapses:					 0.000000
+         number of temperature intervals for network associativity testing:			 0
+	 learning parameter for network reconfiguration:					 0.000000
+	 number of iterations for reinforcement learning:					 0
+	 use 0 / 1 (enter: 0) or -1 / +1 (enter: 1) for adaptive learning:			 0
+	 maximum value for synaptic weights:							 0.000000
+	 spatial dimension cluster 1 (conscious declarative memory):				 0.000000
+	 spatial dimension cluster 2 (unconscious sensorial implicit memory):			 0.000000
+	 percentage of loss of neighbors during cluster formation in memories:			 0.000000
+	 learning parameter for formation of initial clusters:					 0.000000
+	 phenomenological parameter for network storage capacity: 				 0.000000
+	 parameter for calculating min distance between symbol centers: 			 0.000000
+	 percentage of synapses that connect symbol centers in memory: 				 0.000000
+	 percentage of synapses that connect symbol centers between memories: 			 0.000000
+         indication for using Boltzmann Machine:						 0
+         indication for using Generalized Simulated Annealing:					 0
+         q_A_for_Generalized_Simulated_Annealing:						 0.000000
+         q_v_for_Generalized_Simulated_Annealing:						 0.000000
+
+	 Square of width of Gaussian Distribution sigma2 = nan 
+
+	 Width of Gaussian Distribution sigma = nan 

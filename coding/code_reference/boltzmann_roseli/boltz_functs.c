@@ -1971,12 +1971,13 @@ double 	dimension1, dimension2;
 
 
 	for (i = 0; i < n_nodes; i++)
+        { 
 		for (j = i; j < n_nodes; j++)
 		{
 			w(i,j) = BOLTZNULL;
 			w(j,i) = BOLTZNULL;
 		}
-			
+        }
 
 
         /*   Gaussian distribution of synapses in sensorial memory    */

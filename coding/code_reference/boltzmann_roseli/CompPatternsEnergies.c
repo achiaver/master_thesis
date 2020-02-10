@@ -218,7 +218,8 @@ int main()
 	fclose(new_patternf);
 	fclose(report_patternsf);
 	fclose(errorf);
-
+        
+        return 0;
 }   /* end main() */
 
 

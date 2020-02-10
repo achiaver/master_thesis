@@ -124,7 +124,6 @@ simulator global variables:
 
 #include	<math.h>	  /* math functions library declarations */
 #include	<string.h>	  /* string functions library declarations */
-//#include        "/usr/include/sys/malloc.h"
 //#include	<malloc.h>	  /* memory allocation library declarations */
 #include 	<time.h>          /* CPU timing functions library declarations */
 #include 	<sys/time.h>      /* another CPU timing functions library declarations */
@@ -258,7 +257,8 @@ int main()
 	print_time();
 
 	fclose(finalparamf);
-
+        
+        return 0;
 }   /* end main() */
 
 
