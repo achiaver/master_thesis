@@ -58,7 +58,7 @@ Structure for saving information about each pattern stored by the neural network
 */
 typedef	struct PATTERN_INF	{
 				  	double			pattern_ID;
-                                        int                     *pattern_bits;
+                    int             *pattern_bits;
 					double			energy_pattern;
 				} pattern_inf;
 

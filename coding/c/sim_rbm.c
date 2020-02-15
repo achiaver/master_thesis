@@ -18,6 +18,9 @@ int main(){
 
 void input_data_from_file(){
   void print_initial_parameters();
+  
+  int output_to_monitor, store_found_patterns_memory, recovering_from_checkpoint,
+      num_found_patterns_between_checkpoints,n_nodes;
 
   FILE *fp;
   fp = fopen("inboltz.dat", "r");
@@ -26,7 +29,7 @@ void input_data_from_file(){
               %*s%d%*s \
               %*s%d%*s \
               %*s%d%*s \
-              %*s%d%*s,
+              %*s%d%*s",
               &output_to_monitor,
               &store_found_patterns_memory,
               &recovering_from_checkpoint,
@@ -36,5 +39,8 @@ void input_data_from_file(){
   fclose(fp);
 
   print_initial_parameters();
+}
 
+void print_initial_paramenters(){
+  fprintf(fp, 
 }

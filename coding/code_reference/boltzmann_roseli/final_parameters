@@ -1,7 +1,11 @@
 
 	 Initial Program Time 
  
+<<<<<<< HEAD
 	 Time = Sat Feb 15 16:05:12 2020
+=======
+	 Time = Tue Feb 11 14:27:57 2020
+>>>>>>> afd6e14b47da1ee58dfbd89aa31052b6fe86a069
  	 elapsed: 0 seconds, 	 total elapsed seconds: 0 
 
 
@@ -39,6 +43,6 @@
          q_A_for_Generalized_Simulated_Annealing:						 0.000000
          q_v_for_Generalized_Simulated_Annealing:						 0.000000
 
-	 Square of width of Gaussian Distribution sigma2 = nan 
+	 Square of width of Gaussian Distribution sigma2 = -nan 
 
-	 Width of Gaussian Distribution sigma = nan 
+	 Width of Gaussian Distribution sigma = -nan 
