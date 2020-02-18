@@ -539,6 +539,7 @@ long		*addr_num_patterns_BM, *addr_num_patterns_GSA,
 	temp_freq_visited_pattern_GSA = fopen("temp_frequency_visited_stored_pattern_GSA", "r");
 
 
+    printf("temp %d\n", temp_find_pattern_parameters);
 	fscanf(temp_find_pattern_parameters, "%*c%ld%*c%ld%*c",  addr_num_patterns_BM, addr_num_patterns_GSA);
 	fscanf(temp_find_pattern_parameters, "%*c%ld%*c%ld%*c",  addr_max_patterns_in_file_BM, addr_max_patterns_in_file_GSA);
 	fscanf(temp_find_pattern_parameters, "%*c%ld%*c%d%*c",  addr_total_trial_patterns, &iseed);
