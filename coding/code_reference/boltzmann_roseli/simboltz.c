@@ -798,6 +798,40 @@ input_data_from_file()
 
         fclose(fp);
 
+printf("01 output_to_monitor                      %d\n",  output_to_monitor);
+printf("02 store_found_patterns_memory            %d\n",  store_found_patterns_memory);
+printf("03 recovering_from_check_point            %d\n",  recovering_from_check_point);
+printf("04 num_found_patterns_between_checkpoints %d\n",  num_found_patterns_between_checkpoints);
+printf("05 n_nodes                                %d\n",  n_nodes);
+printf("06 n_memory1                              %d\n",  n_memory1);
+printf("07 n_memory2                              %d\n",  n_memory2);
+printf("08 n_symbol_centers                       %d\n",  n_symbol_centers);
+printf("09 initial_temperature                    %f\n",  initial_temperature);
+printf("10 initial_seek_local_min_temperature     %f\n",  initial_seek_local_min_temperature);
+printf("11 termination_temperature                %f\n",  termination_temperature);
+printf("12 alpha_global                           %f\n",  alpha_global);
+printf("13 alpha_ass_mem                          %f\n",  alpha_ass_mem);
+printf("14 n_flop_tries_per_node                  %d\n",  n_flop_tries_per_node);
+printf("15 num_trial_initial_patterns             %d\n",  num_trial_initial_patterns);
+printf("16 small                                  %f\n",  small);
+printf("17 temp_intervals                         %d\n",  temp_intervals);
+printf("18 learning_factor,                       %f\n",  learning_factor);
+printf("19 num_reinforcement_iterations           %d\n",  num_reinforcement_iterations);
+printf("20 inhibitive_adaptive_learning,          %d\n",  inhibitive_adaptive_learning);
+printf("21 w_max                                  %f\n",  w_max);
+printf("22 dimension_cluster1                     %f\n",  dimension_cluster1);
+printf("23 dimension_cluster2                     %f\n",  dimension_cluster2);
+printf("24 percent_neighbor_loss                  %f\n",  percent_neighbor_loss);
+printf("25 cluster_formation_learning_factor,     %f\n",  cluster_formation_learning_factor);
+printf("26 parameter_for_network_storage_capacity %f\n",  parameter_for_network_storage_capacity);
+printf("27 parameter_distance_between_centers,    %f\n",  parameter_distance_between_centers);
+printf("28 percent_total_synapses                 %f\n",  percent_total_synapses);
+printf("29 percent_synapses_between_memories      %f\n",  percent_synapses_between_memories);
+printf("30 BoltzMachine                           %d\n",  BoltzMachine);
+printf("31 GSA                                    %d\n",  GSA);
+printf("32 q_A                                    %f\n",  q_A);
+printf("33 q_V                                    %f\n",  q_V);
+
 	print_initial_parameters();
 
 } /* end input_data_from_file()  */

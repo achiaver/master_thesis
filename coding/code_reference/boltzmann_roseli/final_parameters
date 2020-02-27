@@ -1,0 +1,58 @@
+
+	 Initial Program Time 
+ 
+	 Time = Tue Feb 18 15:49:40 2020
+ 	 elapsed: 0 seconds, 	 total elapsed seconds: 0 
+
+
+         should output runtime information to monitor:						 1
+         should store found patterns in memory:							 1
+	 recovering from check point:									 1
+	 number of found patterns between checkpoints:						 20
+	 number of nodes in Boltzmann Machine:							 32
+	 number of nodes in memory No. 1:							 16
+	 number of nodes in memory No. 2:							 16
+	 number of symbol centers in each memory:						 2
+	 initial temperature for finding global minimum with simulated annealing:		 5.995000
+	 initial temperature for seeking local minima in net configuration: 			 0.050000
+	 termination temperature for simulated annealing:					 0.001000
+	 temperature decrease parameter for simulated annealing with global minimum search:	 0.950000
+	 temperature decrease parameter for loose simulated annealing (associative memory):	 0.500000
+	 parameter for determining no. iterations per temperature in simulated annealing:	 20
+	 number trial patterns for network stored pattern detection:				 10000
+         parameter for initializing intercluster synapses:					 0.500000
+         number of temperature intervals for network associativity testing:			 600
+	 learning parameter for network reconfiguration:					 0.300000
+	 number of iterations for reinforcement learning:					 1000
+	 use 0 / 1 (enter: 0) or -1 / +1 (enter: 1) for adaptive learning:			 1
+	 maximum value for synaptic weights:							 10.000000
+	 spatial dimension cluster 1 (conscious declarative memory):				 1.500000
+	 spatial dimension cluster 2 (unconscious sensorial implicit memory):			 1.500000
+	 percentage of loss of neighbors during cluster formation in memories:			 0.200000
+	 learning parameter for formation of initial clusters:					 0.100000
+	 phenomenological parameter for network storage capacity: 				 0.970000
+	 parameter for calculating min distance between symbol centers: 			 1.100000
+	 percentage of synapses that connect symbol centers in memory: 				 0.200000
+	 percentage of synapses that connect symbol centers between memories: 			 0.100000
+         indication for using Boltzmann Machine:						 1
+         indication for using Generalized Simulated Annealing:					 1
+         q_A_for_Generalized_Simulated_Annealing:						 1.300000
+         q_v_for_Generalized_Simulated_Annealing:						 1.200000
+
+	 Square of width of Gaussian Distribution sigma2 = 0.334397 
+
+	 Width of Gaussian Distribution sigma = 0.578270 
+
+
+	 average clustering coefficient of ensemble of 10000 initial topologies = 0.333488
+
+
+
+	 clustering coefficient of initial topology = 0.352146
+
+
+	 Will find initial network stored patterns. 
+ 
+	 Time = Tue Feb 18 15:50:12 2020
+ 	 elapsed: 32 seconds, 	 total elapsed seconds: 32 
+
