@@ -1,11 +1,8 @@
 should_output_runtime_information_to_monitor_1_means_true_(output_to_monitor)			 1 <integer>
 should_store_found_patterns_in_memory_1_means_true_(store_found_patterns_memory)                 1 <integer>
 recovering_from_check_point_(recovering_from_check_point)					 1 <integer>
-<<<<<<< HEAD
 number_of_found_patterns_between_checkpoints_(num_found_patterns_between_checkpoints_!=_0)	20 <integer>
-=======
 number_of_found_patterns_between_checkpoints_(num_found_patterns_between_checkpoints)	20 <integer>
->>>>>>> 11d51657c45fc62a3551e7d6ff6e66ac13ced116
 number_of_nodes_(n_nodes)                                 					32 <integer>
 number_of_nodes_in_memory_1_(n_memory1)    							16 <integer>
 number_of_nodes_in_memory_2_(n_memory2)    							16 <integer>
