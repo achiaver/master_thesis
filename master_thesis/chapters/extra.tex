@@ -375,3 +375,25 @@ The maximum-likelihood completion function $c(\iota)$ determined by the probabil
    \end{split}
 \end{equation}
 where $\mathbf{r}$ is the completion of a point $\iota$.
+
+In information theory, the concept of entropy (missing information) can be interpreted as the average of uncertainty of a variable outcome, similarly in physics, entropy is relate to the randomness of a system or the lack of information about it.
+Entropy is a function of the probability distribution of a random variable $x$:
+\begin{equation}
+    \label{eq:smolensky-entropy}
+    S(P(x)) = - \sum_{x \in X} P(x) \ln{(P(x))}.
+\end{equation}
+
+Theorem $1$: \textit{competence}.
+
+A cognitive system should performe completion according to Boltzmann distribution for statistical extrapolation and inference.
+Considering an experiment, each pattern can be observed with a particular frequency.
+Assuming the probability distribution of the experiment $R$ is consistent with the Boltzmann distribution $P$ with harmony function given by equation~(\ref{eq:smolensky-harmonyfunctionfinal}), the maximum-likelihood completions of this distribution are the same as
+\begin{equation}
+    \label{eq:smolensky-teo1}
+    P(\mathbf{r}, \mathbf{a}) \propto e^{H(\mathbf{r}, \mathbf{a})}.
+\end{equation}
+
+Theorem $2$: \textit{realizability}.
+
+Nodes are updates stochastically, every node within the same layer is updated in parallel, and then every node in the other layer is updated in parallel.
+During the update process the computational temperature is lowered via simulated annealing.
