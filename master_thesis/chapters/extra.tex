@@ -424,3 +424,10 @@ Hopfield: given the weights and biases in the network at any particular time, it
 For a particular set of parameters $(\omega_{ij}, b_{i})$, the Boltzmann machine defines a probability distribution over various state configurations.
 In Boltzmann machines, the dependence between all pairs of states is undirected: the visible states depend as much on the hidden states as the hidden states depend on visible states.
 Boltzmann machine iteratively samples the states using a conditional distribution generated from the state values in the previous iteration unil thermal equilibrium is reached.
+
+Learnings weights in the Boltzmann machine requires to maximize the likelihood of the specific training dataset observed.
+It is also possible to maximize the log-likelihood, by taking the $\ln$ of the probability distribution.
+\begin{equation}
+    \label{eq:aggarwal-log-likelihood}
+    \ln(P(s)) = - E(s) - \ln(Z)
+\end{equation}

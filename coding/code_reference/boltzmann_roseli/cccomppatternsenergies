@@ -1,4 +1,0 @@
-#!/bin/sh
-
-#gcc -g CompPatternsEnergies.c -o CompPatternsEnergies -lm
-cc -g CompPatternsEnergies.c -o CompPatternsEnergies -lm
