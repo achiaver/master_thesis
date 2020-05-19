@@ -72,23 +72,23 @@ An interesting analogy, is that Hopfield networks are like reconstructing a dino
 \section{Boltzmann Machines}%
 \label{ch:bm:bm}%
 
-Boltzmann Machines are a type of stochastic neural networks where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$~\cite{bib:hertz1991}. 
-This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution. 
-Boltzmann Machines were named after the Boltzmann distribution. 
-Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution~\cite{bib:hertz1991}. 
+Boltzmann Machines are a type of stochastic neural networks where the connections between units, which are described by $\omega$, are symmetrical, i.e., $\omega_{ij} = \omega_{ji}$~\cite{bib:hertz1991}.
+This kind of stochastic neural networks are capable of learning internal representation and to model an input distribution.
+Boltzmann Machines were named after the Boltzmann distribution.
+Due to its stochatics behaviour, the probability of the state of the system to be found in a certain configuration is given by previous mentioned distribution~\cite{bib:hertz1991}.
 According to~\cite{bib:montufar2018}, Boltzmann machines can be seen as an extension of Hopfield networks to include hidden units and units with a stochastic behaviour.
 
-Boltzmann Machines have two kind of units $\mathrm{x}_{i}$: the visible and hidden units. 
-The visible units are linked to the external world and they correspond to the components of an observation, where data is input. On the other hand, the hidden units do not have any connection outside of the network and they model the dependencies between the components of the observations~\cite{bib:fischer2012}, i.e., they are responsible for finding the data relation from the input. 
-In Boltzmann machines, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout. 
-Regardless of how the connections are, if there is a connection bewteen two units, this connection is symmetric. 
+Boltzmann Machines have two kind of units $\mathrm{x}_{i}$: the visible and hidden units.
+The visible units are linked to the external world and they correspond to the components of an observation, where data is input. On the other hand, the hidden units do not have any connection outside of the network and they model the dependencies between the components of the observations~\cite{bib:fischer2012}, i.e., they are responsible for finding the data relation from the input.
+In Boltzmann machines, there is no connection restriction, this means that every unit, visible or hidden, can be connected to every other unit as in a complete graph, this pattern is not mandatory as some of the connections may not exists depending on the network layout.
+Regardless of how the connections are, if there is a connection bewteen two units, this connection is symmetric.
 Training a Boltzmann Machines means finding the right connections $\omega_{ij}$ between the units.
 
-In Figure~\ref{fig:bm-diagram}, we have a diagram of a Boltzmann machine layout. 
+In Figure~\ref{fig:bm-diagram}, we have a diagram of a Boltzmann machine layout.
 We can see that each unit is connected to every other unit in the network regardless of it being a visible or hidden unit.
 \input{images/tikz_figs/bm_diagram.tex}
 
-Stochastics units $\mathrm{x}_{i}$ compose the Boltzmann machine. 
+Stochastics units $\mathrm{x}_{i}$ compose the Boltzmann machine.
 Stochastics units are random variables $\mathrm{x}$ that can assume a binary value with a certain probability.
 We will consider that a random variable $\mathrm{x}_{i}$ can assume a value of $x_{i} = 1$ with probability $g(h_{i})$, and $x_{i} = 0$, otherwise, i.e.,
 \begin{equation}
@@ -130,8 +130,8 @@ where
 is the partition function. The vector $\mathrm{\mathbf{x}}$ represents the state in which the units of the network are, for instance, the following state, in a 3 units stochastic network, $\mathrm{\mathbf{x}} = (x_{1}, x_{2}, x_{3}) = (1, 0, 1)$.
 
 %The learning process of a Boltzmann Machine consists in ajusting the connections $\omega_{ij}$ in such a way that the state of the visible units have a particular desired probability distribution.
-Now let us consider the Boltzmann machine case where there are two kinds of units, i.e., the visible and the hidden units. 
-Let us identify the state of the visible units by an index $v$ and the state of the hidden units by an index $h$. 
+Now let us consider the Boltzmann machine case where there are two kinds of units, i.e., the visible and the hidden units.
+Let us identify the state of the visible units by an index $v$ and the state of the hidden units by an index $h$.
 Considering a particular system with $N$ visible units and $K$ hidden units, the whole system have $2^{N + K}$ possibilities of states in which it can be found.
 
 The joint probability $P_{vh}$ is the probability of finding the visible and hidden units in the states $v$ and $h$, respectively.
@@ -151,10 +151,10 @@ and
   H_{vh} = - \frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{i} \phi_{i} x^{(vh)}_{i}.
 \end{equation}
 
-Equations~(\ref{eq:bm-joint-prob}),~(\ref{eq:bm-z}) and~(\ref{eq:bm-energy-function}) are ajustments to equations~(\ref{eq:stochastic-prob}),~(\ref{eq:stochastic-z}) and~(\ref{eq:hopfield-energy}), respectively, where now the different kind of units state is taken into consideration. 
+Equations~(\ref{eq:bm-joint-prob}),~(\ref{eq:bm-z}) and~(\ref{eq:bm-energy-function}) are ajustments to equations~(\ref{eq:stochastic-prob}),~(\ref{eq:stochastic-z}) and~(\ref{eq:hopfield-energy}), respectively, where now the different kind of units state is taken into consideration.
 In equation~(\ref{eq:bm-z}), the indexes $u$ and $k$ refer to visible and hidden units states, respectively, different indexes are used to avoid bewilderment.
 
-As previously mentioned, the problem a Boltzmann Machine is trying to solve is determining the connections $\omega_{ij}$ between units such that the visible units have a certain probability distribution. 
+As previously mentioned, the problem a Boltzmann Machine is trying to solve is determining the connections $\omega_{ij}$ between units such that the visible units have a certain probability distribution.
 In order to do that, we need to find the marginal probability of the state $v$ in which the visible units are found regardless of the state $h$ of the hidden units. The marginal probability $P_{v}$ is given by
 \begin{equation}
   \label{eq:bm-marginal-prob}
@@ -164,7 +164,7 @@ In order to do that, we need to find the marginal probability of the state $v$ i
 Although we know that $P_{v}$ is a function of the connections $\omega_{ij}$, and that this is the probability of finding the visible units in the state $v$. We want the states to have a certain probability $R_{v}$, i.e., a desired probability.
 This means that ideally we would like to match the empirical distribution of the data, even though we do not have access to the correct distribution, only to what the observed data has given us as an input to training the model.
 
-One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $R_{v}$, is using the Kullback-Leibler divergence $D_{KL}(R_{v}||P_{v})$, which can also be referred to as relative entropy, $E$, which will be our cost function. 
+One way to evaluate the difference between two probability distribution, for example, $P_{v}$ and $R_{v}$, is using the Kullback-Leibler divergence $D_{KL}(R_{v}||P_{v})$, which can also be referred to as relative entropy, $E$, which will be our cost function.
 Further comments about the Kullback-Leibler divergence can be found on appendix~\ref{app:dkl}.
 %(EXPLICAR FUN\c{C}\~{A}O DE CUSTO e $D_{KL}$!!!).
 \begin{equation}
@@ -172,9 +172,9 @@ Further comments about the Kullback-Leibler divergence can be found on appendix~
   E = \sum_{v} R_{v} \ln{\left(\frac{R_{v}}{P_{v}}\right)}.
 \end{equation}
 
-The relative entropy $E$ has the property of always being equal or greater than zero. 
-It reaches zero only if $P_{v} = R_{v}$, which means that we are able to retrieve the exactly desired probability distribution at the visible units from the input data. 
-We have to minimise $E$ using the gradient descent~\cite{bib:hertz1991}, relative to the weights $\omega_{ij}$ and the bias $\phi_{i}$, 
+The relative entropy $E$ has the property of always being equal or greater than zero.
+It reaches zero only if $P_{v} = R_{v}$, which means that we are able to retrieve the exactly desired probability distribution at the visible units from the input data.
+We have to minimise $E$ using the gradient descent~\cite{bib:hertz1991}, relative to the weights $\omega_{ij}$ and the bias $\phi_{i}$,
 \begin{equation}
   \label{eq:delta-omega}
   \Delta \omega_{ij} = -\eta \frac{\partial E}{\partial \omega_{ij}},
@@ -298,12 +298,12 @@ On the other hand, the subscript \textit{free} identify the case where the varia
 \section{New Ideas}
 \subsection{ANSARI}
 
-The energy computed in Boltzmann Machines is a measure of self-consistency of the system. 
+The energy computed in Boltzmann Machines is a measure of self-consistency of the system.
 Randomness is fundamental to avoid local optima.
-Exponential schedule for annealing instead of linear approach, does not have the drawback of premature freezing. 
+Exponential schedule for annealing instead of linear approach, does not have the drawback of premature freezing.
 Premature freezing means that the system reaches minimum temperature and becomes deterministic before a global minimum has been reached.
 
-Boltzmann machines can be seem as a system where each unit represents a hypothesis and each connection a constrain among hypothesis. 
+Boltzmann machines can be seem as a system where each unit represents a hypothesis and each connection a constrain among hypothesis.
 
 The ability of the system to escape local optimum depends on the path chosen for the temperature, the annealing schedule. The success of simulated annealing depends on the proper choice of the annealing schedule.
 There is a need to have an annealing schedule where the temperature never gets stuck at a particular value, but varies dynamically in such a way so to increase the system optimality.
@@ -397,3 +397,30 @@ Theorem $2$: \textit{realizability}.
 
 Nodes are updates stochastically, every node within the same layer is updated in parallel, and then every node in the other layer is updated in parallel.
 During the update process the computational temperature is lowered via simulated annealing.
+
+
+
+\subsection{AGGARWAL}
+
+RBM\: the probabilistic states of the network are learned for a set of inputs.
+This network models the joint probability distribution os the observed attributes together with some hidden attributes.
+The connections are undirected because, RBM are designed to learn te probabilistic relationship rather than input-output mapping.
+RBM are probabilistic models that create latent representations of the underlying data points.
+It is similar to an autoencoder, but the latent representation is created stochastically instead of deterministically.
+
+Boltzmann machines use probabilistic states to represent Bernoulli distributions of the binary attributes.
+It contains both visible and hidden states.
+
+Hopfield: given the weights and biases in the network at any particular time, it is possible to find a local energy minimum in terms of the states by repeatedly using the update rule:
+\begin{equation}
+    \label{eq:aggarwal-hopfield-update}
+    s_{i} =
+    \begin{cases}
+         1 \; \text{if} \; \sum_{j : j \ne i} \omega_{ij} s_{j} + b_{i} \geq 0 \\
+         0 \; \text{otherwise}
+     \end{cases}.
+\end{equation}
+
+For a particular set of parameters $(\omega_{ij}, b_{i})$, the Boltzmann machine defines a probability distribution over various state configurations.
+In Boltzmann machines, the dependence between all pairs of states is undirected: the visible states depend as much on the hidden states as the hidden states depend on visible states.
+Boltzmann machine iteratively samples the states using a conditional distribution generated from the state values in the previous iteration unil thermal equilibrium is reached.
