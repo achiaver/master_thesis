@@ -431,3 +431,10 @@ It is also possible to maximize the log-likelihood, by taking the $\ln$ of the p
     \label{eq:aggarwal-log-likelihood}
     \ln(P(s)) = - E(s) - \ln(Z)
 \end{equation}
+
+To maximize the log-likelihood, equation~(\ref{eq:aggarwal-hopfield-update}) is derived in terms of the weights $\omega_{ij}$, then it follows
+\begin{equation}
+    \label{eq:aggarwal-log-likelihood-max}
+    \frac{\partial \ln(P(s))}{\partial \omega_{ij}} = {\langle s_{i}, s_{j} \rangle}_{data} - {\langle s_{i}, s_{j}
+    \rangle}_{model}.
+\end{equation}
