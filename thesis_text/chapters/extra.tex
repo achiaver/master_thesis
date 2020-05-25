@@ -472,3 +472,26 @@ This aspect makes it possible to update all hidden units in parallel and then al
 
 The weights encode the affinities between the visible and the hidden states.
 Large positive weights implies the two states are likely to be on together.
+Weights are initialized to a small value each.
+Learning can be performed as follows:
+\begin{itemize}
+    \item \textit{Positive phase}: considering a mini-batch of training instances, for each element in this mini-batch, every hidden unit is updated according to equation~(\ref{eq:aggarwal-rbm-hidden-prob}).
+    Once every hidden unit is updated, the average product between each pair of visible and hidden unit is computed, denoted as ${\langle v_{i}, h_{j} \rangle}_{pos}$.
+    
+    \item \textit{Negative phase}: for each training instance, it goes through a phase of Gibbs sampling after starting at with randomly initialized states.
+    Is is achieved by repeatedly using equation~(\ref{eq:aggarwal-rbm-energy-gap-hidden}) and its version for the visible units.
+    ${\langle v_{i}, h_{j} \rangle}_{neg}$ is computed after the values of $v_{i}$ and $h_{j}$ are at thermal equilibrium.
+    
+    \item Weights and biases can be updated as follows:
+    \begin{equation}
+        \label{eq:aggarwal-weights-bias-update}
+        \begin{split}
+            \omega_{ij} &\leftarrow \omega_{ij} + \alpha ({\langle v_{i}, h_{j} \rangle}_{pos} - {\langle v_{i}, h_{j} \rangle}_{neg}), \\
+            b^{(v)}_{i} &\leftarrow b^{(v)}_{i} + \alpha ({\langle v_{i}, 1 \rangle}_{pos} - {\langle v_{i}, 1 \rangle}_{neg}), \\
+            b^{(h)}_{j} &\leftarrow  b^{(h)}_{j} + \alpha ({\langle 1, h_{j} \rangle}_{pos} - {\langle 1, h_{j} \rangle}_{neg}), 
+        \end{split}
+    \end{equation}
+    where $\alpha$ is the learning rate.
+\end{itemize}
+
+When visible unit $i$ and hidden unit $j$ are highly correlated, the weight $\omega_{ij}$ will be more positive, and the other way around, when visible unit $i$ and hidden unit $j$ are not correlated.
