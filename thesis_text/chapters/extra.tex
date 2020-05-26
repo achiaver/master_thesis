@@ -399,7 +399,6 @@ Nodes are updates stochastically, every node within the same layer is updated in
 During the update process the computational temperature is lowered via simulated annealing.
 
 
-
 \subsection{AGGARWAL}
 
 RBM\: the probabilistic states of the network are learned for a set of inputs.
@@ -432,4 +431,71 @@ It is also possible to maximize the log-likelihood, by taking the $\ln$ of the p
     \ln(P(s)) = - E(s) - \ln(Z)
 \end{equation}
 
+<<<<<<< HEAD
 
+=======
+To maximize the log-likelihood, equation~(\ref{eq:aggarwal-hopfield-update}) is derived in terms of the weights $\omega_{ij}$, then it follows
+\begin{equation}
+    \label{eq:aggarwal-log-likelihood-max}
+    \frac{\partial \ln(P(s))}{\partial \omega_{ij}} = {\langle s_{i}, s_{j} \rangle}_{data} - {\langle s_{i}, s_{j}
+    \rangle}_{model}.
+\end{equation}
+
+Weights' update rule rely on two terms: ${\langle s_{i}, s_{j} \rangle}_{data}$ which represents the correlations between the states of the nodes $i$ and $j$ when the visible vectors are fixed to a vector in the training data, and the hidden states are allowed to vary; the second term, ${\langle s_{i}, s_{j} \rangle}_{model}$ is an average product of $s_{i}$ and $s_{j}$ from the model-centric samples obtained from Gibbs sampling. 
+\begin{equation}
+    \label{eq:aggarwal-bm-weight-update}
+    \omega_{ij} \leftarrow \omega_{ij} \alpha ({\langle s_{i}, s_{j} \rangle}_{data} - {\langle s_{i}, s_{j} \rangle}_{model}),
+\end{equation}
+
+The subtraction of the model-centric correlations (second term) is required in order to remove the effect of the partition function within the expression of the log probability.
+Monte Carlo sampling requires a large amount of samples to reach thermal equilibrium.
+Restricted Boltzmann machine is a simplification of the Boltzmann machine.
+
+The probability of each hidden unit taking on the value $1$ is:
+\begin{equation}
+    \label{eq:aggarwal-rbm-hidden-prob}
+    P(h_{j} | \mathbf{v}) = \frac{1}{1 + e^{-b^{(h)}_{j} - \sum_{i} v_{i} \omega_{ij}}},
+\end{equation}
+where energy gap $\Delta E_{j}$ of a hidden unit $j$, between values $h_{j} = 0$ and $h_{j} = 1$ is
+\begin{equation}
+    \label{eq:aggarwal-rbm-energy-gap-hidden}
+    \Delta E_{j} = b_{j} + \sum_{i} v_{i} \omega_{ij},
+\end{equation}
+analogously we have the probability of each visible unit.
+
+Equation~(\ref{eq:aggarwal-rbm-hidden-prob}) can also be writen in terms of the sigmoid
+\begin{equation}
+    \label{eq:aggarwal-rbm-hidden-prob-sigmoid}
+    P(h_{j} | \mathbf{v}) = sigmoid(b_{j} + \sum_{i} v_{i} \omega_{ij}.
+\end{equation}
+
+For both the hidden and visible units, it is interesting to notice that the hidden unit $j$ depends only on the state of the visible units.
+On the other hand, the visible unit $i$ depends only on the state of the hidden units.
+This aspect makes it possible to update all hidden units in parallel and then all the visible units in parallel as well.
+
+The weights encode the affinities between the visible and the hidden states.
+Large positive weights implies the two states are likely to be on together.
+Weights are initialized to a small value each.
+Learning can be performed as follows:
+\begin{itemize}
+    \item \textit{Positive phase}: considering a mini-batch of training instances, for each element in this mini-batch, every hidden unit is updated according to equation~(\ref{eq:aggarwal-rbm-hidden-prob}).
+    Once every hidden unit is updated, the average product between each pair of visible and hidden unit is computed, denoted as ${\langle v_{i}, h_{j} \rangle}_{pos}$.
+    
+    \item \textit{Negative phase}: for each training instance, it goes through a phase of Gibbs sampling after starting at with randomly initialized states.
+    Is is achieved by repeatedly using equation~(\ref{eq:aggarwal-rbm-energy-gap-hidden}) and its version for the visible units.
+    ${\langle v_{i}, h_{j} \rangle}_{neg}$ is computed after the values of $v_{i}$ and $h_{j}$ are at thermal equilibrium.
+    
+    \item Weights and biases can be updated as follows:
+    \begin{equation}
+        \label{eq:aggarwal-weights-bias-update}
+        \begin{split}
+            \omega_{ij} &\leftarrow \omega_{ij} + \alpha ({\langle v_{i}, h_{j} \rangle}_{pos} - {\langle v_{i}, h_{j} \rangle}_{neg}), \\
+            b^{(v)}_{i} &\leftarrow b^{(v)}_{i} + \alpha ({\langle v_{i}, 1 \rangle}_{pos} - {\langle v_{i}, 1 \rangle}_{neg}), \\
+            b^{(h)}_{j} &\leftarrow  b^{(h)}_{j} + \alpha ({\langle 1, h_{j} \rangle}_{pos} - {\langle 1, h_{j} \rangle}_{neg}), 
+        \end{split}
+    \end{equation}
+    where $\alpha$ is the learning rate.
+\end{itemize}
+
+When visible unit $i$ and hidden unit $j$ are highly correlated, the weight $\omega_{ij}$ will be more positive, and the other way around, when visible unit $i$ and hidden unit $j$ are not correlated.
+>>>>>>> c95071cbf35f7706cdaf555acdf721954f2df651
