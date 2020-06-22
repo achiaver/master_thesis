@@ -16,7 +16,7 @@
 \providecommand{\packagename}{repUERJ v7.0}
 
 % refaz o comando do setspace
-\renewcommand{\singlespacing}{\setstretch {\setspace@singlespace}}
+\renewcommand{\singlespacing}{\setstretch {\setspace@singlespace}}%
 
 \newcommand\@ptsize{}
 \newif\if@restonecol
@@ -26,7 +26,7 @@
 \if@compatibility\else
   \DeclareOption{a4paper}
     {\setlength\paperheight {297mm}%
-     \setlength\paperwidth  {210mm}}
+     \setlength\paperwidth  {210mm}}%
   \DeclareOption{a5paper}
     {\setlength\paperheight {210mm}%
      \setlength\paperwidth  {148mm}}

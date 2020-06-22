@@ -211,6 +211,9 @@ A mapping from input to output is required to deal with real-world problems.
 The state of a node is a binary value sampled from the Bernoulli probabilities defined by equation~(\ref{eq:aggarwal-rbm-hidden-prob}).
 On the other hand, the activation of a node in the associeted neural network is the probability value derived from the use of the sigmoid function in equation~(\ref{eq:aggarwal-rbm-hidden-prob-sigmoid}).
 
+If RBM are used in a supervised application, a final phase of backpropagation is crucial.
+In this case, the RBM are used as a pretraining for the supervised learning.
+
 
 
 
@@ -228,3 +231,70 @@ The associate value represents a measure of the probability that the system will
 \textbf{Learning:} process of finding an energy function that will associete low energies to correct values of the remaining variables and higher energy to incorrect values. (when parameters of the network are computed).
 
 Boltzmann distribution states the probability of a state vector $\mathbf{s}$ is determined by the energy of that state vector relative to the energies of all possible binary state vectors.
+
+The input do not need to be filled for every neuron; The Boltzmann machine will generate missing values.
+
+Considering the neuron $i$ is given the chance to change its binary state, initially the total input of this neuron $i$ is computed by the weighted sum $z_{i}$ of the other active neurons connected to $i$ added by its own bias,
+\begin{equation}
+    \label{eq:rubik-input-weightedsum}
+    z_{i} = b_{i} + \sum_{j} \omega_{ij} s_{j},
+\end{equation}
+where $b_{i}$ is the bias of neuron $i$, $s_{j}$ is the current state of the connected neurons to $i$, and $\omega_{ij}$ is the weight, i.e., the connection strength between neurons $j$ and $i$.
+The probability that neuron $i$ will be active is given by:
+\begin{equation}
+    \label{eq:rubik-neuron-prob}
+    p(s_{i} = 1) = \frac{1}{1 + e^{z_{i}}}.
+\end{equation}
+
+Neurons update theirselves randomly which means that the network will eventually reach a Boltzmann distribution, in which the probability of a state vector $\mathbf{v}$ is determined by the energy associated to that state vector relative to the energies of all possible binary state vectors:
+\begin{equation}
+    \label{eq:rubik-boltzmann-distri}
+    P(\mathbf{v}) = \frac{e^{-E(\mathbf{v})}}{\sum_{\mathbf{u}} e^{-E(\mathbf{u})}}.
+\end{equation}
+
+The energy of the state of state vector $\mathbf{v}$ is defined as
+\begin{equation}
+    \label{eq:rubik-state-energy-bm}
+    E(\mathbf{v}) = -\sum_{i} b_{i} s^{\mathbf{v}}_{i} - \frac{1}{2} \sum_{i} \sum_{j} s^{\mathbf{v}}_{i} \omega_{ij} s^{\mathbf{v}}_{j},
+\end{equation}
+where $s_{i}$ is the state assigned to neuron $i$ by state vector $\mathbf{v}$, analogously for neuron $j$.
+The Boltzmann machine is resource-demanding as there can be connections between a neuron to every other neuron in the network.
+Calculations can take a long time.
+
+In the RBM architecture, there are no connections among visible units and no connections among hidden units, i.e., there are no visible-to-visible connection and no hidden-to-hidden connection.
+There can be only connections between visible and hidden neurons, i.e., visible-to-hidden and the other way around as a connection between two units is symmetrical.
+
+The energy function on RBM theory is modified to
+\begin{equation}
+    \label{eq:rubik-state-energy-rbm}
+    E(\mathbf{v}, \mathbf{h}) = - \sum_{i} a_{i} v_{i} - \sum_{j} b_{j} h_{j} - \sum_{i} \sum_{j} v_{i} \omega_{ij} h_{j},
+\end{equation}
+where $a_{i}$ is the bias of the visible neuron $i$ in state $v_{i}$, $b_{j}$ is the bias of the hidden neuron $j$ in state $h_{j}$ and $\omeha_{ij}$ is the weight of the connection between visible neuron $i$ and hidden neuron $j$.
+
+The joint probability of the intire system, when hidden neurons are in state vector $\mathbf{h}$ and visible neurons in state vector $\mathbf{v}$, is
+\begin{equation}
+    \label{eq:rubik-prob-rbm}
+    P(\mathbf{v}, \mathbf{h}) = \frac{e^{-E(\mathbf{v}, \mathbf{h})}}{Z},
+\end{equation}
+where $Z$ is known as the partition function
+\begin{equation}
+    \label{eq:rubik-partition-func-rbm}
+    Z = \sum_{\mathbf{u}} \sum_{\mathbf{k}} e^{-E(\mathbf{u}, \mathbf{k})},
+\end{equation}
+this partition function normalizes the probability and refers to the sum of all possible pairs of visible and hidden vectors of the system.
+
+The RBM can be interpreted as a specialization architecture of the original Boltzmann machine, where a restriction to the neurons' connections have been put.
+
+Given an input vector $\mathbf{v}$, the probability of a single hidden unit $j$ of being activated is 
+\begin{equation}
+    \label{eq:rubik-prob-hidden-active}
+    P(h_{j} = 1 | \mathbf{v}) = \frac{1}{1 + e^{- \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right)}} = \sigma \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right),
+\end{equation}
+where $\sigma$ is the sigmoid function.
+Analogous, the probability that a visible neuron $i$ is active given a hidden vector $\mathbf{h}$ is
+\begin{equation}
+    \label{eq:rubik-prob-visible-active}
+    P(v_{i} = 1 | \mathbf{h}) = \frac{1}{1 + e^{- \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right)}} = \sigma \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right).
+\end{equation}
+
+
