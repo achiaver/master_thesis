@@ -162,7 +162,7 @@ analogously we have the probability of each visible unit.
 Equation~(\ref{eq:aggarwal-rbm-hidden-prob}) can also be writen in terms of the sigmoid
 \begin{equation}
     \label{eq:aggarwal-rbm-hidden-prob-sigmoid}
-    P(h_{j} | \mathbf{v}) = sigmoid(b_{j} + \sum_{i} v_{i} \omega_{ij}).
+    P(h_{j} | \mathbf{v}) = \sigma \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right).
 \end{equation}
 
 For both the hidden and visible units, it is interesting to notice that the hidden unit $j$ depends only on the state of the visible units.
@@ -297,4 +297,36 @@ Analogous, the probability that a visible neuron $i$ is active given a hidden ve
     P(v_{i} = 1 | \mathbf{h}) = \frac{1}{1 + e^{- \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right)}} = \sigma \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right).
 \end{equation}
 
+
+
+\subsection{Contrastive Divergence Algorithm}
+
+Here I try to compile the most information possible about Contrastive Divergence.
+Each author is put in a separated subsubsection.
+In the literature the contrastive divergence algorithm appears as $CD_{1}$, if it is a single iteration, or $CD_{k}$ for $k$ iterations.
+
+\subsubsection{Aggarwal}
+
+Contrastive divergence is a approximation approach to Monte Carlo sampling, it is usually applied as its fastest variant where only a single iteration is performed.
+
+For a fixed training point of the dataset, i.e., a fixed visible state vector, for each hidden unit, its activation is computed, thus the hidden state vector is generated.
+Then the visible units are generated again from the previous computed hidden state.
+These values of the visible units are used as the sampled states stead of the ones obtained at thermal equilibrium. 
+The hidden units are generated again from the last visible units computed. 
+
+In the positive phase, only half an iteration of simply computing hidden states is used.
+In the negative phase, there is at least one additional iteration to re-compute the hidden state.
+This difference in the number of iterations is what causes the contrastive divergence between state distributions in among both phases.
+
+An increase in the number of iterations causes the distribution to diverge from the data-conditioned states to what is proposed by the current weight vector. 
+The value of $({\langle v_{i}, h_{j} \rangle}_{pos} - {\langle v_{i}, h_{j} \rangle}_{neg})$ quantifies the amount of contrastive divergence.
+It is possible to increase the number of iterations $k$, which will improve the accuracy of the contrastive divergence.
+Increasing $k$ will lead to better gradient at the cost of speed.
+One approach is to progressively increase the value of $k$ as while applying the training.
+\begin{itemize}
+    \item weights as initialized to small values. In each iteration, only one additional step of contrastive divergence is used. One step is enough because the difference between weights are low in early iterations.
+    \item as gradient descent improves near a better solution, increasing $k$ will improve accuracy. So two or three steps of CD can be applied. 
+\end{itemize}
+
+\subsubsection{Hinton}
 
