@@ -24,3 +24,14 @@ The combination of several simpler probability distributions, know as *experts*,
 
 
 
+# Simulated Annealing
+
+1. Initialize the system configuration. Randomize $\mathbf{x}_{0}$.
+2. Initialize $T$ with a large value.
+3. Repeat until $T$ is small enough:
+   1. repeat until the number of accepted transitions is below a threshold:
+      1. Apply random perturbations $\mathbf{x}_{1} = \mathbf{x}_{0} + \Delta \mathbf{x}$
+      2. Evaluate $\Delta E(\mathbf{x}) = E(\mathbf{x}_{0} + \mathbf{x}_{1}) - E(\mathbf{x}_{1})$:
+         1. if $\Delta E(\mathbf{x}) < 0$, keep the new state;
+         2. Otherwise accept the new state with probability $P = e^{-\Delta E / T}$.
+   2. Set $T = T - \Delta T$.
