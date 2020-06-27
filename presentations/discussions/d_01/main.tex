@@ -1,0 +1,86 @@
+\documentclass{beamer}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+% Choose how your presentation looks.
+
+% For more themes, color themes and font themes, see:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+
+\mode<presentation>%
+{%
+  \usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}  % or try serif, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+} 
+
+\setbeamertemplate{footline}[frame number]
+
+%\usepackage{polyglossia} %lualatex
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{wasysym}
+%\graphicspath{images/}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}%
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}%
+
+\resetcounteronoverlays{saveenumi}
+
+\setbeamertemplate{caption}[numbered]
+
+\numberwithin{equation}{section}%
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}%
+
+%\title[Boltzmann Machines]{Inteligência Computacional Usando Máquinas De Boltzmann}%
+\title[Contrastive Divergence]{Contrastive Divergence}
+%\author[Artur Chiaperini Grover]{Aluno: Artur Chiaperini Grover \\ Orientadora: Dra. Roseli Suzi Wedemann}
+%\institute[UERJ]{PPG-CComp \\ Universidade do Estado do Rio de Janeiro}
+%\date{\today}
+
+\begin{document}
+\begin{frame}
+  \titlepage%
+\end{frame}
+
+\begin{frame}{Sumário}%
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \tableofcontents[sections={1-3}]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \tableofcontents[sections={4-}]
+    \end{column}
+  \end{columns}
+%  \begin{multicols}{2}
+%    \tableofcontents
+%  \end{multicols}
+\end{frame}
+
+\input{sections/01-intro.tex}
+\input{sections/02-ann.tex}
+\input{sections/03-hopfield.tex}
+\input{sections/04-stochastic.tex}
+\input{sections/05-bm.tex}
+\input{sections/06-future.tex}
+
+%\begin{frame}%
+%  \centering%
+%  Obrigado! \smiley{}
+%\end{frame}
+
+%\input{sections/00_probability_and_IT.tex}
+%\input{sections/section_00.tex}
+
+\end{document}

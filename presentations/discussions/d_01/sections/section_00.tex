@@ -1,0 +1,137 @@
+\section{Introduction}
+\begin{frame}{Terminology}
+ \begin{itemize}
+  \item $S$ : A market string (wti x 100 p vs .48 1.21@1.24)
+  \pause
+  \item $M$ : A market 
+  \begin{itemize}
+  	\item $product$: a financial instrument ("wti, "brent", "goog")
+    \item $month$: the month for which the financial contract expires ("jan", "x", "march")
+    \item $strike1..N$: represents the strike price(s) of the financial contract
+    \item $strategy$: represents the strategy type of the financial contract ("put", "call", "strad")
+    \item $cross$: a hedge price for the financial contract
+    \item $bid$: a bid price for the financial contract
+    \item $offer$: an offer price for the financial contract
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Terminology}
+ \begin{itemize}
+  \item $S$ : \newline\textbf{0}: "wti", \textbf{1}: "x", \textbf{2}: "100", \textbf{3}: "p", \textbf{4}: "vs", \textbf{5}: ".48", \textbf{6}: "1.21", \textbf{7}: "1.24"
+  \item $M$ : 
+  \begin{itemize}
+  	\item $product$: $0$, "wti"
+    \item $month$: $1$, "x"
+    \item $strike1$: $2$, "100"
+    \item $strategy$: $3$, "p"
+    \item $cross$: $5$, ".48"
+    \item $bid$: $6$, "1.21"
+    \item $offer$: $7$, "1.24"
+  \end{itemize}
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Domain Complexity}
+\begin{itemize}
+\item Could just map all pairs $(s,m) \in (S \times M)$ to explicitly model $P(M|S)$, but...
+\pause
+\item $|S|$ is large (2+ million distinct messages for crude traders alone) 
+\pause
+\item $|M|$ is also large, albeit less than $|S|$ 
+\begin{itemize}
+\item only by a couple orders of magnitude  
+\item example: "z 150 call" $\equiv$ "dec 150 call"\newline
+\end{itemize}
+\pause
+\item $P(M|S)$ is still desired, but with a more efficient representation than $O(|M||S|)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Semantic Labeling (Intuition)}
+\textbf{Use domain knowledge to label each token of the string}\newline
+\begin{itemize}
+\pause
+\item Provide $X = L(S)$ where $L(S)$ \textit{labelizes} each token
+\item Design $L(S)$ such that $|X| << |S|$\newline
+\pause
+\item We hope that $P(M|X)$ is distributed similarly to $P(M|S)$, but in practice one instance of $X$ fans out to more possible $M$'s than $S$ does
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Semantic Labeling (Examples)}
+\begin{itemize}
+\item wti x 100 c \newline\newline \textit{becomes} \newline
+\newline$PRODUCT$ $MONTH$ $NUMBER$ $PRODUCT|STRATEGY$\newline
+\pause
+\item brent z 50/60 ps vs .43 \newline\newline \textit{becomes} \newline
+\newline$PRODUCT$ $MONTH$ $NUMBER$ $OTHER$ $NUMBER$ $STRATEGY$ $OTHER$ $NUMBER$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generalization By Labeling}
+$PRODUCT$ $MONTH$ $NUMBER$ $OTHER$ $NUMBER$ $OTHER$ $NUMBER$\newline
+\begin{itemize}
+\pause
+\item brent z 50/60 ps vs .43
+\item wti x 55/60 cs vs 1.23
+\item go jan 120,125 fnc cross 2.78\newline\newline
+\pause
+\end{itemize}
+\textbf{No algorithms necessary to generalize, just need some data!}
+\end{frame}
+
+\begin{frame}{Model Details}
+
+\begin{itemize}
+\item \textbf{Current Model}:
+\begin{enumerate}
+ \item Retain a multinomial distribution over $M$ conditioned on each observed, labelized sequence $x = L(s)$
+ \item When several markets are possible given $x$, use analytics (eg. implied premiums) to filter out unlikely markets
+ \item If analytics aren't available then we can maximize the posterior distribution $P(M|X=x)$ instead
+\end{enumerate}
+\pause
+\item \textbf{Cons}:
+\begin{itemize}
+\item Does not learn relationships between similar sequences. "x 10 c" and "hello x 10 c" are distinct sequences and thus create independent multinomial distributions over M
+\item Fails to incorporate analytical features into the input vector- can't directly query the probability model with analytical random variables
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Model Alternatives}
+\textbf{Vectorizing the input}:
+\begin{itemize}
+ \item Treat each token of the sequence $x_0, x_1, ... , x_n$ as a discrete input vector of size $n$.
+ \item Outputs are also a vector, one column for each atrribute of market, each value being a position from the sequence.
+  \begin{itemize}
+  	\item $product$: 0
+    \item $month$: 3
+    \item $strike1$: 1 
+    \item $strike2$: 2
+    \item $strategy$: 3
+    \item $cross$: 4
+    \item $bid$: 5
+    \item $offer$: 6 
+  \end{itemize}
+\item Now we can use any machine learning technique that can tolerate discrete input / output vectors
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusions}
+\textbf{Use domain knowledge to simplify the learning problem}
+\begin{itemize}
+ \item Most algorithms don't work "out of the box" with traditional machine learning techniques 
+ \pause
+ \item But A good abstraction can make machine learning practically unnecessary
+\end{itemize}
+\textbf{Future Work}
+\begin{itemize}
+ \item Consider sequence learning approaches, like hidden markov models or dynamic bayesian networks
+ \item Incorporate analytical features directly into the probability model
+ \item Unsupervised learning (use analytics to discover reasonable markets)
+\end{itemize}
+\end{frame}
