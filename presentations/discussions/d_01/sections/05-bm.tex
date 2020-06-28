@@ -1,201 +1,238 @@
 \section{Boltzmann Machine}
 
-\begin{frame}{Boltzmann Machine --- Hertz}%
+
+\begin{frame}{Boltzmann Machine --- [Hertz, Hinton, Aggarwal]}%
     \justifying%
     Stocastic neural network of random binary variables $s_{i}$. Connections between units $i$ and $j$ are symmetrical $\omega_{ij} = \omega_{ji}$ (undirected).
     \\~\\
-    Energy based model. Energy determines the configurations of the network with the most and the least probabilities of occurrence by using a Boltzmann distribution to model the probability distribution of an the observed events in a dataset.
+    Energy based model. Energy is used to determine the configurations of the network, by calculating the probabilities of occurrence, using the Boltzmann distribution as the probability distribution of the observed network states.
     \\~\\
-    There can be two types of units: \textbf{visible} and \textbf{hidden}.
+    The network consists of $N$ \textbf{visible} units and $M$ \textbf{hidden} units.
        
 %  \textbf{Visíveis}: ligadas ao meio externo; correspondem às variáveis do problema.
 %  \\~\\
 %  \textbf{Escondidas}: não tem ligação do o meio externo; determinam a relação entre as variáveis do problema.
 \end{frame}
 
+
 \begin{frame}{Boltzmann Machine}
     \justifying%
     Energy function is
     \begin{equation}
         \label{eq:energy-function-bm}
-        H_{vh} = -\frac{1}{2} \sum_{i}\sum_{j} s^{(vh)}_{i} \omega_{ij} s^{(vh)}_{j} - \sum_{i} \phi_{i} s^{(vh)}_{i}.
+        H_{vh} = -\frac{1}{2} \sum_{i}\sum_{j} s^{(vh)}_{i} \omega_{ij} s^{(vh)}_{j} - \sum_{i} \phi_{i} s^{(vh)}_{i},
+    \end{equation}
+    where $\phi_{i}$ is the bias (!!!!) of unit $i$. The superscript $(vh)$ identifies the joint state, where visible units have configuration $v$ and hidden units have configuration $h$. $s_{i}$ and $s_{j}$ identify two different units that are connected to each other by a synapse with weight $\omega_{ij}$. 
+\end{frame}
+
+
+\begin{frame}{Boltzmann Machine}
+    \justifying%
+    From the Boltzmann distribution, the joint probability of finding the system with energy $H_{vh}$, corresponding to a specific configuration $(vh)$ is
+    \begin{equation}
+        \label{eq:joint-prob-bm}
+        P_{vh} = \frac{e^{-H_{vh}/T}}{Z}.
+    \end{equation}
+    $Z$ is the partition function, a normalization factor that considers all possible configurations of the system, i.e.,
+    \begin{equation}
+        \label{eq:partition-function-bm}
+        Z = \sum_{u} \sum_{k} e^{-H_{uk}/T},
+    \end{equation}
+    where $T$ is the \textit{pseudo-temperature}, a dimensionless quantity.
+\end{frame}
+
+
+\begin{frame}{Boltzmann Machine}
+    \justifying%
+    (!!!) We are interested in modelling the configuration of the visible units in order to use the machine to represent a dataset, i.e., we would like to use the BM to model the marginal probability distribution of the visible units $P_{v}$ that matches the probability distribution of a given dataset from the real world, (!!!)
+    \\~\\
+    rede vai representar alguma propriedade do dado, rede usa a probabilidade para modelar o processo de convergência.
+    \begin{equation}
+        \label{eq:marginal-prob-bm}
+        P_{v} = \frac{\sum_{h} e^{-H_{vh}/T}}{Z}
     \end{equation}
 \end{frame}
 
-\begin{frame}{Boltzmann Machine}%
-  \justifying%
-  \onslide<1->{%
-  Vamos considerar que temos uma rede com $N$ unidades visíveis, e $K$ unidades escondidas, }
-  \onslide<2->{%
-  em que as unidades visíveis estão no estado $v$, e as escondidas, no estado $h$.} 
-  \\~\\
-  \onslide<3->{%
-  Temos $2^{(N + K)}$ possibidades de estados em que a rede pode ser encontrada.
-  }
-  \\~\\
-  \onslide<4->{%
-  Uma unidade $\mathrm{x}_{i} = x_{i}$, sendo que $x_{i} \in \{0, 1\}$. 
-  }
+
+\begin{frame}{Boltzmann Machine}
+    \justifying%
+    (!!!) Consider the real world dataset has a probability distribution $R_{v}$ which is an unknown probability distribution of observed events, where $v$ refers to the dimensionaly, i.e., measured variable of each event. We want to use BM to model a probability distribution $P_{v}$ which \textit{replicates} the distribution of the data. (!!!)
+    \\~\\
+    We use Kullback-Leibler divergence to measure the differences between distributions,
+    \begin{equation}
+        \label{eq:DKL}
+        D_{KL}(R_{v}||P_{v}) = \sum_{v} R_{v} \ln\left(\frac{R_{v}}{P_{v}}\right).
+    \end{equation}
+    We want to find the best set of parameters $\omega_{ij}$ and $\phi_{i}$ that minimazes $D_{KL}$ (turns $P_{v}$ into the best approximation of $R_{v}$.)
 \end{frame}
 
-\subsection{Aprendizagem}%
-\begin{frame}{Objetivo da Máquina de Boltzmann}%
-  \justifying%
-  \onslide<1->{%
-  Na máquina de Boltzmann fazemos o ajuste das conexões $\omega_{ij}$ para termos um certo estado nas unidades visíveis com uma distribuição de probabilidade desejada.
-  \\~\\
-  Se precisamos determinar as conexões $\omega_{ij}$, precisamos de um mecanismo para atualizar os pesos, temos que resolver:
-  }
-  \onslide<2->{%
-  \begin{equation}%
-    \label{eq:omega-learning}
-    \omega^{(final)}_{ij} = \omega^{(inicial)}_{ij} + \Delta \omega_{ij}.
-  \end{equation}
-  }
-  \\~\\
-  \onslide<3->{%
-  Lembrando que os pesos são ajustados baseados nos exemplos de treinamento que a rede recebe.  
-  }
+
+\begin{frame}{Boltzmann Machine}
+    \justifying%
+    Minimization of the relative entropy, i.e., $D_{KL}(R_{v}||P_{v})$,
+    \begin{align}
+        \label{eq:DKL-omega}
+        \frac{\partial D_{KL}}{\partial \omega_{ij}} &= 0, \\
+        \label{eq:DKL-phi}
+        \frac{\partial D_{KL}}{\partial \phi_{i}} &= 0.
+    \end{align}
+    In equation~(\ref{eq:DKL}), only $P_{v}$ is dependent on $\omega_{ij}$ and $\phi_{i}$.
 \end{frame}
 
-\begin{frame}{Grandezas Importantes}%
-  \justifying%
-  Energia para rede com unidades visíveis no estado $v$, e escondidas, no estado $h$:
-  \begin{equation}%
-    \label{eq:bm-energy}
-    H_{vh} = -\frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{i} \phi_{i} x^{(vh)}_{i}.
-  \end{equation}
-  \\~\\
-  Podemos calcular a soma de todos os possíveis estados da rede pela função partição:
-  \begin{equation}%
-    \label{eq:bm-partition}
-    Z = \sum_{u} \sum_{k} e^{(-\beta H_{uk})}.
-  \end{equation}
+
+\begin{frame}{Boltzmann Machine --- Learning}
+    \justifying%
+    Learning in a BM consists in updating the parameters $\omega_{ij}$ and $\phi_{i}$ through an iterative process,
+    \begin{align}
+        \label{eq:omega-update-1}
+        \omega^{(updated)}_{ij} &= \omega^{(current)}_{ij} + \Delta \omega_{ij}, \\
+        \phi^{(updated)}_{i} &= \phi^{(current)}_{i} + \Delta \phi_{i},
+    \end{align}
+    where 
+    \begin{equation}
+        \label{eq:delta-omega}
+        \Delta \omega_{ij} = -\eta \frac{\partial D_{KL}}{\partial \omega_{ij}},
+    \end{equation}
+    and analogously for $\Delta \phi_{i}$.
 \end{frame}
 
-\begin{frame}{Grandezas Importantes}%
-  A probabilidade $P_{v}$ de achar as unidades visíveis de uma máquina de Boltzmann em um determinado estado $v$, é
-  \begin{equation}%
-    \label{eq:bm-prob-marg}%
-    P_{v} = \sum_{h} \frac{1}{Z} e^{(-\beta H_{vh})}.
-  \end{equation}
-  \\~\\
-  Também pode ser escrito como
-  \begin{equation}%
-    \label{eq:bm-prob-marg2}
-    P_{v} = \frac{\sum_{h} e^{-\beta H_{vh}}}{\sum_{u} \sum_{k} e^{-\beta H_{uk}}}.
-  \end{equation}
+
+\begin{frame}{Boltzmann Machine --- Learning}
+    \justifying%
+    Derivation of $\Delta \omega_{ij}$. Skip that for the moment. \Laughey[1.5]
+    \\~\\
+    Updates of $\omega_{ij}$ and $\phi_{i}$ can consume a lot of computational time. 
+    The difficulty consists in calculating the partition function everytime the parameters $\omega_{ij}$ and $\phi_{i}$ are updated, which involves a summation over all possible configurations of the nodes of the network. \Xey[1.5]
+    \\~\\
+    In the BM, there can be a connection between each pair of nodes. For each unit, its activation depends on the state of every other unit in the network.
 \end{frame}
 
-\begin{frame}{Entropia Relativa - Divergência Kullback-Leibler}%
-  \justifying%
-  Se temos duas distribuições de probabilidade distintas, por exemplo, $P$ e $R$, sobre um mesmo espaço de estados, podemos calcular a diferença entre estas distribuições pela entropia relativa, $E$, (ou divergência de Kullback-Leibler, $D_{KL}(R||P)$).
+
+\begin{frame}{Restricted Boltzmann Machine --- [Smolensky, Aggarwal, Hinton and Larochelle]}
+    \justifying%
+    (!!!) RBM has the same properties of a BM, where a probability distribution of a sample of a real world observation is being modelled. (!!!)
+    \\~\\
+    In the RBM there are restrictions in the connections among units. There are no connections among two visible units or two hidden units. Only connections between a visible and a hidden unit are allowed.
 \end{frame}
 
-\begin{frame}{Entropia Relativa - Divergência Kullback-Leibler}%
-  \justifying%
-  Com as máquinas de Boltzmann queremos determinar a probabilidade $P_{v}$ de achar as unidades visíveis em determinado estado $v$, como mostra a equação~(\ref{eq:bm-prob-marg}). Porém para este estado temos uma probabilidade deseja $R_{v}$.
-  \begin{equation}%
-    \label{eq:bm-entropy}
-    E = \sum_{v} R_{v} \ln \left[\frac{R_{v}}{P_{v}} \right]
-  \end{equation}
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    We can consider that the configuration of a network is given by the joint configuration of a visible state vector $\mathbf{v} = (v_{1}, v_{2}, \dots, v_{N})$ and a hidden state vector $\mathbf{h} = (h_{1}, h_{2}, \dots, h_{M})$. The energy function is
+    \begin{equation}
+        \label{eq:energy-function-rbm}
+        H(\mathbf{v}, \mathbf{h}) = - \sum_{i} \sum_{j} v_{i} \omega_{ij} h_{j} - \sum_{j} b_{j} h_{j} - \sum_{i} c_{i} v_{i},
+    \end{equation}
+    where $b_{j}$ and $c_{i}$ are the biases related to hidden unit $j$ and visible unit $i$, respectively. The parameter $\omega_{ij} = \omega_{ji}$ corresponds to the symmetric connection between visible unit $v_{i}$ and hidden unit $h_{j}$.
 \end{frame}
 
-\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
-  \justifying%
-  Usamos a nossa entropia relativa como função custo.
-  \\~\\
-  Pelo método do grandiente descendente, podemos calcular $\Delta \omega_{ij}$,
-  \begin{equation}%
-    \label{eq:omega-delta}
-    \Delta \omega_{ij} = -\eta \frac{\partial E}{\partial \omega_{ij}},
-  \end{equation}
-  onde $\eta$ é a taxa de aprendizagem.
-  \\~\\
-  $E(P_{v})$; $P_{v}(H_{vh})$; $H_{vh}(\omega_{ij})$.
-\end{frame} 
 
-\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
-  \justifying%
-  Por simplificação, vamos considerar que a função de energia para a rede no estado $v$ e $h$ é dada apenas pela correlação entre as unidades (primeiro termo da equação~(\ref{eq:bm-energy})):
-  \begin{equation}%
-    \label{eq:bm-energy-simple}
-    H_{vh} = -\frac{1}{2} \sum_{i} \sum_{j} \omega_{ij} x^{(vh)}_{i} x^{(vh)}_{j}  
-  \end{equation}
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    The joint probability $P(\mathbf{v}, \mathbf{h})$ of finding the network at visible state vector $\mathbf{v}$ and hidden state vector $\mathbf{h}$ is
+    \begin{equation}
+        \label{eq:joint-prob-rbm}
+        P(\mathbf{v}, \mathbf{h}) = \frac{e^{-H(\mathbf{v}, \mathbf{h})}}{Z},
+    \end{equation}
+    where $Z$ is the partition function defined as in the case of the BM, by equation~(\ref{eq:partition-function-bm}),
+    \begin{equation}
+        \label{eq:partition-function-rbm}
+        Z = \sum_{\mathbf{u}} \sum_{\mathbf{k}} e^{-H(\mathbf{u}, \mathbf{k})}.
+    \end{equation}
 \end{frame}
 
-\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
-  \justifying%
-  Para se determinar $\Delta \omega_{ij}$, temos que passar por uma série de derivações$\dots$
-  \begin{align}%
-    \phantom{\frac{\partial P_{v}}{\partial \omega_{ij}}}%
-    & \onslide<1->{%
-    \label{eq:omega-deriv-1}%}
-    \begin{aligned}
-      \mathllap{\Delta \omega_{ij}} & = \eta \sum_{v} \frac{R_{v}}{P_{v}} \frac{\partial P_{v}}{\partial \omega_{ij}} 
-    \end{aligned} \\ }
-    & \onslide<2->{%
-    \label{eq:bm-prob-deriv-1}%
-    \begin{aligned}
-        \mathllap{\frac{\partial P_{v}}{\partial \omega_{ij}}} & = \beta \left[-\sum_{h} \frac{e^{-\beta H_{vh}}}{Z} \frac{\partial H_{vh}}{\partial \omega_{ij}} + \sum_{h} \frac{e^{-\beta H_{vh}}}{Z} \sum_{u} \sum_{k} \frac{e^{-\beta H_{uk}}}{Z} \frac{\partial H_{uk}}{\partial \omega_{ij}} \right] 
-    \end{aligned} \\ }
-    & \onslide<3->{%
-    \label{eq:energy-deriv-1}
-    \begin{aligned}
-        \mathllap{\frac{\partial H}{\partial \omega_{ij}}} & = - x_{i} x_{j} 
-    \end{aligned} }
-  \end{align}
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    The probability $P(\mathbf{v})$ of finding the visible units in state $\mathbf{v}$, regardless of the hidden state $\mathbf{h}$ is
+    \begin{equation}
+        \label{eq:marginal-prob-rbm}
+        P(\mathbf{v}) = \sum_{\mathbf{h}} P(\mathbf{v}, \mathbf{h}) = \sum_{\mathbf{h}} \frac{e^{-H(\mathbf{v}, \mathbf{h})}}{Z}.
+    \end{equation}
+    (!!! Colocar lá em cima !!!) In equation~(\ref{eq:marginal-prob-rbm}), we see that the numerator increases as the energy increases. 
+    \\~\\
+    !!! For a giver visible state vector $\mathbf{v}$ and the RBM finds the hidden state vector $\mathbf{h}$ that nicely in order to low the energy. The denominator is searching for global configurations of visible and hidden states that provide low energy which means a large contribution to $Z$. !!! 
 \end{frame}
 
-\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
-  \justifying%
-  \onslide<1->{%
-  Com as devidas substituições na equação~(\ref{eq:bm-prob-deriv-1}), temos
-  \begin{equation}%
-    \label{eq:bm-prob-deriv-2}
-    \frac{\partial P_{v}}{\partial \omega_{ij}} = \beta \left[\sum_{h} P_{vh} x^{(vh)}_{i} x^{(vh)}_{j} - P_{v} \sum_{u} \sum_{k} P_{uk} x^{(uk)}_{i} x^{(uk)}_{j} \right] 
-  \end{equation}
-  \\~\\
-  }
-  \onslide<2->{%
-  No segundo termo, temos o valor médio da correlação entre as unidades $i$ e $j$, que é dado por
-  \begin{equation}%
-    \label{eq:valor-medio}%
-    \langle x_{i} x_{j} \rangle = \sum_{u} \sum_{k} P_{uk} x^{(uk)}_{i} x^{(uk)}_{j}
-  \end{equation}
-  }
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    Both visible and hidden units are random binary variable. For $N$ visible units, $\mathbf{v} \in {\{0, 1\}}^{N}$, and for $M$ hidden units, $\mathbf{h} \in {\{0, 1\}}^{M}$. Then we can expand equation~(\ref{eq:marginal-prob-rbm}), 
+    \begin{align}
+        P(\mathbf{v}) &= \sum_{\mathbf{h} \in {\{0, 1\}}^{M}} \frac{e^{-H(\mathbf{v}, \mathbf{h})}}{Z} \nonumber \\
+        &= \frac{1}{Z} \sum_{\mathbf{h} \in {\{0, 1\}}^{M}} e^{\left(\sum_{i} c_{i} v_{i} + \sum_{j} b_{j} h_{j} + \sum_{i}\sum_{j} v_{i} \omega_{ij} h_{j} \right)} \nonumber \\
+        &= \frac{1}{Z} \left(e^{\sum_{i} c_{i} v_{i}}\right) \left[\sum_{\mathbf{h} \in {\{0, 1\}}^{M}} e^{\left[\sum_{j} \left(b_{j} + \sum_{i} v_{i} \omega_{ij} \right) h_{j}\right]}\right] \nonumber
+    \end{align}
 \end{frame}
 
-\begin{frame}{Atualização de $\Delta \omega_{ij}$}%
-  \justifying%
-  Substituindo as equações~(\ref{eq:bm-prob-deriv-2}) e (\ref{eq:valor-medio}) em (\ref{eq:omega-deriv-1}):
-  \begin{equation}%
-    \label{eq:omega-deriv-2}%
-    \Delta \omega_{ij} = \eta \beta \left[ \sum_{v} \sum_{h} R_{v} \frac{P_{vh}}{P_{v}} x^{(vh)}_{i} x^{(vh)}_{j} - \sum_{v} R_{v} \langle x_{i} x_{j} \rangle \right]
-  \end{equation}
-  \\~\\
-  Considerando o probabilidade condicional 
-  \begin{equation}%
-    \label{eq:prob-condic}%
-    P_{h|v} = \frac{P_{vh}}{P_{v}},
-  \end{equation}
-  podemos rearranjar o primeiro termo de~(\ref{eq:omega-deriv-2}),
-  \begin{equation}%
-    \label{eq:omega-deriv-term1}%
-    \sum_{v} R_{v} \sum_{h} P_{h|v} x^{(vh)}_{i} x^{(vh)}_{j} = \sum_{v} R_{v} \langle x_{i} x_{j} \rangle^{(v)} = \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle
-  \end{equation}
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    \begin{align}
+        &= \frac{1}{Z} \left(e^{\sum_{i} c_{i} v_{i}}\right) \left[\sum_{h_{1} \in {\{0, 1\}}} e^{\left(b_{1} + \sum_{i} v_{i} \omega_{i1} \right) h_{1}} \dots \sum_{h_{M} \in {\{0, 1\}}} e^{\left(b_{M} + \sum_{i} v_{i} \omega_{iM} \right) h_{M}}\right] \nonumber \\
+        &= \frac{1}{Z} \left(e^{\sum_{i} c_{i} v_{i}}\right) \prod^{M}_{j=1} \left[\sum_{h_{j} \in \{0, 1\}} e^{\left(b_{j} + \sum_{i} v_{i} \omega_{ij} \right) h_{j}}\right] \nonumber \\
+        &= \frac{1}{Z} \left(e^{\sum_{i} c_{i} v_{i}}\right) \prod^{M}_{j=1} \left[1 + e^{\left(b_{j} + \sum_{i} v_{i} \omega_{ij} \right)} \right] \nonumber 
+    \end{align}
 \end{frame}
 
-\begin{frame}{$\Delta \omega_{ij}$}%
-  \justifying%
-  Por último, temos que o termo responsável pela atualização dos pesos é
-  \begin{equation}%
-    \label{eq:omega-deriv-final}
-    \Delta \omega_{ij} = \eta \beta \left[ \langle \langle x_{i} x_{j} \rangle^{(v)} \rangle_{fixo} - \langle x_{i} x_{j} \rangle_{llivre}  \right]
-  \end{equation}
-  \\~\\
-  O primeiro termo corresponde ao valor médio de acordo com a distribuição de probabilidade $R_{v}$ do valor médio das correlações entre as unidades $i$ e $j$ quando as unidades visíveis estão no estado fixo $v$.
-  \\~\\
-  O segundo termo corresponde a média da correlação entre as unidades $i$ e $j$ para todas as combinações possíveis dos estados $v$ e $h$ do sistema.
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    \begin{align}
+        &= \frac{1}{Z} \left(e^{\sum_{i} c_{i} v_{i}}\right) e^{\ln\left[\prod_{j=1}^{M} \left[1 + e^{\left(b_{j} + \sum_{i} v_{i} \omega_{ij}\right)}\right] \right]} \nonumber \\
+        \label{eq:marginal-prob-rbm-free-energy}
+        \Rightarrow P(\mathbf{v}) &= \frac{1}{Z} e^{\left( \sum_{i} c_{i} v_{i} + \sum_{j} \ln\left[1 + e^{\left(b_{j} + \sum_{i} v_{i} \omega_{ij}\right)}\right] \right)} 
+    \end{align}
+    The term in the exponential in equation~(\ref{eq:marginal-prob-rbm-free-energy}) is know as the Free Energy of visible state vector $\mathbf{v}$,
+    \begin{align}
+        \label{eq:free-energy-rbm}
+        F(\mathbf{v}) &= - \sum_{i} c_{i} v_{i} - \sum_{j} \ln\left[1 + e^{\left(b_{j} + \sum_{i} v_{i} \omega_{ij}\right)} \right] \\
+        \Rightarrow P(\mathbf{v}) &= \frac{e^{-F(\mathbf{v})}}{Z}
+    \end{align}
 \end{frame}
 
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    Modelling the marginal probability distribution of visible state $P(\mathbf{v})$ means finding a good approximation based on the Boltzmann distribution which models the likelihood of the observed events. To do so, we can maximize the likelihood by,
+    \begin{align}
+        \label{eq:max-likelihood-rbm}
+        \frac{\partial P(\mathbf{v})}{\partial \omega_{ij}} &= 0 \\
+        \frac{\partial P(\mathbf{v})}{\partial b_{j}} &= 0 \\
+        \frac{\partial P(\mathbf{v})}{\partial c_{i}} &= 0
+    \end{align}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    One strategy is to maximize the log-likelihood, as the logarithm functions is monotonic and, thus both likelihood and log-likelihood have the same maximum point
+    \begin{align}
+        \label{eq:log-likelihood-rbm}
+        P(\mathbf{v}) &= \frac{\sum_{\mathbf{h}} e^{-H(\mathbf{v}, \mathbf{h})}}{Z} \nonumber \\
+        \ln\left[P(\mathbf{v})\right] &= -F(\mathbf{v}) - \ln[Z] \\
+        \Rightarrow \frac{\partial \ln[P(\mathbf{v})]}{\partial \omega_{ij}} &= 0.
+    \end{align}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Restricted Boltzmann Machine}
+    \justifying%
+    Suppose we have $M$ hidden units, and $N$ visible units, for a given visible state vector $\mathbf{v}$ all hidden units activation can be computed at the same time, as they are independent (no hidden-hidden connection), this means that
+    \begin{equation}
+        \label{eq:prob-hidden-unit-rbm}
+        P(\mathbf{h} | \mathbf{v}) = \prod^{M}_{j = 1} P(h_{j} | \mathbf{v})
+    \end{equation}
+\end{frame}
+%

@@ -21,7 +21,7 @@ Negative phase is like an unlearning in Hopfield to get rid of spurious minimum.
 
 The marginal probability of state vector $\mathbf{v}$, $P(\mathbf{v})$, is
 $$
-P(\mathbf{v}) = \frac{\sum_{\mathbf{h}e^{-E(\mathbf{v}, \mathbf{h})}}}{\sum_{\mathbf{u}}\sum_{\mathbf{k}}e^{-E(\mathbf{u}, \mathbf{k})}},
+P(\mathbf{v}) = \frac{\sum_{\mathbf{h}}e^{-E(\mathbf{v}, \mathbf{h})}}{\sum_{\mathbf{u}}\sum_{\mathbf{k}}e^{-E(\mathbf{u}, \mathbf{k})}},
 $$
 where the numerator is decreasing the energy, for a state visible vector $\mathbf{v}$ clamped and it finds state hidden vector $\mathbf{h}$ that fits nicely with it in order to get a low energy (this is the positive phase). The denominator, negative phase, has a similar purpose but for the partition function, it is finding global configurations, combinations of visible and hidden states, that give low energy, and therefore are large contribuition to $Z$, having found those global configurations, it raises their energy so that they contribute less. First term makes bigger, second term makes small.
 
