@@ -330,11 +330,16 @@ One approach is to progressively increase the value of $k$ as while applying the
 
 
 
-\section{Hinton 2020}
+\section{Hinton 2002}
 
+Minimizing the log likelihood is equivalent to minimizing the Kullback-Liebler divergence between the data distribution, $R_{\alpha}$, and the equilibrium distribution over the visible variables, $P_{\alpha}$,
+\begin{equation}
+    \label{eq:hinton2002-dkl}
+    D(R_{\alpha} || P_{\alpha}) = \sum_{\alpha} R_{\alpha} \ln(R_{\alpha}) - \sum_{\alpha} R_{\alpha} \ln(P_{\alpha}) = E(R_{\alpha}) - {\langle \ln(P_{\alpha}) \rangle}_{R_{\alpha}},
+\end{equation}
+where the first term, $E(R_{\alpha})$, is the entropy of the data distribution, and the second term is the average over the distribution given by the data distribution, $R_{\alpha}$.
 
-
-
+In equation~(\ref{eq:hinton2002-dkl}), only the average term depends on the parameters os the model. Therefore, when minimizing the Kullback-Liebler divergence, the first term will be ignored.
 
 
 
