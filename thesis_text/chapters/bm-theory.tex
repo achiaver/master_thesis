@@ -10,11 +10,17 @@
 %
 
 In this chapter will expose the theory behind the Boltzmann Machine.
-A few considerations regarding the notation used in this exposition is required before stepping forward into the main content.
-A single random variables is denoted by $\mathrm{x}$.
-A vector of random variables of size $n$ is represented by $\mathbf{x} = (\mathrm{x}_{1}, \mathrm{x}_{2}, \dots, \mathrm{x}_{n})$, where each $\mathrm{x}_{i}$, $i \in \{1, 2, \dots, n\}$, represents a single unit of the network.
-The value a random variable can assume is represented by $x$.
-Assuming a discrete scenario, the probability of a random variable $\mathrm{x}_{i}$ of assuming a certain value $x_{i}$ is $P(\mathrm{x}_{i} = x_{i})$.
+A few considerations regarding the notations that will be adopt in this text is required before stepping forward into the main content.
+
+A single random variables are denoted by $\mathrm{x}$ and $\mathrm{y}$.
+A vector of random variables of size $n$ is represented by $\mathbf{x} = (\mathrm{x}_{1}, \mathrm{x}_{2}, \dots, \mathrm{x}_{n})$, where each $\mathrm{x}_{i}$, $i \in \{1, 2, \dots, n\}$, represents a single variable. 
+Analagously a vector of random variables of size $m$ is represented by $\mathbf{y}$.
+
+In a discrete scenario, the probability $P(\mathrm{x}_{i} = x_{i})$ represents the probability that a random variable $\mathrm{x}_{i}$ assumes value $x_{i}$.
+
+
+The first section of this chapter introduces the Hopfield Network. We believe Hopfield Networks is an important theoretical basis before Boltzmann Machines, as some authors refer to the last as a generalization of the first one. This theory is mainly based on \cite{bib:hertz1991}. Following, the second section introduces the Boltzmann Machine; most of the theory is also base on \cite{bib:hertz1991} and [GOODFELLOW].
+
 
 We begin this chapter by briefly introducing the Hopfield Network.
 The reason is because the Boltzmann Machine is a generalization of the Hopfield Network.
