@@ -1,21 +1,15 @@
 \begin{figure}[h!tbp]{\textwidth}
-  \centering
-  \caption{Boltzmann machine diagram.}%
-  \label{fig:bm-diagram}%
-  \tikzstyle{visible} = [draw, circle, fill=white]
-  \tikzstyle{hidden} = [draw, circle, fill=gray!30]
-  \begin{tikzpicture}
-    \node[style=visible] (a) at (0, 2.5) {$\mathrm{x}_{1}$};
-    % \node[style=visible] (b) at +(0: 1.5) {$\mathrm{x}_{2}$};
-    % \node[style=hidden] (c) at + (60: 1.5) {$\mathrm{x}_{3}$};
-    \node[style=visible] (b) at (-2.16, 1.25) {$\mathrm{x}_{2}$};
-    \node[style=visible] (c) at (-2.16, -1.25) {$\mathrm{x}_{3}$};
-    \node[style=visible] (d) at (0, -2.5) {$\mathrm{x}_{4}$};
-    \node[style=hidden]  (e) at (2.16, -1.25) {$\mathrm{x}_{5}$};
-    \node[style=hidden]  (f) at (2.16, 1.25) {$\mathrm{x}_{6}$};
-    \foreach \from/\to in {a/b, a/c, a/d, a/e, a/f, b/c, b/d, b/e, b/f, c/d, c/e, c/f, d/e, d/f, e/f}
-      \draw [thick] (\from) -- (\to);   
-  \end{tikzpicture}
-  \legend{Gray circles represent the hidden units of the Boltzmann Machine, while the white circles are the visible units.}
-  \source{Author.}
+    \centering
+    \caption{Word Completion Example.}%
+    \label{fig:smolensky-make}%
+    \begin{tikzpicture}
+        [scale=2]
+        \draw [step=.5cm, gray, very thin] (-1.3, -1.3) grid (1.3, 1.3);
+        \draw (-1.5, 0) -- (1.5, 0);
+        \draw (0, -1.5) -- (0, 1.5);
+        \draw (0, 0) circle [radius=1cm];
+        \draw (3mm, 0mm) arc [start angle=0, end angle=30, radius=3mm];
+    \end{tikzpicture}
+    \legend{No legend}
+    \source{Author.}
 \end{figure}
