@@ -1,0 +1,168 @@
+% Altera o título de algumas seções e de algumas tags
+\addto\captionsamerican{%
+    \renewcommand{\acronymname}{List of abbreviations and acronyms}%
+    \renewcommand*{\glossarysection}[2][]{\pretextualchapter{#2}}%
+}
+
+\addto\captionsbrazil{%
+    \renewcommand{\acronymname}{\abrevname}%
+}
+
+% Colors
+\definecolor{lightgray}{gray}{0.9}
+
+% Table configs
+% \renewcommand{\arraystretch}{1.2}
+
+% Algorithm environment
+\lstdefinestyle{mystyle}{
+    language=[Sharp]C,
+    xleftmargin=7mm,
+    basicstyle=\scriptsize,
+    breakatwhitespace=false,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+    captionpos=t,
+    % abovecaptionskip=?pt,
+    % belowcaptionskip=?pt,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    numberstyle={\color{gray}\sffamily\tiny},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    framexleftmargin=6mm,
+    frame=single
+}
+\lstset{style=mystyle}
+\renewcommand{\lstlistingname}{Code}
+
+
+
+% Acrônimo para se usar dentro de lista
+\newcommand{\glsitem}[1]{\glsreset{#1}\gls{#1}}
+
+% Lista customizada
+% (inline list with bold label with items separated by semicolon)
+\newenvironment{descriptive}{\begin{itemize*}[font=\bfseries, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}, afterlabel={{ -- }}]}{\end{itemize*}}
+
+% Configuration of list inside table.
+\newcommand{\obs}[5][Base58]{%
+    \begin{description}[itemsep=0pt, parsep=0pt, leftmargin=0pt]
+        \item[ID] {\ttfamily #2}
+        \item[format] #1
+        \item[belongs to] #3
+        \item[created at] #4
+        \item[note] #5
+    \end{description}%
+}
+
+% Coloca a primeira letra da referência em maiúscula
+%   acho q não está funcionando direito
+%   (pelo menos não faz diferença para o 'autoref')
+\let\orgautoref\autoref
+\providecommand{\Autoref}[1]{%
+    \def\appendixautorefname{Appendix}%
+    \def\sectionautorefname{Section}%
+    \def\chapterautorefname{Chapter}%
+    % \def\postextualchapterautorefname{Appendix}%
+    \orgautoref{#1}%
+}
+
+% Marcação de direitos autorais
+\def \copyright{The author, 2019.}
+% \textcopyright\space \UERJautornome\space\UERJautorsobrenome,\space2019.
+
+% Marcação de licença
+\def \license{\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}}
+
+% Relacionamento entre a descrição das operações com as imagens dos fluxogramas
+\def \good#1{\textbf{\MakeUppercase{#1}}\\%
+    \small%
+    \ifthenelse{\equal{\detokenize{#1}}{\detokenize{summary}}}%
+    {\textit{(Figures \ref{fig:#11} to \ref{fig:#12})}}%
+    {% else 1
+    \ifthenelse{\equal{\detokenize{#1}}{\detokenize{change}}}%
+    {\textit{(Figures \ref{fig:#11} to \ref{fig:#14})}}%
+    {% else 2
+    \ifthenelse{\equal{\detokenize{#1}}{\detokenize{power-up}}}%
+    {\textit{(Figures \ref{fig:#11} to \ref{fig:#13})}}%
+    {% else 3
+    \textit{(\autoref{fig:#1})}%
+    }}}% else's 1,2,3
+    }
+
+% Auto numbering of rows.
+\newcounter{rowno}
+\setcounter{rowno}{0}
+
+% Base58 address formatting
+\newcommand{\ID}[1]{\texttt{#1}}
+
+% ----------------------------------------------------------
+% Configuração padrão para os fluxogramas
+\newcommand{\configTikzFlowcharts}{
+    \tikzset{%
+        >={Latex[width=2mm,length=2mm]},
+        node distance=1.5cm,
+        % inner frame sep=0.5cm, show background rectangle --> to be implemented
+        % Specifications for style of nodes:
+        base/.style = {fill=white, draw=black,
+            %yshift=-1cm,
+            %minimum width=2cm, minimum height=1cm,
+            text width=2.5cm, text centered, font=\sffamily},
+        onchain/.style = {base, rectangle, rounded corners},
+        offchain/.style = {onchain, dashed},
+        terminal/.style = {base, text width=3cm, ellipse},
+        i-o/.style = {base, trapezium, trapezium left angle=60, trapezium right angle=120},
+        i2o/.style = {i-o, text width=5cm},
+        decision/.style = {base, diamond},
+        erase/.style = {fill=white, shape=circle, minimum size=1.8*\radius, inner sep=0pt},
+    }
+}
+
+\tikzstyle{dash} = [anchor=west, draw, rounded corners=0.1cm, dashed, font=\scriptsize]
+\tikzstyle{straight} = [anchor=west, draw, rounded corners=0.1cm, thick, font=\scriptsize]
+\tikzstyle{remaining}=[font=\scriptsize]
+
+% Figures configurations
+\tikzstyle{print} = [drop shadow={gray!50, shadow xshift=3pt, shadow yshift=-3pt, rounded corners }, rounded corners, draw=gray, fill=white, text width=.95\linewidth]
+
+\tikzstyle{borda} = [framed, background rectangle/.style={fill=white}, inner frame sep=3pt, outer frame sep=0]
+
+\tikzstyle{pick} = [thick, rounded corners, red!80!black, font=\footnotesize]
+
+\tikzstyle{r} = [>=stealth, ->, thick, red!80!black]
+
+% UML configurations
+\newcommand{\umlblock}[4][2.5cm]{%
+    \frame{%
+        \begin{minipage}[t][#1]{\ifdim#4=0cm 4cm \else #4 \fi}
+            {\centering
+            \vspace{4pt}
+            \makebox[1.1\width][c]{#2}\vspace{3pt}
+            \hrule}
+            \vspace{3pt}
+            \begin{tabular}{l}
+                #3
+            \end{tabular}
+        \end{minipage}%
+    }
+}
+
+\newcounter{id}
+\newcommand{\id}{\refstepcounter{id}\large\textsf{\Alph{id}}}
+
+\newcommand{\hrel}[5][16pt]{\draw[-] (#2) node[L, inner sep=#1] at (#2.east) {#3} -- (#4) node[R, inner sep=#1] at (#4.west) {#5};}
+\newcommand{\vrel}[5][8pt]{\draw[-] (#2) node[align=right, anchor=east, yshift=-#1, xshift=18pt] at (#2.south) {#3} -- (#4) node[align=right, anchor=east, yshift=#1, xshift=18pt] at (#4.north) {#5};}
+
+\tikzset{detach/.style={draw=black!80!white, rounded corners, dashed, thick}}
+\tikzset{ID/.style={anchor=north east}}
+\tikzset{L/.style={align=left, anchor=west}}
+\tikzset{R/.style={align=right, anchor=east}}
+
+% VALUABLE NOTES
+% \draw[->]     (d) -- ++(-4cm,0) |- (end) node[pos=0.25] {No};
+% [node distance=1.5cm, align=center]

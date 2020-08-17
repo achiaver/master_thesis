@@ -1,0 +1,347 @@
+
+
+\section{New Ideas}
+\subsection{ANSARI}
+
+The energy computed in Boltzmann Machines is a measure of self-consistency of the system.
+Randomness is fundamental to avoid local optima.
+Exponential schedule for annealing instead of linear approach, does not have the drawback of premature freezing.
+Premature freezing means that the system reaches minimum temperature and becomes deterministic before a global minimum has been reached.
+
+Boltzmann machines can be seem as a system where each unit represents a hypothesis and each connection a constrain among hypothesis.
+
+The ability of the system to escape local optimum depends on the path chosen for the temperature, the annealing schedule. The success of simulated annealing depends on the proper choice of the annealing schedule.
+There is a need to have an annealing schedule where the temperature never gets stuck at a particular value, but varies dynamically in such a way so to increase the system optimality.
+
+
+\subsection{SMOLENSKY}
+
+\begin{equation}
+    \label{eq:smolensky-weights}
+    W_{i \alpha} = {\left( k_{\alpha} \right)}_{i} \frac{\sigma_{\alpha}}{|\mathbf{k}_{\alpha}|},
+\end{equation}
+where $W_{i \alpha}$ is the weight between atom $\alpha$ and feature $i$, $\mathbf{k}_{\alpha}$ is the connection vector of the atom $\alpha$, ${\left( k_{\alpha} \right)}_{i}$ is the connection vector to a unit $i$, and $\sigma_{\alpha}$ is the strenght of the atom $\alpha$.
+
+The harmony function assigns a real number $H_{\mathbf{K}}(\mathbf{r}, \mathbf{a}) $ to each state of the system, which is determined by a pair $(\mathbf{r}, \mathbf{a})$, where $\mathbf{r}$ is the representation vector and $\mathbf{a}$ the activation vector.
+\begin{equation}
+    \label{eq:smolensky-harmonyfunction}
+    H_{\mathbf{K}}(\mathbf{r}, \mathbf{a}) = \sum_{\alpha} \sigma_{\alpha} a_{\alpha} h_{\kappa}(\mathbf{r}, \mathbf{k}_{\alpha}),
+\end{equation}
+where $a_{\alpha}$ is the connection to atom $\alpha$, and $h_{\kappa}(\mathbf{r}, \mathbf{k}_{\alpha})$ is the harmony contribution by activating the atom $\alpha$ given the current representation vector $\mathbf{r}$.
+\begin{equation}
+    \label{eq:smolensky-harmonyatom}
+    h_{\kappa}(\mathbf{r}, \mathbf{k}_{\alpha}) = \frac{\mathbf{r} \cdot \mathbf{k}_{\alpha}}{|\mathbf{k}_{\alpha}|} - \kappa
+    = \frac{\langle \mathbf{r}, \mathbf{k}_{\alpha} \rangle}{|\mathbf{k}_{\alpha}|} - \kappa.
+\end{equation}
+
+Putting equation~(\ref{eq:smolensky-harmonyatom}) into equation~(\ref{eq:smolensky-harmonyfunction}),
+\begin{equation}
+  \label{eq:smolensky-harmonyfunction2}
+  \begin{split}
+      H_{\mathbf{K}}(\mathbf{r}, \mathbf{a}) & =  \sum_{\alpha} \sigma_{\alpha} a_{\alpha} \left[ \frac{\langle \mathbf{r}, \mathbf{k}_{\alpha} \rangle}{|\mathbf{k}_{\alpha}|} - \kappa \right] \\
+      & = \sum_{\alpha} a_{\alpha} \left[ \frac{\sigma_{\alpha} \langle \mathbf{r}, \mathbf{k}_{\alpha} \rangle}{|\mathbf{k}_{\alpha}|} - \sigma_{\alpha} \kappa \right].
+  \end{split}
+ \end{equation}
+Considering the inner product
+\begin{equation}
+    \label{eq:smolensky-innerproduct}
+    \langle \mathbf{r}, \mathbf{k}_{\alpha} \rangle = \sum_{i} r_{i} {\left( k_{\alpha} \right)}_{i},
+\end{equation}
+and replacing equation~(\ref{eq:smolensky-innerproduct}) into equation~(\ref{eq:smolensky-harmonyfunction2}),
+\begin{equation}
+  \label{eq:smolensky-harmonyfunction3}
+  \begin{split}
+      H_{\mathbf{K}}(\mathbf{r}, \mathbf{a}) & = \sum_{\alpha} a_{\alpha} \left[ \frac{\sigma_{\alpha}}{|\mathbf{k}_{\alpha}|}  \sum_{i} r_{i} {\left( k_{\alpha} \right)}_{i} - \sigma_{\alpha} \kappa \right] \\
+  & = \sum_{\alpha} a_{\alpha} \left[ \sum_{i} r_{i} {\left( k_{\alpha} \right)}_{i} \frac{\sigma_{\alpha}}{|\mathbf{k}_{\alpha}|} - \sigma_{\alpha} \kappa \right].
+  \end{split}
+\end{equation}
+
+Equation~(\ref{eq:smolensky-harmonyfunction3}) we can be reorder thus it becomes a function of the weights $W_{i \alpha}$, equation~(\ref{eq:smolensky-weights}),
+\begin{equation}
+    \label{eq:smolensky-harmonyfunctionfinal}
+    H_{\mathbf{K}}(\mathbf{r}, \mathbf{a}) = \sum_{\alpha} \sum_{i} r_{i} W_{i \alpha} a_{\alpha} - \sum_{\alpha} a_{\alpha} \sigma_{\alpha} \kappa,
+\end{equation}
+where it is possible to see the harmony function as a function of the representation vector $\mathbf{r}$, the activation vector $\mathbf{a}$ just as in equation~(\ref{eq:smolensky-harmonyfunction}), but also as a function of the weights $W_{i \alpha}$ and the bias $\gamma_{\alpha} = \sigma_{\alpha} \kappa$ which is connected to each atom.
+Both weights and bias carry the information of the atom strength $\sigma_{\alpha}$, which is related to the frequency of the atom $\alpha$: the more a particular atom $\alpha$ is activated, the more its frequency, thus increasing the importance of this atom to describe a feature $i$ from the representation vector $\mathbf{r}$.
+
+
+The maximum-likelihood completion function $c(\iota)$ determined by the probability distribution $p$ is defined by
+\begin{equation}
+    \label{eq:smolensky-maxcompletion}
+    \begin{split}
+        c(\iota) = \{\mathbf{r} \in \mathbf{R} \: | \: \text{for some} \: \mathbf{a} \in \mathbf{A}, \text{and all} \: (\mathbf{r}', \mathbf{a}') \in \mathbf{R} \times \mathbf{A} \\
+        \text{such that} \: \mathbf{r}' \supset \iota: p(\mathbf{r}, \mathbf{a}) \geqslant p(\mathbf{r}', \mathbf{a}') \},
+   \end{split}
+\end{equation}
+where $\mathbf{r}$ is the completion of a point $\iota$.
+
+In information theory, the concept of entropy (missing information) can be interpreted as the average of uncertainty of a variable outcome, similarly in physics, entropy is relate to the randomness of a system or the lack of information about it.
+Entropy is a function of the probability distribution of a random variable $x$:
+\begin{equation}
+    \label{eq:smolensky-entropy}
+    S(P(x)) = - \sum_{x \in X} P(x) \ln{(P(x))}.
+\end{equation}
+
+Theorem $1$: \textit{competence}.
+
+A cognitive system should performe completion according to Boltzmann distribution for statistical extrapolation and inference.
+Considering an experiment, each pattern can be observed with a particular frequency.
+Assuming the probability distribution of the experiment $R$ is consistent with the Boltzmann distribution $P$ with harmony function given by equation~(\ref{eq:smolensky-harmonyfunctionfinal}), the maximum-likelihood completions of this distribution are the same as
+\begin{equation}
+    \label{eq:smolensky-teo1}
+    P(\mathbf{r}, \mathbf{a}) \propto e^{H(\mathbf{r}, \mathbf{a})}.
+\end{equation}
+
+Theorem $2$: \textit{realizability}.
+
+Nodes are updates stochastically, every node within the same layer is updated in parallel, and then every node in the other layer is updated in parallel.
+During the update process the computational temperature is lowered via simulated annealing.
+
+
+\subsection{AGGARWAL}
+
+RBM\: the probabilistic states of the network are learned for a set of inputs.
+This network models the joint probability distribution os the observed attributes together with some hidden attributes.
+The connections are undirected because, RBM are designed to learn te probabilistic relationship rather than input-output mapping.
+RBM are probabilistic models that create latent representations of the underlying data points.
+It is similar to an autoencoder, but the latent representation is created stochastically instead of deterministically.
+
+Boltzmann machines use probabilistic states to represent Bernoulli distributions of the binary attributes.
+It contains both visible and hidden states.
+
+Hopfield: given the weights and biases in the network at any particular time, it is possible to find a local energy minimum in terms of the states by repeatedly using the update rule:
+\begin{equation}
+    \label{eq:aggarwal-hopfield-update}
+    s_{i} =
+    \begin{cases}
+         1 \; \text{if} \; \sum_{j : j \ne i} \omega_{ij} s_{j} + b_{i} \geq 0 \\
+         0 \; \text{otherwise}
+     \end{cases}.
+\end{equation}
+
+For a particular set of parameters $(\omega_{ij}, b_{i})$, the Boltzmann machine defines a probability distribution over various state configurations.
+In Boltzmann machines, the dependence between all pairs of states is undirected: the visible states depend as much on the hidden states as the hidden states depend on visible states.
+Boltzmann machine iteratively samples the states using a conditional distribution generated from the state values in the previous iteration unil thermal equilibrium is reached.
+
+Learnings weights in the Boltzmann machine requires to maximize the likelihood of the specific training dataset observed.
+It is also possible to maximize the log-likelihood, by taking the $\ln$ of the probability distribution.
+\begin{equation}
+    \label{eq:aggarwal-log-likelihood}
+    \ln(P(s)) = - E(s) - \ln(Z)
+\end{equation}
+
+To maximize the log-likelihood, equation~(\ref{eq:aggarwal-hopfield-update}) is derived in terms of the weights $\omega_{ij}$, then it follows
+\begin{equation}
+    \label{eq:aggarwal-log-likelihood-max}
+    \frac{\partial \ln(P(s))}{\partial \omega_{ij}} = {\langle s_{i}, s_{j} \rangle}_{data} - {\langle s_{i}, s_{j}
+    \rangle}_{model}.
+\end{equation}
+
+Weights' update rule rely on two terms: ${\langle s_{i}, s_{j} \rangle}_{data}$ which represents the correlations between the states of the nodes $i$ and $j$ when the visible vectors are fixed to a vector in the training data, and the hidden states are allowed to vary; the second term, ${\langle s_{i}, s_{j} \rangle}_{model}$ is an average product of $s_{i}$ and $s_{j}$ from the model-centric samples obtained from Gibbs sampling. 
+\begin{equation}
+    \label{eq:aggarwal-bm-weight-update}
+    \omega_{ij} \leftarrow \omega_{ij} \alpha ({\langle s_{i}, s_{j} \rangle}_{data} - {\langle s_{i}, s_{j} \rangle}_{model}),
+\end{equation}
+
+The subtraction of the model-centric correlations (second term) is required in order to remove the effect of the partition function within the expression of the log probability.
+Monte Carlo sampling requires a large amount of samples to reach thermal equilibrium.
+Restricted Boltzmann machine is a simplification of the Boltzmann machine.
+
+The probability of each hidden unit taking on the value $1$ is:
+\begin{equation}
+    \label{eq:aggarwal-rbm-hidden-prob}
+    P(h_{j} | \mathbf{v}) = \frac{1}{1 + e^{-b^{(h)}_{j} - \sum_{i} v_{i} \omega_{ij}}},
+\end{equation}
+where energy gap $\Delta E_{j}$ of a hidden unit $j$, between values $h_{j} = 0$ and $h_{j} = 1$ is
+\begin{equation}
+    \label{eq:aggarwal-rbm-energy-gap-hidden}
+    \Delta E_{j} = b_{j} + \sum_{i} v_{i} \omega_{ij},
+\end{equation}
+analogously we have the probability of each visible unit.
+
+Equation~(\ref{eq:aggarwal-rbm-hidden-prob}) can also be writen in terms of the sigmoid
+\begin{equation}
+    \label{eq:aggarwal-rbm-hidden-prob-sigmoid}
+    P(h_{j} | \mathbf{v}) = \sigma \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right).
+\end{equation}
+
+For both the hidden and visible units, it is interesting to notice that the hidden unit $j$ depends only on the state of the visible units.
+On the other hand, the visible unit $i$ depends only on the state of the hidden units.
+This aspect makes it possible to update all hidden units in parallel and then all the visible units in parallel as well.
+
+The weights encode the affinities between the visible and the hidden states.
+Large positive weights implies the two states are likely to be on together.
+Weights are initialized to a small value each.
+Learning can be performed as follows:
+\begin{itemize}
+    \item \textit{Positive phase}: considering a mini-batch of training instances, for each element in this mini-batch, every hidden unit is updated according to equation~(\ref{eq:aggarwal-rbm-hidden-prob}).
+    Once every hidden unit is updated, the average product between each pair of visible and hidden unit is computed, denoted as ${\langle v_{i}, h_{j} \rangle}_{pos}$.
+    
+    \item \textit{Negative phase}: for each training instance, it goes through a phase of Gibbs sampling after starting at with randomly initialized states.
+    Is is achieved by repeatedly using equation~(\ref{eq:aggarwal-rbm-energy-gap-hidden}) and its version for the visible units.
+    ${\langle v_{i}, h_{j} \rangle}_{neg}$ is computed after the values of $v_{i}$ and $h_{j}$ are at thermal equilibrium.
+    
+    \item Weights and biases can be updated as follows:
+    \begin{equation}
+        \label{eq:aggarwal-weights-bias-update}
+        \begin{split}
+            \omega_{ij} &\leftarrow \omega_{ij} + \alpha ({\langle v_{i}, h_{j} \rangle}_{pos} - {\langle v_{i}, h_{j} \rangle}_{neg}), \\
+            b^{(v)}_{i} &\leftarrow b^{(v)}_{i} + \alpha ({\langle v_{i}, 1 \rangle}_{pos} - {\langle v_{i}, 1 \rangle}_{neg}), \\
+            b^{(h)}_{j} &\leftarrow  b^{(h)}_{j} + \alpha ({\langle 1, h_{j} \rangle}_{pos} - {\langle 1, h_{j} \rangle}_{neg}), 
+        \end{split}
+    \end{equation}
+    where $\alpha$ is the learning rate.
+\end{itemize}
+
+When visible unit $i$ and hidden unit $j$ are highly correlated, the weight $\omega_{ij}$ will be more positive, and the other way around, when visible unit $i$ and hidden unit $j$ are not correlated.
+To obtain the negative samples, Monte Carlo sampling would be needed in order to reach thermal equilibrium.
+It is possible to use an approximation of Monte Carlo sampling for only a short time and obtain the gradient, this method is called Contrastive Divergence.
+
+
+
+The visible biases are initialized to $\ln(p_{i}/(1 - p_{i}))$, where $p_{i}$ is the fraction of data points in which the $i$th dimension takes on the value of $1$.
+The hidden biases are initialized to $0$.
+
+
+
+\subsubsection{Application of RBM}
+RBM is only designed to learn probability distributions.
+A mapping from input to output is required to deal with real-world problems.
+
+The state of a node is a binary value sampled from the Bernoulli probabilities defined by equation~(\ref{eq:aggarwal-rbm-hidden-prob}).
+On the other hand, the activation of a node in the associeted neural network is the probability value derived from the use of the sigmoid function in equation~(\ref{eq:aggarwal-rbm-hidden-prob-sigmoid}).
+
+If RBM are used in a supervised application, a final phase of backpropagation is crucial.
+In this case, the RBM are used as a pretraining for the supervised learning.
+
+
+
+
+\subsection{Rubik's Code}
+
+https://rubikscode.net/2018/10/01/introduction-to-restricted-boltzmann-machines/
+
+Reason of statistical modelling and machine learning is to detect dependencies and connections between input variables.
+In physics, energy is the capacity to do some sort of work.
+The Energy-Based Models (EBMs) use the concept that the dependecies between variables can be determined by associating a scalar value to the whole energy of the system.
+The associate value represents a measure of the probability that the system will be in a certain state.
+
+\textbf{Inference:} process of making a prediction or a decision (when network is used).
+
+\textbf{Learning:} process of finding an energy function that will associete low energies to correct values of the remaining variables and higher energy to incorrect values. (when parameters of the network are computed).
+
+Boltzmann distribution states the probability of a state vector $\mathbf{s}$ is determined by the energy of that state vector relative to the energies of all possible binary state vectors.
+
+The input do not need to be filled for every neuron; The Boltzmann machine will generate missing values.
+
+Considering the neuron $i$ is given the chance to change its binary state, initially the total input of this neuron $i$ is computed by the weighted sum $z_{i}$ of the other active neurons connected to $i$ added by its own bias,
+\begin{equation}
+    \label{eq:rubik-input-weightedsum}
+    z_{i} = b_{i} + \sum_{j} \omega_{ij} s_{j},
+\end{equation}
+where $b_{i}$ is the bias of neuron $i$, $s_{j}$ is the current state of the connected neurons to $i$, and $\omega_{ij}$ is the weight, i.e., the connection strength between neurons $j$ and $i$.
+The probability that neuron $i$ will be active is given by:
+\begin{equation}
+    \label{eq:rubik-neuron-prob}
+    p(s_{i} = 1) = \frac{1}{1 + e^{z_{i}}}.
+\end{equation}
+
+Neurons update theirselves randomly which means that the network will eventually reach a Boltzmann distribution, in which the probability of a state vector $\mathbf{v}$ is determined by the energy associated to that state vector relative to the energies of all possible binary state vectors:
+\begin{equation}
+    \label{eq:rubik-boltzmann-distri}
+    P(\mathbf{v}) = \frac{e^{-E(\mathbf{v})}}{\sum_{\mathbf{u}} e^{-E(\mathbf{u})}}.
+\end{equation}
+
+The energy of the state of state vector $\mathbf{v}$ is defined as
+\begin{equation}
+    \label{eq:rubik-state-energy-bm}
+    E(\mathbf{v}) = -\sum_{i} b_{i} s^{\mathbf{v}}_{i} - \frac{1}{2} \sum_{i} \sum_{j} s^{\mathbf{v}}_{i} \omega_{ij} s^{\mathbf{v}}_{j},
+\end{equation}
+where $s_{i}$ is the state assigned to neuron $i$ by state vector $\mathbf{v}$, analogously for neuron $j$.
+The Boltzmann machine is resource-demanding as there can be connections between a neuron to every other neuron in the network.
+Calculations can take a long time.
+
+In the RBM architecture, there are no connections among visible units and no connections among hidden units, i.e., there are no visible-to-visible connection and no hidden-to-hidden connection.
+There can be only connections between visible and hidden neurons, i.e., visible-to-hidden and the other way around as a connection between two units is symmetrical.
+
+The energy function on RBM theory is modified to
+\begin{equation}
+    \label{eq:rubik-state-energy-rbm}
+    E(\mathbf{v}, \mathbf{h}) = - \sum_{i} a_{i} v_{i} - \sum_{j} b_{j} h_{j} - \sum_{i} \sum_{j} v_{i} \omega_{ij} h_{j},
+\end{equation}
+where $a_{i}$ is the bias of the visible neuron $i$ in state $v_{i}$, $b_{j}$ is the bias of the hidden neuron $j$ in state $h_{j}$ and $\omeha_{ij}$ is the weight of the connection between visible neuron $i$ and hidden neuron $j$.
+
+The joint probability of the intire system, when hidden neurons are in state vector $\mathbf{h}$ and visible neurons in state vector $\mathbf{v}$, is
+\begin{equation}
+    \label{eq:rubik-prob-rbm}
+    P(\mathbf{v}, \mathbf{h}) = \frac{e^{-E(\mathbf{v}, \mathbf{h})}}{Z},
+\end{equation}
+where $Z$ is known as the partition function
+\begin{equation}
+    \label{eq:rubik-partition-func-rbm}
+    Z = \sum_{\mathbf{u}} \sum_{\mathbf{k}} e^{-E(\mathbf{u}, \mathbf{k})},
+\end{equation}
+this partition function normalizes the probability and refers to the sum of all possible pairs of visible and hidden vectors of the system.
+
+The RBM can be interpreted as a specialization architecture of the original Boltzmann machine, where a restriction to the neurons' connections have been put.
+
+Given an input vector $\mathbf{v}$, the probability of a single hidden unit $j$ of being activated is 
+\begin{equation}
+    \label{eq:rubik-prob-hidden-active}
+    P(h_{j} = 1 | \mathbf{v}) = \frac{1}{1 + e^{- \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right)}} = \sigma \left( b_{j} + \sum_{i} v_{i} \omega_{ij} \right),
+\end{equation}
+where $\sigma$ is the sigmoid function.
+Analogous, the probability that a visible neuron $i$ is active given a hidden vector $\mathbf{h}$ is
+\begin{equation}
+    \label{eq:rubik-prob-visible-active}
+    P(v_{i} = 1 | \mathbf{h}) = \frac{1}{1 + e^{- \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right)}} = \sigma \left( a_{i} + \sum_{j} \omega_{ij} h_{j} \right).
+\end{equation}
+
+
+
+\subsection{Contrastive Divergence Algorithm}
+
+Here I try to compile the most information possible about Contrastive Divergence.
+Each author is put in a separated subsubsection.
+In the literature the contrastive divergence algorithm appears as $CD_{1}$, if it is a single iteration, or $CD_{k}$ for $k$ iterations.
+
+\subsubsection{Aggarwal}
+
+Contrastive divergence is a approximation approach to Monte Carlo sampling, it is usually applied as its fastest variant where only a single iteration is performed.
+
+For a fixed training point of the dataset, i.e., a fixed visible state vector, for each hidden unit, its activation is computed, thus the hidden state vector is generated.
+Then the visible units are generated again from the previous computed hidden state.
+These values of the visible units are used as the sampled states stead of the ones obtained at thermal equilibrium. 
+The hidden units are generated again from the last visible units computed. 
+
+In the positive phase, only half an iteration of simply computing hidden states is used.
+In the negative phase, there is at least one additional iteration to re-compute the hidden state.
+This difference in the number of iterations is what causes the contrastive divergence between state distributions in among both phases.
+
+An increase in the number of iterations causes the distribution to diverge from the data-conditioned states to what is proposed by the current weight vector. 
+The value of $({\langle v_{i}, h_{j} \rangle}_{pos} - {\langle v_{i}, h_{j} \rangle}_{neg})$ quantifies the amount of contrastive divergence.
+It is possible to increase the number of iterations $k$, which will improve the accuracy of the contrastive divergence.
+Increasing $k$ will lead to better gradient at the cost of speed.
+One approach is to progressively increase the value of $k$ as while applying the training.
+\begin{itemize}
+    \item weights as initialized to small values. In each iteration, only one additional step of contrastive divergence is used. One step is enough because the difference between weights are low in early iterations.
+    \item as gradient descent improves near a better solution, increasing $k$ will improve accuracy. So two or three steps of CD can be applied. 
+\end{itemize}
+
+
+
+\section{Hinton 2002}
+
+Minimizing the log likelihood is equivalent to minimizing the Kullback-Liebler divergence between the data distribution, $R_{\alpha}$, and the equilibrium distribution over the visible variables, $P_{\alpha}$,
+\begin{equation}
+    \label{eq:hinton2002-dkl}
+    D(R_{\alpha} || P_{\alpha}) = \sum_{\alpha} R_{\alpha} \ln(R_{\alpha}) - \sum_{\alpha} R_{\alpha} \ln(P_{\alpha}) = E(R_{\alpha}) - {\langle \ln(P_{\alpha}) \rangle}_{R_{\alpha}},
+\end{equation}
+where the first term, $E(R_{\alpha})$, is the entropy of the data distribution, and the second term is the average over the distribution given by the data distribution, $R_{\alpha}$.
+
+In equation~(\ref{eq:hinton2002-dkl}), only the average term depends on the parameters os the model. Therefore, when minimizing the Kullback-Liebler divergence, the first term will be ignored.
+
+
+
+
+

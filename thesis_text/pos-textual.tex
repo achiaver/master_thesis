@@ -1,0 +1,61 @@
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\backmatter%
+
+% ----------------------------------------------------------
+% BIBLIOGRAFIA
+
+% \citeoption{config/abnt-options4.bib} % não sei pra que precisa disso...
+\bibliography{bibs/bibliografia}
+
+% ----------------------------------------------------------
+% GLOSSÁRIO
+% \postextualchapter*{Glossário}
+% \printnoidxglossary[type=main] % still not working
+% \printglossary[type=main]
+% \printglossary
+
+% \gls{}
+% \Gls{}
+% \glspl{ }
+% \Glspl{ }
+
+% ----------------------------------------------------------
+% APÊNDICES (opcionais)
+\appendix % inicia os apêndices
+
+\postextualchapter{Kullback-Leibler Divergence}%
+\label{appen:dkl}%
+\input{appendices/appendix-kl_divergence.tex}
+
+\postextualchapter{Smolensky Word Completion Example}%
+\label{appen:smolensky-word}%
+\input{appendices/appendix-smolensky_make_example.tex}
+
+%\postextualchapter{UML class diagram}
+%\label{appen:uml}
+%\input{appendices/a3-uml}
+%
+%\postextualchapter{Description of the considered constraints}
+%\label{appen:constraints}
+%\input{appendices/a4-constraints}
+%
+%\postextualchapter{The \acrlong{mtesm}}
+%\label{appen:sc}
+%\input{appendices/a5-sc}
+%
+%\postextualchapter{Setup of the example}
+%\label{appen:example}
+%\input{appendices/a6-example}
+
+% ----------------------------------------------------------
+% ANEXOS (opcionais)
+% \annex % inicia os anexos
+
+% \postextualchapter{Primeiro anexo}
+
+% ----------------------------------------------------------
+% ÍNDICE REMISSIVO (relativo ao 'makeindex')
+
+% \printindex % não mudou nada!

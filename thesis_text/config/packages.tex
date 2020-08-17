@@ -1,0 +1,68 @@
+\usepackage[brazil,american]{babel}	% adequação para o português Brasil
+\hyphenation{block-chain de-ci-sion-mak-er frame-works ti-me-fra-me}
+
+\usepackage[T1]{fontenc}            % to get right quotes on listing
+\usepackage[utf8x]{inputenc}		% etermina a codificação utilizada
+								    % utf8 = (conversão automática dos acentos)
+								    % utf8x = extended unicode types
+
+\usepackage{pgffor} 				% required for \foreach (loop statement in LaTeX)
+\usepackage{chngpage}			    % allows for temporary adjustment of side margins
+\usepackage{titlecaps}              % required for \titlecap
+
+\usepackage{makeidx}			    % Cria o índice
+\usepackage{hyperref}			    % Influencia na formação do índice
+\usepackage{indentfirst}	        % Indenta o primeiro parágrafo de cada seção.
+
+\usepackage{graphicx}			    % Inclusão de gráficos
+\graphicspath{%
+    {images/}                       % Usar o nome/caminho da pasta onde estao as images
+}
+
+\usepackage[table]{xcolor}		    % Permite criar variáveis com cores,
+                                    %   a opção habilita cores em tabelas
+% \let\oldtabular\tabular             % tabela cor-sim/cor-não
+% \let\endoldtabular\endtabular
+% \renewenvironment{tabular}{\rowcolors{2}{white}{lightgray}\oldtabular}{\endoldtabular}
+
+\usepackage[inline]{enumitem}	    % Diversos tipos de listas
+\usepackage{multirow}               % Permite unir linhas e colunas de uma tabela
+\usepackage{amsmath}			    % Pacote matemático
+\usepackage{bm}                     % bold text on math mode
+\makeatletter
+\@fleqnfalse
+\@mathmargin\@centering
+\makeatother
+
+\usepackage[subrefformat=parens, labelformat=parens]{subfig}
+\captionsetup[subfigure]{justification=centering}
+\newcommand{\subfigureautorefname}{\figureautorefname}
+\newcommand{\lstnumberautorefname}{\figureautorefname}
+
+\usepackage{tikz}				    % Awesome drawings
+\usetikzlibrary{calc}               % to get node width and height
+\usetikzlibrary{positioning}        % to use the relative positioning commands
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{mindmap}
+\usetikzlibrary{shapes.geometric}   % to use diamond shape
+\usetikzlibrary{backgrounds}        % for frames
+\usetikzlibrary{shadows}            % for shadows
+\usetikzlibrary{arrows}
+
+\usepackage{listings}               % For codes environment
+% \lstloadlanguages[Sharp]{C}
+% \lstset{defaultdialect=[Sharp]C}
+
+\usepackage[acronym, nonumberlist, nopostdot]{glossaries}
+\input{bibs/siglas}				    % Lista de acrônimos
+\makeglossaries
+
+\usepackage[alf]{abntex2cite}       % Pacotes de citações úteis para o formato ABNT
+                                    %   (gera erro no BibTeX)
+
+% ----------------------------------------------------------
+% Pacote auxiliar para as normas da UERJ
+% --- (precisa ficar aqui) ---
+\usepackage[frame=no,algline=yes,font=default]{config/UERJ/repUERJformat}
+\usepackage{config/UERJ/repUERJpseudocode}
+% ----------------------------------------------------------

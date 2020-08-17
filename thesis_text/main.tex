@@ -1,0 +1,60 @@
+% Leia o documento 'copyright.txt' para saber mais sobre o modelo deste documento
+% Esse arquivo tem modificações e foi organizado por Yuri G.
+
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[a4paper,12pt,oneside,onecolumn,final,fleqn]{config/UERJ/repUERJ}
+
+% Pacotes fundamentais
+\input{config/packages}
+
+% Variáveis customizadas
+\input{config/variables}
+
+% Informações de autoria e institucionais
+\input{config/authorship}
+
+% Configurações de aparência do PDF final
+\input{config/PDF_final_view}
+
+\begin{document}
+
+% ----------------------------------------------------------
+\input{pre-textual}
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\mainmatter
+
+% Formas de citar referências neste documento:
+%     \cite{bib:Amado1991} --> (AUTOR, ano)
+%     \citeonline{bib:Amado1991} --> Autor (ano)
+%     \citeauthoronline{bib:Andrade1997} --> Autor
+%     \citeyear{bib:Andrade1997} --> ano
+%     \citeauthor{bib:Andrade1997} --> AUTOR
+
+\chapter*{Introduction}
+\label{ch:0}
+\input{chapters/introduction.tex}
+
+\chapter{Boltzmann Machine}
+\label{ch:1}
+\input{chapters/bm-theory.tex}
+
+\chapter{EXTRA}
+\label{ch:extra}
+\input{chapters/extra.tex}
+
+%\chapter{The proposed distributed application}
+%\label{ch:3}
+%\input{chapter3}
+
+%\chapter{Conclusion}
+%% \setcounter{chapter}{4}
+%\label{ch:final}
+%\input{chapter4}
+
+% ----------------------------------------------------------
+\input{pos-textual}
+
+\end{document}
