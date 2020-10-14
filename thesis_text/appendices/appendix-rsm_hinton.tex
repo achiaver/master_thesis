@@ -7,4 +7,9 @@ Within Natural Language Processing research field it is possible to access the t
 
 Replicated Softmax model uses a Restricted Boltzmann Machine structure.
 
-
+Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in \{0, 1\}^{F}$ stochastic hidden units. Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik} = 1$ means the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $v_{ik} = 0$ otherwise. For a state $\{\mathbf{V}, \mathbf{h}\}$, the energy is defined as follows:
+\begin{equation}
+    \label{eq:app:rsm-energy-Vh}
+    E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
+\end{equation}
+where $\{\mathbf{W}, \mathbf{a}, \mathbf{b}\}$ are the model parameters.
