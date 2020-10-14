@@ -1,15 +1,35 @@
 \section{Replicated Softmax Model}%
 \label{app:rsm}%
 
-(CITAR RUSLAN E HINTON) proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents. 
+(CITAR RUSLAN E HINTON) proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents.
 
-Within Natural Language Processing research field it is possible to access the topic a document based on its words probability distribution, this is known as Topic Modelling. 
+Within Natural Language Processing research field it is possible to access the topic a document based on its words probability distribution, this is known as Topic Modelling.
 
 Replicated Softmax model uses a Restricted Boltzmann Machine structure.
 
-Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in \{0, 1\}^{F}$ stochastic hidden units. Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik} = 1$ means the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $v_{ik} = 0$ otherwise. For a state $\{\mathbf{V}, \mathbf{h}\}$, the energy is defined as follows:
+Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in \{0, 1\}^{F}$ stochastic hidden units. Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik} = 1$ means the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $v_{ik} = 0$ otherwise.
+For a state $\{\mathbf{V}, \mathbf{h}\}$, the energy is defined as follows:
 \begin{equation}
     \label{eq:app:rsm-energy-Vh}
     E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
 \end{equation}
 where $\{\mathbf{W}, \mathbf{a}, \mathbf{b}\}$ are the model parameters.
+$\mathbf{W}$ is the weight tensor, where each element $W_{ijk}$ is a symmetric interaction between a visible unit $i$ that takes on value $k$ and a hidden unit $j$, $b_{ik}$ is the bias of unit $i$ that takes on value $k$, and $a_{j}$ is the bias of hidden unit $j$.
+
+The joint probability of state $\{\mathbf{V}, \mathbf{h}\}$ is given by:
+\begin{equation}
+    \label{eq:app:rsm-joint-prob}
+    P(\mathbf{V}, \mathbf{h}) = \frac{e^{-E(\mathbf{V}, \mathbf{h})}}{Z},
+\end{equation}
+where $Z$ is the partition function, a normalization value to keep the probability within interval $[0, 1]$:
+\begin{equation}
+    \label{eq:app:rsm-partition-func}
+    Z = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}')}.
+\end{equation}
+
+From the joint probability we can compute the marginal probability of the visible units $P(\mathbf{V})$ and of the hidden units $P(\mathbf{h})$:
+\begin{align}
+    \label{eq:app:rsm-marg-prob-visible}
+    P(\mathbf{V}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h})}, \\
+    P(\mathbf{h}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h})}.
+\end{align}
