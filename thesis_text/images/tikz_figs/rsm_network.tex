@@ -5,21 +5,23 @@
     \begin{tikzpicture}
         \matrix (network) [matrix of nodes, nodes in empty cells,
                            nodes={outer sep=0pt, circle, minimum size=4pt, draw},
-                           column sep={1cm, between origins},
-                           row sep={1cm, between origins}]
-        {             &              &               & \\
-                      &              &               & \\
-         |[draw=none]|&|[xshift=1mm]|&|[xshift=-1mm]|  \\};
-        \foreach \a in {1,...,4}{
+                           column sep={1cm,between origins},
+                           row sep={1cm,between origins}]
+        {%
+                      &              &               &             \\%
+                      &              &               &             \\%
+         |[draw=none]|&|[xshift=1mm]|&|[xshift=-1mm]|&|[draw=none]|\\ %
+        };%
+        \foreach \a in {1,2,3,4}{%
             \draw (network-3-2) -- (network-2-\a);
             \draw (network-3-3) -- (network-2-\a);
-            \draw [-stealth] ([yshift=5mm]network-1-\a.north) -- (network-1-\a);
-            \foreach \b in {1,...,4}{
-                \draw (network-1-\a) -- (network-2-\b)
+%            \draw [-stealth] ([yshift=5mm]network-1-\a.north) -- (network-1-\a);
+            \foreach \b in {1,2,3,4}{%
+                \draw (network-1-\a) -- (network-2-\b);
             }
         }
-        \draw [-stealth] ([yshift=-5mm]network-3-2.south) -- (network-3-2);
-        \draw [-stealth] ([yshift=-5mm]network-3-3.south) -- (network-3-3);
+%        \draw [stealth-] ([yshift=-5mm]network-3-2.south) -- (network-3-2);
+%        \draw [stealth-] ([yshift=-5mm]network-3-3.south) -- (network-3-3);
     \end{tikzpicture}
     \legend{No legend}
     \source{PGFMANUAL.pdf}
