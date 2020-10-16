@@ -12,9 +12,9 @@ Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik}
 For a state ${\{\mathbf{V}, \mathbf{h}\}}$, the energy is defined as follows:
 \begin{equation}
     \label{eq:app:rsm-energy-Vh}
-    E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
+    E(\mathbf{V}, \mathbf{h}; \bm{\theta}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
 \end{equation}
-where ${\{\mathbf{W}, \mathbf{a}, \mathbf{b}\}}$ are the model parameters.
+where $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ is the set of model parameters.
 $\mathbf{W}$ is the weight tensor, each element $W_{ijk}$ is a symmetric interaction between a visible unit $i$ that takes on value $k$ and a hidden unit $j$, $b_{ik}$ is the bias of unit $i$ that takes on value $k$, and $a_{j}$ is the bias of hidden unit $j$.
 
 The normalized joint probability of state ${\{\mathbf{V}, \mathbf{h}\}}$ is given by:
@@ -28,12 +28,15 @@ where $Z$ is the partition function, the normalization constant to keep the prob
     Z = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}')}.
 \end{equation}
 
-From the joint probability we can compute the marginal probability of the visible units $P(\mathbf{V})$ and of the hidden units $P(\mathbf{h})$:
+The marginal probabilities the model with parameters $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ assings to a visible binary matrix $\mathbf{V}$ and to a hidden binary vector $\mathbf{h}$ are, respectively:
 \begin{align}
     \label{eq:app:rsm-marg-prob-visible}
-    P(\mathbf{V}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h})}, \\
-    P(\mathbf{h}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h})}.
+    P(\mathbf{V}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h})}, \\
+    P(\mathbf{h}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h})}.
 \end{align}
+
+
+
 
 %\input{images/tikz_figs/rsm_network.tex}
 
