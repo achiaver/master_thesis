@@ -7,7 +7,7 @@ Within Natural Language Processing research field it is possible to access the t
 
 Replicated Softmax model uses a Restricted Boltzmann Machine structure.
 
-Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in {\{0, 1\}}^{F}$ stochastic hidden units. 
+Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in {\{0, 1\}}^{F}$ stochastic hidden units.
 Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik} = 1$ means the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $v_{ik} = 0$ otherwise.
 For a state ${\{\mathbf{V}, \mathbf{h}\}}$, the energy is defined as follows:
 \begin{equation}
@@ -20,23 +20,36 @@ $\mathbf{W}$ is the weight tensor, each element $W_{ijk}$ is a symmetric interac
 The normalized joint probability of state ${\{\mathbf{V}, \mathbf{h}\}}$ is given by:
 \begin{equation}
     \label{eq:app:rsm-joint-prob}
-    P(\mathbf{V}, \mathbf{h}) = \frac{e^{-E(\mathbf{V}, \mathbf{h})}}{Z},
+    P(\mathbf{V}, \mathbf{h}; \bm{\theta}) = \frac{e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}}{Z(\bm{\theta})},
 \end{equation}
 where $Z$ is the partition function, the normalization constant to keep the probability within interval $[0, 1]$:
 \begin{equation}
     \label{eq:app:rsm-partition-func}
-    Z = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}')}.
+    Z(\bm{\theta}) = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}'; \bm{\theta})}.
 \end{equation}
 
-The marginal probabilities the model with parameters $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ assings to a visible binary matrix $\mathbf{V}$ and to a hidden binary vector $\mathbf{h}$ are, respectively:
+The marginal probabilities the model given by $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ assings to a visible binary matrix $\mathbf{V}$ and to a hidden binary vector $\mathbf{h}$ are, respectively:
 \begin{align}
     \label{eq:app:rsm-marg-prob-visible}
-    P(\mathbf{V}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h})}, \\
-    P(\mathbf{h}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h})}.
+    P(\mathbf{V}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}, \\
+    \label{eq:app:rsm-marg-prob-hidden}
+    P(\mathbf{h}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}.
 \end{align}
 
-
-
+From the joint and marginal probability, we are able to derive the conditional probabilities for the hidden units $P(\mathbf{h} | \mathbf{V}; \bm{\theta})$ given the visible matrix $\mathbf{V}$:
+\begin{equation}
+    \label{eq:app:rsm-cond-prob-hidden}
+    P(\mathbf{h} | \mathbf{V}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{V}; \bm{\theta})},
+\end{equation}
+for the sake of simplicity we will omit the term $\bm{\theta}$ by considering we are deriving the equations for a fixed model given by parameters $\bm{\theta}$, thus equation~(\ref{eq:app:rsm-cond-prob-hidden}) becomes,
+\begin{align}
+    P(\mathbf{h} | \mathbf{V}) &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{h}'} e^{-E(\mathbf{V}, \mathbf{h}')}} \\ %
+    &= \frac{ \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j} \right)}}{ \sum\limits_{\mathbf{h}'} \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h'_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik} + \sum\limits^{F}_{j=1} h'_{j} a_{j}\right)}} \nonumber \\ %
+    &= \frac{ \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j}\right) \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}}}{ \left[ \sum\limits_{\mathbf{h}'} \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h'_{j} v_{ik} + \sum\limits^{F}_{j=1} h'_{j} a_{j}\right)}\right] \exp{ \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}} \nonumber \\ %
+    &= \frac{ \exp{ \left[ \sum\limits^{F}_{j=1} h_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{ \sum\limits_{\mathbf{h}'} \exp{ \left[ \sum\limits^{F}_{j=1} h'_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}} \nonumber \\ %
+    &= \frac{ \prod\limits^{F}_{j=1} \exp{ \left[h_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\sum\limits_{h'_{1} \in \{0,1\}} \cdots \sum\limits_{h'_{F} \in \{0,1\}} \left\{ \prod\limits^{F}_{j=1} \exp{ \left[h'_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}\right\}} \nonumber \\ %
+    &= \frac{ \prod\limits^{F}_{j=1} \exp{ \left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{ \left\{ \sum\limits_{h'_{1} \in \{0,1\}} \exp{ \left[h'_{1} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)\right]}\right\} \cdots \left\{ \sum\limits_{h'_{F} \in \{0,1\}} \exp{ \left[h'_{F} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)\right]}\right\}} \nonumber
+\end{align}
 
 %\input{images/tikz_figs/rsm_network.tex}
 
