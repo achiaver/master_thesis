@@ -50,8 +50,16 @@ for the sake of simplicity we will omit the term $\bm{\theta}$ by considering we
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\sum\limits_{h'_{1} \in \{0,1\}} \cdots \sum\limits_{h'_{F} \in \{0,1\}} \left\{ \prod\limits^{F}_{j=1} \exp{\left[h'_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}\right\}} \nonumber \\ %
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left\{ \sum\limits_{h'_{1} \atop \in \{0,1\}} \exp{\left[h'_{1} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)\right]}\right\} \cdots \left\{ \sum\limits_{h'_{F} \atop \in \{0,1\}} \exp{\left[h'_{F} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)\right]}\right\}}  \nonumber \\ %
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)}\right] \cdots \left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)}\right]}  \nonumber \\ %
-    &= \prod\limits^{F}_{j=1} \frac{\exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)}\right] \right]}  \nonumber 
+    &= \prod\limits^{F}_{j=1} \frac{\exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)}\right]}  \nonumber \\ %
+    P(\mathbf{h} | \mathbf{V}) &= \prod\limits^{F}_{j=1} P(h_{j} | \mathbf{V}),
 \end{align}
+where, if we consider the probability that $h_{j} = 1$ given $\mathbf{V}$, than
+\begin{equation}
+    \label{eq:app:rsm-hidden-logistic}
+    P(h_{j} = 1 | \mathbf{V}) = \frac{\exp{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}}{\left[ 1 + \exp{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}\right]} = \sigma{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}, 
+\end{equation}
+which is also known as the logistic function $\sigma(x) = \frac{1}{1 + e^{-x}}$.
+Thus, as in an common restricted Boltzmann Machine, each of the hidden units have an activation probability given by the logistic function.
 
 
 %\input{images/tikz_figs/rsm_network.tex}
