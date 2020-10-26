@@ -39,10 +39,12 @@ The marginal probabilities the model given by $\bm{\theta} = \{\mathbf{W}, \math
 From the joint and marginal probability, we are able to derive the conditional probabilities for the hidden units $P(\mathbf{h} | \mathbf{V}; \bm{\theta})$ given the visible matrix $\mathbf{V}$:
 \begin{equation}
     \label{eq:app:rsm-cond-prob-hidden}
-    P(\mathbf{h} | \mathbf{V}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{V}; \bm{\theta})},
+    P(\mathbf{h} | \mathbf{V}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{V}; \bm{\theta})}.
 \end{equation}
-for the sake of simplicity we will omit the term $\bm{\theta}$ by considering we are deriving the equations for a fixed model given by parameters $\bm{\theta}$, thus equation~(\ref{eq:app:rsm-cond-prob-hidden}) becomes,
+
+For the sake of simplicity we will omit the term $\bm{\theta}$ by considering we are deriving the equations for a fixed model given by parameters $\bm{\theta}$, thus equation~(\ref{eq:app:rsm-cond-prob-hidden}) becomes: 
 \begin{align}
+    \label{eq:app:rsm-cond-prob-hidden-init}
     P(\mathbf{h} | \mathbf{V}) &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{h}'} e^{-E(\mathbf{V}, \mathbf{h}')}} \\ %
     &= \frac{\exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j} \right)}}{\sum\limits_{\mathbf{h}'} \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h'_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik} + \sum\limits^{F}_{j=1} h'_{j} a_{j}\right)}} \nonumber \\ %
     &= \frac{\exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j}\right) \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}}}{\left[ \sum\limits_{\mathbf{h}'} \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h'_{j} v_{ik} + \sum\limits^{F}_{j=1} h'_{j} a_{j}\right)}\right] \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}} \nonumber \\ %
@@ -51,9 +53,10 @@ for the sake of simplicity we will omit the term $\bm{\theta}$ by considering we
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left\{ \sum\limits_{h'_{1} \atop \in \{0,1\}} \exp{\left[h'_{1} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)\right]}\right\} \cdots \left\{ \sum\limits_{h'_{F} \atop \in \{0,1\}} \exp{\left[h'_{F} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)\right]}\right\}}  \nonumber \\ %
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)}\right] \cdots \left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)}\right]}  \nonumber \\ %
     &= \prod\limits^{F}_{j=1} \frac{\exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)}\right]}  \nonumber \\ %
+    \label{eq:app:rsm-cond-prob-hidden-prod}
     P(\mathbf{h} | \mathbf{V}) &= \prod\limits^{F}_{j=1} P(h_{j} | \mathbf{V}),
 \end{align}
-where, if we consider the probability that $h_{j} = 1$ given $\mathbf{V}$, than
+where, considering the probability of $h_{j} = 1$ given $\mathbf{V}$, than equation~(\ref{eq:app:rsm-cond-prob-hidden-prod}) for a hidden unit $j$ is written as:
 \begin{equation}
     \label{eq:app:rsm-hidden-logistic}
     P(h_{j} = 1 | \mathbf{V}) = \frac{\exp{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}}{\left[ 1 + \exp{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}\right]} = \sigma{\left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j} \right)}, 
@@ -61,9 +64,22 @@ where, if we consider the probability that $h_{j} = 1$ given $\mathbf{V}$, than
 which is also known as the logistic function $\sigma(x) = \frac{1}{1 + e^{-x}}$.
 Thus, as in an common restricted Boltzmann Machine, each of the hidden units have an activation probability given by the logistic function.
 
+On the other hand, the conditional probability of the visible units given the state of the hidden units $P(\mathbf{V} | \mathbf{h}; \bm{\theta})$ is given by:
+\begin{equation}
+    \label{eq:app:rsm-cond-prob-visible}
+    P(\mathbf{V} | \mathbf{h}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{h}; \bm{\theta})}.
+\end{equation}
 
+Again we consider a fixed model $\bm{\theta}$, thus this term is omitted from now on. 
+Then equation~(\ref{eq:app:rsm-cond-prob-visible}) can be derived as follows:
+\begin{align}
+    \label{eq:app:rsm-cond-prob-visible-init}
+    P(\mathbf{V} | \mathbf{h}) &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{V}'} e^{-E(\mathbf{V}', \mathbf{h})}} \\ %
+    &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{V}'} e^{-E(\mathbf{V}', \mathbf{h})}} \nonumber \\ %
+
+\end{align}
 %\input{images/tikz_figs/rsm_network.tex}
 
 \input{images/tikz_figs/rsm_network_2.tex}
 
-\input{images/tikz_figs/rsm_matrix_form.tex}
+%\input{images/tikz_figs/rsm_matrix_form.tex}
