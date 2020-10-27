@@ -71,13 +71,35 @@ On the other hand, the conditional probability of the visible units given the st
 \end{equation}
 
 Again we consider a fixed model $\bm{\theta}$, thus this term is omitted from now on. 
-Then equation~(\ref{eq:app:rsm-cond-prob-visible}) can be derived as follows:
+The following derivation of equation~(\ref{eq:app:rsm-cond-prob-visible}) is not quite straight forward, and we will try to keep it as clear as possible:
 \begin{align}
     \label{eq:app:rsm-cond-prob-visible-init}
     P(\mathbf{V} | \mathbf{h}) &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{V}'} e^{-E(\mathbf{V}', \mathbf{h})}} \\ %
-    &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{V}'} e^{-E(\mathbf{V}', \mathbf{h})}} \nonumber \\ %
-
+    &= \frac{\exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j} \right)}}{\sum\limits_{\mathbf{V}'} \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v'_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v'_{ik} b_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j}\right)}} \nonumber \\ %
+    &= \frac{\exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right) \exp{\left( \sum\limits^{F}_{j=1} h_{j} a_{j}\right)}}}{\left[ \sum\limits_{\mathbf{V}'} \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v'_{ik} + \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v'_{ik} b_{ik}\right)}\right] \exp{\left( \sum\limits^{F}_{j=1} h_{j} a_{j}\right)}} \nonumber \\ %
+    &= \frac{\exp{\left[ \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'} \exp{\left[ \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}} \nonumber \\ %
+    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'} \left\{ \prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}} \nonumber \\ %
+    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'_{1}} \sum\limits_{\mathbf{V}'_{2}} \cdots \sum\limits_{\mathbf{V}'_{D}} \left\{ \prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}} \nonumber \\ %
+    \label{eq:app:rsm-cond-prob-visible-mid}
+    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\left\{\sum\limits_{\mathbf{V}'_{1}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{1k} \left( \sum\limits^{F}_{j=1} W_{1jk} h_{j} + b_{1k}\right)\right]}\right\} \cdots \left\{\sum\limits_{\mathbf{V}'_{D}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{Dk} \left( \sum\limits^{F}_{j=1} W_{Djk} h_{j} + b_{Dk}\right)\right]}\right\}} \nonumber 
 \end{align}
+
+To contunue with derivation of equation~(\ref{eq:app:rsm-cond-prob-visible-mid}), we will take a closer look at the denominator.
+For a document $\mathbf{V}$, in which there are $D$ words positions that are chosen from a dictionary of $K$ available words, when $v_{ik} = 1$, it means that the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $0$ otherwise.
+Whenever we sum over all $K$ words of the dictionary, this sum is $1$ for each word $i$ of the document, $\sum^{K}_{k=1} v_{ik} = 1$.
+In this case we exclude empty documents, and even for a single word document, the summation above will be $1$.
+In order to help with readability, we consider the simplification presented on (JORG THESIS, 2011), we take $r_{ik} = \sum^{F}_{j=1} W_{ijk} h_{j} + b_{ik}$, then, for a particular word $i$ of the document, the denominator of equation~(\ref{eq:app:rsm-cond-prob-visible-mid}) becomes:
+\begin{align}
+    \label{eq:app:rsm-cond-prob-vis-deno}
+    \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]} &= \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left( v'_{ik} r_{ik} \right)} \\ %
+    %
+\end{align}
+
+
+
+
+
+
 %\input{images/tikz_figs/rsm_network.tex}
 
 \input{images/tikz_figs/rsm_network_2.tex}
