@@ -80,8 +80,9 @@ The following derivation of equation~(\ref{eq:app:rsm-cond-prob-visible}) is not
     &= \frac{\exp{\left[ \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'} \exp{\left[ \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}} \nonumber \\ %
     &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'} \left\{ \prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}} \nonumber \\ %
     &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits_{\mathbf{V}'_{1}} \sum\limits_{\mathbf{V}'_{2}} \cdots \sum\limits_{\mathbf{V}'_{D}} \left\{ \prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}} \nonumber \\ %
+    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\left\{\sum\limits_{\mathbf{V}'_{1}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{1k} \left( \sum\limits^{F}_{j=1} W_{1jk} h_{j} + b_{1k}\right)\right]}\right\} \cdots \left\{\sum\limits_{\mathbf{V}'_{D}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{Dk} \left( \sum\limits^{F}_{j=1} W_{Djk} h_{j} + b_{Dk}\right)\right]}\right\}} \nonumber \\ %
     \label{eq:app:rsm-cond-prob-visible-mid}
-    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\left\{\sum\limits_{\mathbf{V}'_{1}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{1k} \left( \sum\limits^{F}_{j=1} W_{1jk} h_{j} + b_{1k}\right)\right]}\right\} \cdots \left\{\sum\limits_{\mathbf{V}'_{D}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{Dk} \left( \sum\limits^{F}_{j=1} W_{Djk} h_{j} + b_{Dk}\right)\right]}\right\}} \nonumber 
+    P(\mathbf{V} | \mathbf{h}) &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\prod\limits^{D}_{i=1} \left\{\sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}}
 \end{align}
 
 To contunue with derivation of equation~(\ref{eq:app:rsm-cond-prob-visible-mid}), we will take a closer look at the denominator.
@@ -90,10 +91,28 @@ Whenever we sum over all $K$ words of the dictionary, this sum is $1$ for each w
 In this case we exclude empty documents, and even for a single word document, the summation above will be $1$.
 In order to help with readability, we consider the simplification presented on (JORG THESIS, 2011), we take $r_{ik} = \sum^{F}_{j=1} W_{ijk} h_{j} + b_{ik}$, then, for a particular word $i$ of the document, the denominator of equation~(\ref{eq:app:rsm-cond-prob-visible-mid}) becomes:
 \begin{align}
+    \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]} &= \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left( v'_{ik} r_{ik} \right)} \nonumber \\ %
+    &= \sum\limits_{\mathbf{V}'_{i}} \left[ \exp{\left(v_{i1} r_{i1}\right)} \exp{\left(v_{i2} r_{i2}\right)} \dots \exp{\left(v_{iK} r_{iK}\right)} \right] \nonumber \\ %
+    = \left[ \exp{\left(r_{i1} (1)\right)} \exp{\left(r_{i2} (0)\right)} \dots \exp{\left(r_{iK} (0)\right)} \right] &+ \left[ \exp{\left(r_{i1} (0)\right)} \exp{\left(r_{i2} (1)\right)} \dots \exp{\left(r_{iK} (0)\right)} \right] + \nonumber \\ %
+    \dots &+ \left[ \exp{\left(r_{i1} (0)\right)} \exp{\left(r_{i2} (0)\right)} \dots \exp{\left(r_{iK} (1)\right)} \right] \nonumber \\ %
+    &= \sum\limits^{K}_{q=1} \exp{\left(r_{iq}\right)} \nonumber \\ %
     \label{eq:app:rsm-cond-prob-vis-deno}
-    \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]} &= \sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left( v'_{ik} r_{ik} \right)} \\ %
-    %
+    &= \sum\limits^{K}_{q=1} \exp{\left( \sum\limits^{F}_{j=1} W_{ijq} h_{j} + b_{iq}\right)}.
 \end{align}
+
+Equation~(\ref{eq:app:rsm-cond-prob-vis-deno}) can be replaced at equation~(\ref{eq:app:rsm-cond-prob-visible-mid}) denominator:
+\begin{align}
+    P(\mathbf{V} | \mathbf{h}) &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\prod\limits^{D}_{i=1} \left\{\sum\limits_{\mathbf{V}'_{i}} \prod\limits^{K}_{k=1} \exp{\left[ v'_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}\right\}} \nonumber \\ %
+    &= \frac{\prod\limits^{D}_{i=1} \prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\prod\limits^{D}_{i=1} \left[ \sum\limits^{K}_{q=1} \exp{\left( \sum\limits^{F}_{j=1} W_{ijq} h_{j} + b_{iq}\right)} \right]} \nonumber \\ %
+    P(\mathbf{V} | \mathbf{h}) &= \prod\limits^{D}_{i=1} \frac{\prod\limits^{K}_{k=1} \exp{\left[ v_{ik} \left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)\right]}}{\sum\limits^{K}_{q=1} \exp{\left( \sum\limits^{F}_{j=1} W_{ijq} h_{j} + b_{iq}\right)}}.
+\end{align}
+
+Considering we would like to know the probability of having visible unit $i$ on at word $k$, $v_{ik} = 1$, given the hidden units state $\mathbf{h}$:
+\begin{equation}
+    \label{eq:app:rsm-visible-softmax}
+    P(v_{ik} = 1 | \mathbf{h}) = \frac{\exp{\left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)}}{\sum\limits^{K}_{q=1} \exp{\left( \sum\limits^{F}_{j=1} W_{ijq} h_{j} + b_{iq}\right)}},
+\end{equation}
+which is the softmax function.
 
 
 
