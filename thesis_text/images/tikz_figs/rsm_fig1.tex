@@ -1,0 +1,34 @@
+\begin{figure}[h!tbp]{\textwidth}
+    \centering
+    \caption{EXAMPLE FIGURE FROM TIKZ}%
+    \label{fig:rsm-network}%
+    \begin{tikzpicture}
+        \matrix (network) [matrix of nodes, nodes in empty cells,
+                           nodes={outer sep=0pt, circle, minimum size=4pt, draw},
+                           column sep={1cm,between origins},
+                       row sep={2.5cm,between origins}]
+        {%
+                     & $h_{1}$ & $h_{2}$ & $\ldots$ & $h_{F}$ \\%
+          $v_{1}$  & $v_{2}$ & $v_{3}$ & $\ldots$ & $v_{D}$ \\%
+        };%
+
+        
+
+%        \foreach \a in {1,2,3,4}{%
+%            \draw (network-3-2) -- (network-2-\a);
+%            \draw (network-3-3) -- (network-2-\a);
+%%            \draw [-stealth] ([yshift=5mm]network-1-\a.north) -- (network-1-\a);
+%            \foreach \b in {1,2,3,4}{%
+%                \draw (network-1-\a) -- (network-2-\b);
+%            }
+%        }
+%        \draw [stealth-] ([yshift=-5mm]network-3-2.south) -- (network-3-2);
+%        \draw [stealth-] ([yshift=-5mm]network-3-3.south) -- (network-3-3);
+    \end{tikzpicture}
+    \legend{No legend}
+    \source{PGFMANUAL.pdf}
+\end{figure}
+
+
+
+

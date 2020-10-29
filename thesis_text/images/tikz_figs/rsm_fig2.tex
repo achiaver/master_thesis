@@ -1,0 +1,46 @@
+\begin{figure}[h!tbp]{\textwidth}
+    \centering
+    \caption{EXAMPLE FIGURE FROM TIKZ}%
+    \label{fig:rsm-network}%
+    \begin{tikzpicture}
+        \draw[help lines] (-5,0) grid (5,5);
+%        \node (1) [draw, minimum width=50ex, minimum height=2.5em, very thick, rounded rectangle] {};
+%        \node (l1) [left=0em of 1] {$\mathbf{V}$};
+
+%        \node (2) [above=3.5em of 1, draw, fill=lightgray, minimum width=9.5em,very thick, minimum height=2.5em, rounded rectangle] {};
+%        \node (l2) [left=0em of 2] {$\mathbf{h}$};
+
+
+        \node[circle, draw, thick] (A1) {A1};
+        \node[circle, draw, thick, right=of A1] (A2) {A2};
+        \node[circle, draw, thick, right=of A2] (A3) {A3};
+        \node[circle, draw, thick, left=of A1] (A4) {A4};
+        \node[circle, draw, thick, left=of A4] (A5) {A5};
+%        \node[circle, draw, thick, left=0.5em of A5] (A6) {};
+%        \node[circle, draw, thick, left=0.5em of A7] (A8) {};
+%        \node[circle, draw, thick, left=0.5em of A8] (A9) {};
+
+        \node[circle, draw, fill=lightgray, thick, above=2cm of A1] (B1) {B1};
+        \node[circle, draw, fill=lightgray, thick, right=0.75cm of B1] (B2) {B2};
+        \node[circle, draw, fill=lightgray, thick, left=0.75cm of B1] (B4) {B4};
+
+%        \foreach \x in {1,...,9}{%
+%            \foreach \y in {1,...,5}{%
+%                \draw[thick] (A\x) -- (B\y);
+%            }
+%        }
+%        \foreach \x in {1,...,5}{%
+%            \foreach \y in {1,...,5}{%
+%                \draw[thick] (B\x) -- (C\y);
+%            }
+%        }
+%        \draw (A5) -- node[right] {$\mathbf{W}$} (B3);
+%        \draw (B3) -- node[right] {${\bf W}_2$} (C3);
+    \end{tikzpicture}
+    \legend{No legend}
+    \source{PGFMANUAL.pdf}
+\end{figure}
+
+
+
+
