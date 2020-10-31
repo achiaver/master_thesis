@@ -2,27 +2,50 @@
     \centering
     \caption{EXAMPLE FIGURE FROM TIKZ}%
     \label{fig:rsm-network}%
-    \begin{tikzpicture}
-        \draw[help lines] (-5,0) grid (5,5);
+    \begin{tikzpicture}[%
+        visible/.style={draw, circle, thick, on grid},
+        hidden/.style={draw, circle, thick, on grid, fill=lightgray}]
+
+        \draw[help lines] (-5,-7) grid (5,4);
 %        \node (1) [draw, minimum width=50ex, minimum height=2.5em, very thick, rounded rectangle] {};
 %        \node (l1) [left=0em of 1] {$\mathbf{V}$};
 
 %        \node (2) [above=3.5em of 1, draw, fill=lightgray, minimum width=9.5em,very thick, minimum height=2.5em, rounded rectangle] {};
 %        \node (l2) [left=0em of 2] {$\mathbf{h}$};
 
+% k = 1 and all D words
+        \node [visible] (v31) {$v_{31}$};
+        \node [visible, right=4cm of v31] (vD1) {$v_{D1}$};
+        \node [visible, left=2cm of v31] (v21) {$v_{21}$};
+        \node [visible, left=2cm of v21] (v11) {$v_{11}$};
+        \node at ($(v31)!.5!(vD1)$) {$\dots$};
 
-        \node[circle, draw, thick] (A1) {A1};
-        \node[circle, draw, thick, right=of A1] (A2) {A2};
-        \node[circle, draw, thick, right=of A2] (A3) {A3};
-        \node[circle, draw, thick, left=of A1] (A4) {A4};
-        \node[circle, draw, thick, left=of A4] (A5) {A5};
-%        \node[circle, draw, thick, left=0.5em of A5] (A6) {};
-%        \node[circle, draw, thick, left=0.5em of A7] (A8) {};
-%        \node[circle, draw, thick, left=0.5em of A8] (A9) {};
+% k = 2 and all D words
+        \node [visible, below=2cm of v31] (v32) {$v_{32}$};
+        \node [visible, right=4cm of v32] (vD2) {$v_{D2}$};
+        \node [visible, left=2cm of v32] (v22) {$v_{22}$};
+        \node [visible, left=2cm of v22] (v12) {$v_{12}$};
+        \node  at ($(v32)!.5!(vD2)$) {$\dots$};
 
-        \node[circle, draw, fill=lightgray, thick, above=2cm of A1] (B1) {B1};
-        \node[circle, draw, fill=lightgray, thick, right=0.75cm of B1] (B2) {B2};
-        \node[circle, draw, fill=lightgray, thick, left=0.75cm of B1] (B4) {B4};
+
+% k = K and all D words
+        \node [visible, below=4cm of v32] (v3K) {$v_{3K}$};
+        \node [visible, right=4cm of v3K] (vDK) {$v_{DK}$};
+        \node [visible, left=2cm of v3K] (v2K) {$v_{2K}$};
+        \node [visible, left=2cm of v2K] (v1K) {$v_{1K}$};
+        \node  at ($(v3K)!.5!(vDK)$) {$\dots$};
+
+% k = . . . and all D words
+        \path (v12) -- (v1K) node [midway, sloped] {$\dots$};
+        \path (v22) -- (v2K) node [midway, sloped] {$\dots$};
+        \path (v32) -- (v3K) node [midway, sloped] {$\dots$};
+        \path (v32) -- (vDK) node [midway, sloped] {$\dots$};
+        \path (vD2) -- (vDK) node [midway, sloped] {$\dots$};
+
+        \node[hidden, above left=3cm and 1cm of v31] (B1) {B1};
+        \node[hidden, right=4cm of B1] (B3) {B3};
+        \node[hidden, left=2cm of B1] (B4) {B4};
+        \node at ($(B1)!.5!(B3)$) {$\dots$};
 
 %        \foreach \x in {1,...,9}{%
 %            \foreach \y in {1,...,5}{%
