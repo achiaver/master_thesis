@@ -1,17 +1,12 @@
 \begin{figure}[h!tbp]{\textwidth}
     \centering
-    \caption{EXAMPLE FIGURE FROM TIKZ}%
+    \caption{REPLICATED SOFTMAX MODEL}%
     \label{fig:rsm-network}%
     \begin{tikzpicture}[%
-        visible/.style={draw, circle, thick, on grid},
-        hidden/.style={draw, circle, thick, on grid, fill=lightgray}]
+        visible/.style={draw, circle, thick, on grid, align=center, text width=1cm, inner sep=0pt},
+    hidden/.style={draw, circle, thick, on grid, align=center, text width=1cm, inner sep=0pt, fill=gray}]
 
-        \draw[help lines] (-5,-7) grid (5,4);
-%        \node (1) [draw, minimum width=50ex, minimum height=2.5em, very thick, rounded rectangle] {};
-%        \node (l1) [left=0em of 1] {$\mathbf{V}$};
-
-%        \node (2) [above=3.5em of 1, draw, fill=lightgray, minimum width=9.5em,very thick, minimum height=2.5em, rounded rectangle] {};
-%        \node (l2) [left=0em of 2] {$\mathbf{h}$};
+%        \draw[help lines] (-5,-7) grid (5,4);
 
 % k = 1 and all D words
         \node [visible] (v31) {$v_{31}$};
@@ -42,10 +37,21 @@
         \path (v32) -- (vDK) node [midway, sloped] {$\dots$};
         \path (vD2) -- (vDK) node [midway, sloped] {$\dots$};
 
-        \node[hidden, above left=3cm and 1cm of v31] (B1) {B1};
-        \node[hidden, right=4cm of B1] (B3) {B3};
-        \node[hidden, left=2cm of B1] (B4) {B4};
-        \node at ($(B1)!.5!(B3)$) {$\dots$};
+        \node [hidden, above left=3cm and 1cm of v31] (h2) {$h_{2}$};
+        \node [hidden, right=4cm of h2] (hF) {$h_{F}$};
+        \node [hidden, left=2cm of h2] (h1) {$h_{1}$};
+        \path (h2) -- (hF) node [midway, sloped] {$\dots$};
+
+        \begin{scope}[on background layer]
+            \node [draw, very thick, rounded corners=10pt, fit=(v11) (vD1) (v1K) (vDK)] (visible) {};
+    
+            \node [draw, very thick, rounded corners=10pt, fit=(h1) (hF), fill=lightgray] (hidden) {};
+            
+            \path [draw, very thick] (visible) -- (hidden) node [midway, right] {$\mathbf{W}$};
+    
+            \node (visiblelabel) [left=of visible] {$\mathbf{V}$};
+            \node (hiddenlabel) [left=of hidden] {$\mathbf{h}$};
+        \end{scope}
 
 %        \foreach \x in {1,...,9}{%
 %            \foreach \y in {1,...,5}{%
@@ -60,8 +66,13 @@
 %        \draw (A5) -- node[right] {$\mathbf{W}$} (B3);
 %        \draw (B3) -- node[right] {${\bf W}_2$} (C3);
     \end{tikzpicture}
-    \legend{No legend}
-    \source{PGFMANUAL.pdf}
+    \legend{%
+        Replicated Softmax model. 
+        The top layer represents the hidden layer, denoted by vector $\mathbf{h} = (h_{1}, h_{2}, \dots, h_{F})$, of stochastic binary units. 
+        The bottom layer, denoted by matrix $\mathbf{V}$, represents the visible layer with units $v_{ik}$, $i = 1,\dots,D$ and $k = 1,\dots,K$.
+        Between visible and hidden units are the weights $w_{ijk}$, which is a symmetric connection, denoted by tensor $\mathbf{W}$.
+    }%
+    \source{Author}
 \end{figure}
 
 
