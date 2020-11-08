@@ -1,0 +1,59 @@
+\begin{figure}[h!tbp]{\textwidth}
+    \centering
+    \caption{REPLICATED SOFTMAX MODEL SIMPLIFICATION}%
+    \label{fig:rsm-fig3}%
+    \begin{tikzpicture}[%
+        visible/.style={draw, double, circle, thick, on grid, align=center, text width=1cm, inner sep=0pt},
+    hidden/.style={draw, circle, thick, on grid, align=center, text width=1cm, inner sep=0pt, fill=gray}]
+
+%        \draw[help lines] (-5,-7) grid (5,4);
+
+% k = 1 and all D words
+        \node [visible] (v3) {$\hat{v}_{3}$};
+        \node [visible, right=2cm of v3] (v4) {$\hat{v}_{4}$};
+        \node [visible, right=4cm of v4] (vK) {$\hat{v}_{K}$};
+        \node [visible, left=2cm of v3] (v2) {$\hat{v}_{2}$};
+        \node [visible, left=2cm of v2] (v1) {$\hat{v}_{1}$};
+        \path (v4) -- (vK) node [midway, sloped] {$\dots$};
+
+        \node [hidden, above=3cm of v3] (h2) {$h_{2}$};
+        \node [hidden, right=4cm of h2] (hF) {$h_{F}$};
+        \node [hidden, left=2cm of h2] (h1) {$h_{1}$};
+        \path (h2) -- (hF) node [midway, sloped] {$\dots$};
+
+        \begin{scope}[on background layer]
+            \node [draw, very thick, rounded corners=10pt, fit=(v1) (vK)] (visible) {};
+            \node [draw, very thick, rounded corners=10pt, fit=(h1) (hF), fill=lightgray] (hidden) {};
+            \path [draw, very thick] (visible) -- (hidden) node [midway, right] {$\mathbf{W}$};
+            \node (visiblelabel) [left=of visible] {$\hat{\mathbf{V}}$};
+            \node (hiddenlabel) [left=of hidden] {$\mathbf{h}$};
+        \end{scope}
+
+%        \foreach \x in {1,...,9}{%
+%            \foreach \y in {1,...,5}{%
+%                \draw[thick] (A\x) -- (B\y);
+%            }
+%        }
+%        \foreach \x in {1,...,5}{%
+%            \foreach \y in {1,...,5}{%
+%                \draw[thick] (B\x) -- (C\y);
+%            }
+%        }
+%        \draw (A5) -- node[right] {$\mathbf{W}$} (B3);
+%        \draw (B3) -- node[right] {${\bf W}_2$} (C3);
+    \end{tikzpicture}
+    \legend{%
+        Replicated Softmax model. 
+        The top layer represents the hidden layer, denoted by vector $\mathbf{h} = (h_{1}, h_{2}, \dots, h_{F})$, of stochastic binary units, the same hidden layer as in Figure~(\ref{fig:rsm-fig2}). 
+        The bottom layer, denoted by vector $\hat{\mathbf{V}}$, represents the visible layer with units $\hat{v}_{k}$, $k = 1,\dots,K$. 
+        These \textit{hat} units represents the frequency count of each $k$ word of the dictionary that appears in document $\mathbf{V}$. 
+        Between visible and hidden units are the weights $w_{jk}$, which is a symmetric connection, denoted by matrix $\mathbf{W}$.
+        These weights are known as \textbf{shared weights}, because, even though documents of different sizes are analysed, the dictionary remains the same, and then the weights for each word in the dictionary is shared among the documents.
+        It is important to remember that word order is not taken into consideration.
+    }%
+    \source{Author}
+\end{figure}
+
+
+
+
