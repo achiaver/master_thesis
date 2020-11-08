@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 % desenvolvido por Prof. Luis Fernando de Oliveira IF/UERJ
-\ProvidesPackage{config/UERJ/repUERJformat}[2013/06/01 v7.0 repUERJformat.sty]
+\ProvidesPackage{config/UERJ/repUERJformat}[2020/08/29 v7.x repUERJformat.sty]
 
 \RequirePackage{ifthen}
 \RequirePackage{enumitem}
@@ -295,10 +295,17 @@
   \ifnotempty{#1}{\renewcommand{\UERJconcentracao}{\'Area de concentra\c{c}\~ao: #1.}}
 }
 % ---
-\providecommand{\UERJpreambulo}{}
+% \providecommand{\UERJpreambulo}{}
+% \newcommand{\preambulo}[1]{
+%   \renewcommand{\UERJpreambulo}{\singlespacing{#1}}
+% }
+\providecommand{\UERJpreambuloMetaData}{}
 \newcommand{\preambulo}[1]{
-  \renewcommand{\UERJpreambulo}{\singlespacing{#1}}
+  \renewcommand{\UERJpreambuloMetaData}{#1}
 }
+
+\newcommand{\UERJpreambulo}{\singlespacing{\UERJpreambuloMetaData}}
+
 % --- modelo documento UERJ (novo)
 \preambulo{\UERJdocumento\ \presented, como requisito parcial para obten\c{c}\~ao do t\'itulo de \UERJtitulacao, ao \UERJposgraduacao, da \UERJnome. \UERJconcentracao}
 % ---
@@ -454,7 +461,7 @@
       \UERJlocal\\[0.3\baselineskip]
 %    \end{onehalfspace}
     \UERJdata
-    \normalsize\cleardoublepage
+    \cleardoublepage\normalsize
   }
 }
 
@@ -553,6 +560,7 @@
           UERJ / REDE SIRIUS / BIBLIOTECA CTC/D
         \end{center}
         \footnotesize
+        
         \noindent\hspace*{\fill}
         {
           \parbox[t]{14.0cm}{
@@ -633,8 +641,8 @@
       \UERJpreambulo
     \end{minipage}%
     \vspace{1.3cm}
-    \noindent Aprovada em \_\_\_\_\_\_ de \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ de \UERJano.\par
-    % \noindent Aprovada em \UERJdia\ de \UERJmes\ de \UERJano.\par
+    % \noindent Aprovada em \rule{2cm}{0.4pt} de \rule{7cm}{0.4pt} de \UERJano.\par
+    \noindent Aprovada em \UERJdia\ de \UERJmes\ de \UERJano.\par
     \noindent Banca Examinadora:\\[-1.5\baselineskip]
       \assinatura{\UERJorientador\ (\UERJsurpevisor)}{\UERJorientadorinstituicao}
       \ifnotempty{\UERJcoorientador}{

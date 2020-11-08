@@ -1,6 +1,7 @@
 % Altera o título de algumas seções e de algumas tags
 \addto\captionsamerican{%
     \renewcommand{\acronymname}{List of abbreviations and acronyms}%
+    \renewcommand{\bibname}{References}%
     \renewcommand*{\glossarysection}[2][]{\pretextualchapter{#2}}%
 }
 
@@ -10,9 +11,10 @@
 
 % Colors
 \definecolor{lightgray}{gray}{0.9}
+\definecolor{bluehash}{RGB}{76,170,245}
 
 % Table configs
-% \renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.3}
 
 % Algorithm environment
 \lstdefinestyle{mystyle}{
@@ -23,6 +25,8 @@
     breaklines=true,
     postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
     captionpos=t,
+    aboveskip=0pt,
+    belowskip=0pt,
     % abovecaptionskip=?pt,
     % belowcaptionskip=?pt,
     keepspaces=true,
@@ -49,13 +53,14 @@
 \newenvironment{descriptive}{\begin{itemize*}[font=\bfseries, before=\unskip{: }, itemjoin={{; }}, itemjoin*={{; and }}, afterlabel={{ -- }}]}{\end{itemize*}}
 
 % Configuration of list inside table.
-\newcommand{\obs}[5][Base58]{%
-    \begin{description}[itemsep=0pt, parsep=0pt, leftmargin=0pt]
+\newcommand{\obs}[5][Base58]{
+    \medskip
+    \begin{description}[noitemsep, nosep, leftmargin=0pt]%itemsep=0pt, parsep=0pt, leftmargin=0pt, topsep=0pt, partopsep=0pt] % partopsep=0pt, noitemsep
         \item[ID] {\ttfamily #2}
         \item[format] #1
-        \item[belongs to] #3
+        \item[belongs to the] #3
         \item[created at] #4
-        \item[note] #5
+        \item[note] #5 \vspace{-14pt}
     \end{description}%
 }
 
@@ -67,32 +72,60 @@
     \def\appendixautorefname{Appendix}%
     \def\sectionautorefname{Section}%
     \def\chapterautorefname{Chapter}%
+    \def\figureautorefname{Figure}%
+    \def\tableautorefname{Table}%
+    \def\equationautorefname{Equation}%
     % \def\postextualchapterautorefname{Appendix}%
     \orgautoref{#1}%
 }
 
 % Marcação de direitos autorais
-\def \copyright{The author, 2020.}
+\def \copyright{The author, 2019.}
 % \textcopyright\space \UERJautornome\space\UERJautorsobrenome,\space2019.
 
 % Marcação de licença
 \def \license{\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}}
 
 % Relacionamento entre a descrição das operações com as imagens dos fluxogramas
-\def \good#1{\textbf{\MakeUppercase{#1}}\\%
-    \small%
+\newcommand{\good}[1]{%
+    \hfill\textbf{\MakeUppercase{#1}}\\\small\hspace*{\fill}%
+    %
     \ifthenelse{\equal{\detokenize{#1}}{\detokenize{summary}}}%
     {\textit{(Figures \ref{fig:#11} to \ref{fig:#12})}}%
     {% else 1
-    \ifthenelse{\equal{\detokenize{#1}}{\detokenize{change}}}%
-    {\textit{(Figures \ref{fig:#11} to \ref{fig:#14})}}%
-    {% else 2
-    \ifthenelse{\equal{\detokenize{#1}}{\detokenize{power-up}}}%
-    {\textit{(Figures \ref{fig:#11} to \ref{fig:#13})}}%
-    {% else 3
-    \textit{(\autoref{fig:#1})}%
-    }}}% else's 1,2,3
-    }
+        \ifthenelse{\equal{\detokenize{#1}}{\detokenize{change}}}%
+        {\textit{(Figures \ref{fig:#11} to \ref{fig:#14})}}%
+        {% else 2
+            \ifthenelse{\equal{\detokenize{#1}}{\detokenize{power-up}}}%
+            {\textit{(Figures \ref{fig:#11} to \ref{fig:#13})}}%
+            {% else 3
+                \textit{(\autoref{fig:#1})}%
+            }% else 3
+        }% else 2
+    }% else 1
+}
+
+% Relacionamento entre a descrição das restrições com as imagens dos fluxogramas
+\newcommand{\subtab}[1]{%
+    For \MakeUppercase{#1} (%
+    %
+    \ifstrequal{#1}{summary}%
+    {Figures \ref{fig:#11} to \ref{fig:#12}}%
+    {% else 1
+        \ifstrequal{#1}{change}%
+        {Figures \ref{fig:#11} to \ref{fig:#14}}%
+        {% else 2
+            \ifstrequal{#1}{power-up}%
+            {Figures \ref{fig:#11} to \ref{fig:#13}}%
+            {% else 3
+                \autoref{fig:#1}%
+            }% else 3
+        }% else 2
+    }% else 1
+    % 
+    , \autoref{ssec:desc-fun}).\label{tab:cons-#1}%
+}
+
 
 % Auto numbering of rows.
 \newcounter{rowno}
@@ -123,7 +156,7 @@
     }
 }
 
-\tikzstyle{dash} = [anchor=west, draw, rounded corners=0.1cm, dashed, font=\scriptsize]
+\tikzstyle{dasx} = [anchor=west, draw, rounded corners=0.1cm, dashed, font=\scriptsize]
 \tikzstyle{straight} = [anchor=west, draw, rounded corners=0.1cm, thick, font=\scriptsize]
 \tikzstyle{remaining}=[font=\scriptsize]
 
@@ -137,9 +170,10 @@
 \tikzstyle{r} = [>=stealth, ->, thick, red!80!black]
 
 % UML configurations
-\newcommand{\umlblock}[4][2.5cm]{%
+\newcommand{\umlblock}[4][3cm]{%
+    \renewcommand{\arraystretch}{1}%
     \frame{%
-        \begin{minipage}[t][#1]{\ifdim#4=0cm 4cm \else #4 \fi}
+        \begin{minipage}[t][#1]{\ifdim#4=0cm 4.5cm \else #4 \fi}
             {\centering
             \vspace{4pt}
             \makebox[1.1\width][c]{#2}\vspace{3pt}
@@ -149,14 +183,14 @@
                 #3
             \end{tabular}
         \end{minipage}%
-    }
+    }%
 }
 
 \newcounter{id}
 \newcommand{\id}{\refstepcounter{id}\large\textsf{\Alph{id}}}
 
 \newcommand{\hrel}[5][16pt]{\draw[-] (#2) node[L, inner sep=#1] at (#2.east) {#3} -- (#4) node[R, inner sep=#1] at (#4.west) {#5};}
-\newcommand{\vrel}[5][8pt]{\draw[-] (#2) node[align=right, anchor=east, yshift=-#1, xshift=18pt] at (#2.south) {#3} -- (#4) node[align=right, anchor=east, yshift=#1, xshift=18pt] at (#4.north) {#5};}
+\newcommand{\vrel}[5][8pt]{\draw[-] (#2) node[align=right, anchor=east, yshift=-#1, xshift=25pt] at (#2.south) {#3} -- (#4) node[align=right, anchor=east, yshift=#1, xshift=25pt] at (#4.north) {#5};}
 
 \tikzset{detach/.style={draw=black!80!white, rounded corners, dashed, thick}}
 \tikzset{ID/.style={anchor=north east}}
@@ -166,3 +200,24 @@
 % VALUABLE NOTES
 % \draw[->]     (d) -- ++(-4cm,0) |- (end) node[pos=0.25] {No};
 % [node distance=1.5cm, align=center]
+
+% CONFIGURATION FOR THE CODE FOLDING
+
+% Icon of code folding.
+\def \etc {\hspace{2mm}\begin{tikzpicture}\node[draw, rounded corners=3pt] {\textbf{...}};\end{tikzpicture}}
+
+% Position for both code lines and references.
+\newcommand{\reshape}[4][x]{
+    \ifthenelse{\equal{\detokenize{x}}{\detokenize{#1}}}
+    {
+        #2 & & \textcolor{gray}{\textrm{\itshape//\space #3}} \\[-8pt]
+        \multirow{2}{*}{\etc} & & #4 \\
+         & & \\[-15pt]
+    }{
+        #2 & #4 & \textcolor{gray}{\textrm{\itshape//\space #3}} \\[-10pt]
+        \etc & & \\[-10pt]
+    }
+}
+
+% Config for Appendix 'constraints'.
+\newenvironment{compact}{\begin{description}[align=parleft, labelwidth=6cm, itemindent=\listparindent, leftmargin=\labelwidth+\oddsidemargin, itemsep=16pt]}{\end{description}}

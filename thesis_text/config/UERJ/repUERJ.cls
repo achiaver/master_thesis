@@ -4,7 +4,7 @@
 % 2. consertar o problema de sublinar subseções com \uline
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{config/UERJ/repUERJ}[2013/06/01 v7.0]
+\ProvidesClass{config/UERJ/repUERJ}[2020/08/29 v7.x]
 
 \RequirePackage{ifthen}
 \RequirePackage[normalem]{ulem}
@@ -13,7 +13,7 @@
 \RequirePackage{pdfpages}
 \RequirePackage{setspace}
 
-\providecommand{\packagename}{repUERJ v7.0}
+\providecommand{\packagename}{repUERJ v7.x}
 
 % refaz o comando do setspace
 \renewcommand{\singlespacing}{\setstretch {\setspace@singlespace}}
@@ -365,7 +365,7 @@
         \addcontentsline{toc}{chapter}
           {\normalfont\nobreak
             {\protect\numberline{\thechapter}}\nobreak
-            {\bf\noexpand{#1}}
+            {\bf\noexpand\uppercase{#1}}
             % {\bf\noexpand\uppercase{#1}} % estilo já definido em 'makechapterhead'
           }
       }
@@ -373,7 +373,7 @@
     \addcontentsline{toc}{chapter}
       {\normalfont\nobreak
         {\protect\numberline{}}\nobreak
-        {\noexpand{#1}}
+        {\noexpand\uppercase{#1}}
         % {\noexpand\uppercase{#1}} % estilo já definido em 'makechapterhead'
       }
   \fi
@@ -401,7 +401,7 @@
   \phantomsection
   \addcontentsline{toc}{chapter}
     {\normalfont\protect\numberline{}\nobreak
-      {\bf{#1}}
+      {\bf\uppercase{#1}}
     %   {\bf\uppercase{#1}}  % estilo já definido em 'makeschapterhead'
     }
   \if@twocolumn
@@ -491,17 +491,24 @@
 \setboolean{appendixannex}{false}
 
 
-\newcommand\section{\@startsection {section}{1}{\z@}% #1 #2 #3
-                                   {-2\baselineskip}% #4
-                                   {\baselineskip}% #5
-                                   {\protect\normalfont\protect\normalsize\bfseries}}%#6
+\newcommand\section{%
+    \@startsection {section}{1}{\z@}% #1 #2 #3
+                               {-2\baselineskip}% #4
+                               {\baselineskip}% #5
+                               {\protect\normalfont\protect\normalsize\bfseries}}% #6
+                               
+% \def\@ssection#1{
+%     \phantomsection
+%     \addcontentsline{toc}{section}
+%     {\normalfont\protect\numberline{}\nobreak
+%       {\bf\uline{#1}}
+%     }}
+
 \newcommand\subsection{\@startsection{subsection}{2}{\z@}%
                                      {-2\baselineskip}%
                                      {\baselineskip}%
-                                    %  {\protect\normalfont\protect\normalsize
-                                    %   \noexpand\uline}}
-                                    {\protect\bfseries\protect\normalsize
-                                      \noexpand}}
+                                     {\protect\normalfont\protect\normalsize\noexpand\uline}}
+                                    % {\protect\bfseries\protect\normalsize\noexpand}}
 \newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
                                      {-2\baselineskip}%
                                      {\baselineskip}%
@@ -726,14 +733,14 @@
 \newcounter{figure}
 \renewcommand \thefigure {\@arabic\c@figure}
 
-\def\fps@figure{htbp} % alterei de {tbp} para {htbp}
+% \def\fps@figure{h} % alterei de {tbp} para {h}
 \def\ftype@figure{1}
 \def\ext@figure{lof}
 \def\fnum@figure{\figurename\nobreakspace\thefigure}
 
-\newenvironment{figure}[2][]
-  {\@float{figure}\begin{center}\begin{minipage}{#2}\begin{center}}
-  {\end{center}\end{minipage}\end{center}\end@float}
+\newenvironment{figure}[2][htbp] % troquei a configuração padrão para uma q permita customização da posição
+  {\@float{figure}[#1]\begin{center}\begin{minipage}{#2}\begin{center}}
+  {\end{center}\end{minipage}\end{center}\end@float\vspace{-\baselineskip}}
 
 \newenvironment{figure*}
   {\@dblfloat{figure}}
@@ -752,9 +759,9 @@
 %   {\@float{table}\begin{center}\begin{minipage}{#2}\begin{center}}
 %   {\end{center}\end{minipage}\end{center}\end@float}
 
-\newenvironment{table}[2][]
-  {\@float{table}\begin{center}\begin{minipage}{#2}}
-  {\end{minipage}\end{center}\end@float}
+\newenvironment{table}[2][htbp] % estava em branco, troquei a configuração padrão para uma q permita customização da posição
+  {\@float{table}[#1]\begin{center}\begin{minipage}{#2}}
+  {\end{minipage}\end{center}\end@float\vspace{-\baselineskip}}
 
 \newenvironment{table*}
   {\@dblfloat{table}}
@@ -856,7 +863,7 @@
 \newcommand*\l@figure{\@dottedtocline{0}{0em}{5.5em}}
 \newcommand*\l@table{\@dottedtocline{0}{0em}{5.5em}}
 
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2} % nível do sumário
 
 \newcommand\tableofcontents{%
     \if@twocolumn
@@ -986,7 +993,7 @@
 \newcommand\contentsname{Contents}
 \newcommand\listfigurename{List of Figures}
 \newcommand\listtablename{List of Tables}
-\newcommand\bibname{Bibliography}
+\newcommand\bibname{References}
 \newcommand\indexname{Index}
 \newcommand\figurename{Figure}
 \newcommand\legendname{Legend}
