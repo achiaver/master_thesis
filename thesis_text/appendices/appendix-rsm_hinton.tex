@@ -1,7 +1,7 @@
 \section{Replicated Softmax Model}%
 \label{app:rsm}%
 %
-\cite{bib:salakhutdinov-hinton2009} proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents.
+\citeonline{bib:salakhutdinov-hinton2009} proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents.
 
 Within Natural Language Processing research field it is possible to access the topic a document based on its words probability distribution, this is known as Topic Modelling.
 
@@ -113,6 +113,8 @@ Considering we would like to know the probability of having visible unit $i$ on 
     P(v_{ik} = 1 | \mathbf{h}) = \frac{\exp{\left( \sum\limits^{F}_{j=1} W_{ijk} h_{j} + b_{ik}\right)}}{\sum\limits^{K}_{q=1} \exp{\left( \sum\limits^{F}_{j=1} W_{ijq} h_{j} + b_{iq}\right)}},
 \end{equation}
 which is the softmax function.
+
+Figure~(\ref{fig:rsm-fig2}) shows the Replicated Softmax model describe up to this point. The model has its visible and hidden units, respectively $v_{ik}$ and $h_{j}$, which are connected by weights $w_{ijk}$. 
 
 \input{images/tikz_figs/rsm_fig2.tex}
 
