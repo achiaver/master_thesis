@@ -1,11 +1,11 @@
 \section{Replicated Softmax Model}%
 \label{app:rsm}%
 %
-\citeonline{bib:salakhutdinov-hinton2009} proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents.
+Salakhutdinov and Hinton~(\citeyear{bib:salakhutdinov-hinton2009}) proposed the Replicated Softmax to model and extract low-dimensional latent semantic representations of an unstructured collection of documents.
+The authors applied the Replicated Softmax to a Natural Language Problem known as topic modelling where the topic of a document is defined based on its words probability distribution.
+As a basic engine, the Replicated Softmax uses a variation of the Restricted Boltzmann Machine.
 
-Within Natural Language Processing research field it is possible to access the topic a document based on its words probability distribution, this is known as Topic Modelling.
-
-Replicated Softmax model uses a Restricted Boltzmann Machine structure.
+Salakhutdinov~(\citeyear{bib:salakhutdinov2015}) published a compilation of Generative Models, and we will consider his notation in the followin explanation.
 
 Considering a dictionary that has $K$ words, a document with $D$ words, and $\mathbf{h} \in {\{0, 1\}}^{F}$ stochastic hidden units.
 Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik} = 1$ means the $i^{th}$ word of the document is the $k^{th}$ word of the dictionary, and $v_{ik} = 0$ otherwise.
