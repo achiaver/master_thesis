@@ -1,49 +1,29 @@
 \section{Smolensky MAKE Example}%
 \label{app:smolensky:make}%
 
-(CITAR SMOLENSKY) presents a word completion example with a Restricted Boltzmann Machine. 
+Smolensky~(\citeyear{bib:smolensky1986}) presented a situation where a word completion is performed with a Restricted Boltzmann Machine, which he called as \emph{Harmonium}.
 In other words, the RBM has to complete missing or unknown letters of a given word. 
-Based on previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters known in the word.
+Based on a previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters known in the word.
+This example uses the word `MAKE' as an example.
 
-This example uses the word `MAKE'. (CITAR SMOLENSKY) calls the units on the hidden layer as `knowledge atoms', and the units on the visible layer as `feature processors'. In this appendix we will keep the nomenclature used by Smolensky.
+Following are a set of nomenclature Smolensky~(\citeyear{bib:smolensky1986}) defined for the harmony theory.
+\begin{itemize}
+    \item \emph{representational features}: variables that take on binary values which represent possible states of the environment being analysed; the input to the machine; $r_{1}$, $r_{2}$, $\dots$, $r_{N}$; the colection of values of all representational variables is $\{r_{i}\}$.
+    \item \emph{representational vector}: 
+    \item three
+    \item four
+\end{itemize}
+
+defined as the \emph{representation vector}
+
+
+
+calls the units on the hidden layer as \emph{knowledge atoms}, and they are , and the units on the visible layer as `feature processors'. In this appendix we will keep the nomenclature used by Smolensky.
 
 The input to a completion task is provided by fixing some of the `feature processors' --- the known information --- while the unknown information is allowed to be updated. Fixed `features' are the units that are assigned the values $-1$ or $+1$, while the unknown `features' have value $0$. 
 
 
 
-
-
-The entropy computes how uncertainty events are.
-If a system is quite stable, the entropy will be close to zero and will not vary a lot, while if the system is quite unstable, then the entropy will be very large.
-The Kullback-Leibler divergence, or relative entropy, is the measure of how different two separate probability distributions, $R$ and $P$, are from each other~\cite{bib:goodfellow2016}. Considering these probability distribution are both discrete and are defined on the same probability space $\chi$, the Kullback-Leibler divergence $D_{KL}(R || P)$ is given by
-\begin{equation}
-  \label{eq:app-dkl}
-  D_{KL}(R || P) = \sum_{x \in \chi} R(x) \ln \left(\frac{R(x)}{P(x)} \right),
-\end{equation}
-the equation above can be read as the divergence from $P$ to $R$.
-
-It is important to notice that this divergence measurement is not symmetric,
-\begin{equation}
-  \label{eq:app-dkl-nonsymmetric}
-  \begin{split}
-    D_{KL}(R||P) & \neq D_{KL}(P||R), \\
-    \sum_{x \in \chi} R(x) \ln \left(\frac{R(x)}{P(x)} \right) & \neq \sum_{x \in \chi} P(x) \ln \left(\frac{P(x)}{R(x)} \right),
-  \end{split}
-\end{equation}
-and that KL divergence, relative entropy, is always a non-negative value, 
-\begin{equation}
-  \label{eq:app-dkl-nonnegative}
-  \begin{split}
-    E & = D_{KL}(R||P) \\
-    D_{KL}(R||P) & = \sum_{x \in \chi} R(x) \ln{\left( \frac{R(x)}{P(x)} \right)} \\
-    & \geq \sum_{x \in \chi} R(x) \left( 1 - \frac{P(x)}{R(x)} \right) \\
-    & = \sum_{x \in \chi} \left( R(x) - P(x) \right) \\
-    & = \sum_{x \in \chi} R(x) - \sum_{x \in \chi} P(x) = 1 - 1 \\
-    & \Rightarrow D_{KL}(R||P) \geq 0.
-  \end{split}
-\end{equation}
-
-Notice that $D_{KL}(R||P)$ will only reach zero if and only if $P(x) = R(x)$, which means that we are able to retrieve the exactly desired probability distribution at the visible units from the input data.
 
 
 
