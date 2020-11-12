@@ -3,22 +3,24 @@
 
 Smolensky~(\citeyear{bib:smolensky1986}) presented a situation where a word completion is performed with a Restricted Boltzmann Machine, which he called as \emph{Harmonium}.
 In other words, the RBM has to complete missing or unknown letters of a given word. 
-Based on a previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters known in the word.
-This example uses the word `MAKE' as an example.
+Based on a previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters known in the word. 
+This example uses the word `MAKE' as an example. 
 
-Following are a set of nomenclature Smolensky~(\citeyear{bib:smolensky1986}) defined for the harmony theory.
+Following are a set of nomenclature Smolensky~(\citeyear{bib:smolensky1986}) defined for the harmony theory. 
 \begin{itemize}
-    \item \emph{representational features}: variables that take on binary values which represent possible states of the environment being analysed; the input to the machine; $r_{1}$, $r_{2}$, $\dots$, $r_{N}$; the colection of values of all representational variables is $\{r_{i}\}$.
-    \item \emph{representational vector}: 
-    \item three
-    \item four
+    \item \emph{representational features}: variables that take on binary values which represent possible states of the environment being analysed; the input to the machine; $r_{1}, r_{2}, \dots, r_{N}$; the colection of values of all representational variables is $\{r_{i}\}$. 
+    \item \emph{representational vector}: collection of binary values the whole set of representational features assumes, $\mathbf{r}$. 
+    \item \emph{knowledge atoms}: entities that guide the computations. Each knowledge atom $\alpha$ is characterised by a \emph{knowledge vector}, $\mathbf{k}_{\alpha}$. 
+    \item \emph{knowledge vector}: contains a list of values $(-1, 0, +1)$, one value for each \emph{representational variable}, $r_{i}$. This list specifies what value each $r_{i}$ should have; each $\mathbf{k}_{\alpha}$ is a piece of knowledge carried by the harmony theory. 
+    \item \emph{activation variable}: binary variable, active $(1)$ or inactive $(0)$, $a_{\alpha}$, associated to \emph{knowledge atom} $\alpha$. 
+    \item \emph{activation vector}: list of binary values $[0, 1]$ for the set of activations $\{a_{\alpha}\}$, $\mathbf{a}$. 
+    \item \emph{strenghts}: each \emph{knowledge atom} $\alpha$ has a different frequency count within the patterns of the environment, their frequency is encoded in a set of \emph{strengths}, $\{\sigma_{\alpha}\}$. 
 \end{itemize}
 
-defined as the \emph{representation vector}
+Harmony models, define in Smolensky~(\citeyear{bib:smolensky1986}), only use two layers: a \emph{representational layer} and a \emph{knowledge layer}, which are often referred to visible and hidden layer, respectively, by other authors. 
+The \emph{representation layer} is the abstraction of the environment which is inputed to the model. 
+The \emph{knowledge layer} encodes the patterns among the representations (input), i.e., 
 
-
-
-calls the units on the hidden layer as \emph{knowledge atoms}, and they are , and the units on the visible layer as `feature processors'. In this appendix we will keep the nomenclature used by Smolensky.
 
 The input to a completion task is provided by fixing some of the `feature processors' --- the known information --- while the unknown information is allowed to be updated. Fixed `features' are the units that are assigned the values $-1$ or $+1$, while the unknown `features' have value $0$. 
 
