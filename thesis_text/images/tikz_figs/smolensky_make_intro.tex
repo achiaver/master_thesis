@@ -2,11 +2,24 @@
     \centering%
     \caption{EXAMPLE FIGURE FROM TIKZ}%
     \label{fig:smolensky-make}%
-    \begin{tikzpicture}%
-        \matrix [table]
-        {
+    \begin{tikzpicture}[%
+        table/.style={matrix of nodes,%
+                      row sep=-\pgflinewidth,%
+                      column sep=-\pgflinewidth,%
+                      nodes={rectangle,draw=black,text width=1.25cm,align=center},%
+                      text depth=0.25cm,%
+                      test height=1cm,%
+                      nodes in empty cells}]
+    
+        \matrix [table] (mat1)
+        {%
                                   & \node (M1) {$M_{1}$}; & \node (A1) {$A_{1}$}; & \node (K1) {$K_{1}$}; & \node (A2){$A_{2}$}; & \node (M2) {$M_{2}$}; & \node (K3) {$K_{3}$}; & \node (A3) {$A_{3}$}; & \node (E4) {$E_{4}$}; & \node (M4) {$M_{4}$}; \\
         \node (M1A2) {$M_{1}A_{2}$}; & $+$ & $-$ & $-$ & $+$ & $-$ & $0$ & $0$ & $0$ & $0$ \\
+        };
+
+        \matrix [table] (mat2)
+        {%
+            & \node (M1A2) {$M_{1}A_{2}$}; & \node ()
         };
     \end{tikzpicture}%
     \legend{No legend}%
