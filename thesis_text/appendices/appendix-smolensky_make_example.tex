@@ -2,8 +2,8 @@
 \label{app:smolensky:make}%
 
 Smolensky~(\citeyear{bib:smolensky1986}) presented a situation where a word completion is performed with a Restricted Boltzmann Machine, which he called as \emph{Harmonium}.
-In other words, the RBM has to complete missing or unknown letters of a given word. 
-Based on a previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters known in the word. 
+The task of completing a word in this case is that the RBM has to complete missing or unknown letters of a given word. 
+Based on a previous example that had been shown to the RBM, the machine would complete the unknown information of the word with the most probable letter taking into account the other letters which are present. 
 This example uses the word `MAKE' as an example. 
 
 Following are a set of nomenclature Smolensky~(\citeyear{bib:smolensky1986}) defined for the harmony theory. 
@@ -24,4 +24,4 @@ The \emph{knowledge layer} encodes relations among parts of the representations 
 
 The input to a completion task is provided by fixing some of the `feature processors' --- the known information --- while the unknown information is allowed to be updated. Fixed `features' are the units that are assigned the values $-1$ or $+1$, while the unknown `features' have value $0$. 
 
-\input{images/tikz_figs/smolensky_make_intro.tex}
+%\input{images/tikz_figs/smolensky_make_intro.tex}
