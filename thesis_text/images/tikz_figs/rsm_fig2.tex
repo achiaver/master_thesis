@@ -9,40 +9,40 @@
 %        \draw[help lines] (-5,-7) grid (5,4);
 
 % k = 1 and all D words
-        \node [visible] (v31) {$v_{31}$};
-        \node [visible, right=4cm of v31] (vD1) {$v_{D1}$};
-        \node [visible, left=2cm of v31] (v21) {$v_{21}$};
-        \node [visible, left=2cm of v21] (v11) {$v_{11}$};
-        \path (v31) -- (vD1) node [midway, slopde] {$\dots$};
+        \node [visible] (v13) {$v_{13}$};
+        \node [visible, right=4cm of v13] (v1K) {$v_{1K}$};
+        \node [visible, left=2cm of v13] (v12) {$v_{12}$};
+        \node [visible, left=2cm of v12] (v11) {$v_{11}$};
+        \path (v13) -- (v1K) node [midway, slopde] {$\dots$};
 
 % k = 2 and all D words
-        \node [visible, below=2cm of v31] (v32) {$v_{32}$};
-        \node [visible, right=4cm of v32] (vD2) {$v_{D2}$};
-        \node [visible, left=2cm of v32] (v22) {$v_{22}$};
-        \node [visible, left=2cm of v22] (v12) {$v_{12}$};
-        \path (v32) -- (vD2) node [midway, sloped] {$\dots$};
+        \node [visible, below=2cm of v13] (v23) {$v_{23}$};
+        \node [visible, right=4cm of v23] (v2K) {$v_{2K}$};
+        \node [visible, left=2cm of v23] (v22) {$v_{22}$};
+        \node [visible, left=2cm of v22] (v21) {$v_{21}$};
+        \path (v23) -- (v2K) node [midway, sloped] {$\dots$};
 
 % k = K and all D words
-        \node [visible, below=4cm of v32] (v3K) {$v_{3K}$};
-        \node [visible, right=4cm of v3K] (vDK) {$v_{DK}$};
-        \node [visible, left=2cm of v3K] (v2K) {$v_{2K}$};
-        \node [visible, left=2cm of v2K] (v1K) {$v_{1K}$};
-        \path (v3K) -- (vDK) node [midway,sloped] {$\dots$};
+        \node [visible, below=4cm of v23] (vD3) {$v_{D3}$};
+        \node [visible, right=4cm of vD3] (vDK) {$v_{DK}$};
+        \node [visible, left=2cm of vD3] (vD2) {$v_{D2}$};
+        \node [visible, left=2cm of vD2] (vD1) {$v_{D1}$};
+        \path (vD3) -- (vDK) node [midway,sloped] {$\dots$};
 
 % k = . . . and all D words
-        \path (v12) -- (v1K) node [midway, sloped] {$\dots$};
-        \path (v22) -- (v2K) node [midway, sloped] {$\dots$};
-        \path (v32) -- (v3K) node [midway, sloped] {$\dots$};
-        \path (v32) -- (vDK) node [midway, sloped] {$\dots$};
-        \path (vD2) -- (vDK) node [midway, sloped] {$\dots$};
+        \path (v21) -- (vD1) node [midway, sloped] {$\dots$};
+        \path (v22) -- (vD2) node [midway, sloped] {$\dots$};
+        \path (v23) -- (vD3) node [midway, sloped] {$\dots$};
+        \path (v23) -- (vDK) node [midway, sloped] {$\dots$};
+        \path (v2K) -- (vDK) node [midway, sloped] {$\dots$};
 
-        \node [hidden, above left=3cm and 1cm of v31] (h2) {$h_{2}$};
+        \node [hidden, above left=3cm and 1cm of v13] (h2) {$h_{2}$};
         \node [hidden, right=4cm of h2] (hF) {$h_{F}$};
         \node [hidden, left=2cm of h2] (h1) {$h_{1}$};
         \path (h2) -- (hF) node [midway, sloped] {$\dots$};
 
         \begin{scope}[on background layer]
-            \node [draw, very thick, rounded corners=10pt, fit=(v11) (vD1) (v1K) (vDK)] (visible) {};
+            \node [draw, very thick, rounded corners=10pt, fit=(v11) (v1K) (vDK) (vD1)] (visible) {};
     
             \node [draw, very thick, rounded corners=10pt, fit=(h1) (hF), fill=lightgray] (hidden) {};
             

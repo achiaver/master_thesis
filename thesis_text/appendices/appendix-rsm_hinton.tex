@@ -12,37 +12,37 @@ Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik}
 For a state ${\{\mathbf{V}, \mathbf{h}\}}$, the energy is defined as follows:
 \begin{equation}
     \label{eq:app:rsm-energy-Vh}
-    E(\mathbf{V}, \mathbf{h}; \bm{\theta}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
+    E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
 \end{equation}
-where $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ is the set of model parameters.
+where the set of parameters $\{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ refers to the set of model parameters.
 $\mathbf{W}$ is the weight tensor, each element $W_{ijk}$ is a symmetric interaction between a visible unit $i$ that takes on value $k$ and a hidden unit $j$, $b_{ik}$ is the bias of unit $i$ that takes on value $k$, and $a_{j}$ is the bias of hidden unit $j$.
 
 The normalized joint probability of state ${\{\mathbf{V}, \mathbf{h}\}}$ is given by:
 \begin{equation}
     \label{eq:app:rsm-joint-prob}
-    P(\mathbf{V}, \mathbf{h}; \bm{\theta}) = \frac{e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}}{Z(\bm{\theta})},
+    P(\mathbf{V}, \mathbf{h}) = \frac{e^{-E(\mathbf{V}, \mathbf{h})}}{Z},
 \end{equation}
 where $Z$ is the partition function, the normalization constant to keep the probability within interval $[0, 1]$:
 \begin{equation}
     \label{eq:app:rsm-partition-func}
-    Z(\bm{\theta}) = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}'; \bm{\theta})}.
+    Z = \sum_{\mathbf{V}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{V}', \mathbf{h}')}.
 \end{equation}
 
-The marginal probabilities the model given by $\bm{\theta} = \{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ assings to a visible binary matrix $\mathbf{V}$ and to a hidden binary vector $\mathbf{h}$ are, respectively:
+The marginal probabilities of the visible binary matrix $\mathbf{V}$ and of the hidden binary vector $\mathbf{h}$ are, respectively:
 \begin{align}
     \label{eq:app:rsm-marg-prob-visible}
-    P(\mathbf{V}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}, \\
+    P(\mathbf{V}) &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{V}, \mathbf{h})}, \\
     \label{eq:app:rsm-marg-prob-hidden}
-    P(\mathbf{h}; \bm{\theta}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h}; \bm{\theta})}.
+    P(\mathbf{h}) &= \frac{1}{Z} \sum_{\mathbf{V}} e^{-E(\mathbf{V}, \mathbf{h})}.
 \end{align}
 
-From the joint and marginal probability, we are able to derive the conditional probabilities for the hidden units $P(\mathbf{h} | \mathbf{V}; \bm{\theta})$ given the visible matrix $\mathbf{V}$:
+From the joint and marginal probability, we are able to derive the conditional probabilities for the hidden units $P(\mathbf{h} | \mathbf{V})$ given the visible matrix $\mathbf{V}$:
 \begin{equation}
     \label{eq:app:rsm-cond-prob-hidden}
-    P(\mathbf{h} | \mathbf{V}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{V}; \bm{\theta})}.
+    P(\mathbf{h} | \mathbf{V}) = \frac{P(\mathbf{V}, \mathbf{h})}{P(\mathbf{V})}.
 \end{equation}
 
-For the sake of simplicity we will omit the term $\bm{\theta}$ by considering we are deriving the equations for a fixed model given by parameters $\bm{\theta}$, thus equation~(\ref{eq:app:rsm-cond-prob-hidden}) becomes: 
+Equation~(\ref{eq:app:rsm-cond-prob-hidden}), by definition, devides equation~(\ref{eq:app:rsm-joint-prob}) by equation~(\ref{eq:app:rsm-marg-prob-visible}):
 \begin{align}
     \label{eq:app:rsm-cond-prob-hidden-init}
     P(\mathbf{h} | \mathbf{V}) &= \frac{\frac{1}{Z} e^{-E(\mathbf{V}, \mathbf{h})}}{\frac{1}{Z} \sum\limits_{\mathbf{h}'} e^{-E(\mathbf{V}, \mathbf{h}')}} \\ %
@@ -64,13 +64,12 @@ where, considering the probability of $h_{j} = 1$ given $\mathbf{V}$, than equat
 which is also known as the logistic function $\sigma(x) = \frac{1}{1 + e^{-x}}$.
 Thus, as in an common restricted Boltzmann Machine, each of the hidden units have an activation probability given by the logistic function.
 
-On the other hand, the conditional probability of the visible units given the state of the hidden units $P(\mathbf{V} | \mathbf{h}; \bm{\theta})$ is given by:
+On the other hand, the conditional probability of the visible units given the state of the hidden units $P(\mathbf{V} | \mathbf{h})$ is given by:
 \begin{equation}
     \label{eq:app:rsm-cond-prob-visible}
-    P(\mathbf{V} | \mathbf{h}; \bm{\theta}) = \frac{P(\mathbf{V}, \mathbf{h}; \bm{\theta})}{P(\mathbf{h}; \bm{\theta})}.
+    P(\mathbf{V} | \mathbf{h}) = \frac{P(\mathbf{V}, \mathbf{h})}{P(\mathbf{h})}.
 \end{equation}
 
-Again we consider a fixed model $\bm{\theta}$, thus this term is omitted from now on. 
 The following derivation of equation~(\ref{eq:app:rsm-cond-prob-visible}) is not quite straight forward, and we will try to keep it as clear as possible:
 \begin{align}
     \label{eq:app:rsm-cond-prob-visible-init}
