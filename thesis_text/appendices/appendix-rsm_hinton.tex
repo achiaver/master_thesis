@@ -12,9 +12,9 @@ Let $\mathbf{V}$ be an $D \times K$ observed binary matrix whose entries $v_{ik}
 For a state ${\{\mathbf{V}, \mathbf{h}\}}$, the energy is defined as follows:
 \begin{equation}
     \label{eq:app:rsm-energy-Vh}
-    E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - \sum^{F}_{j = 1} h_{j} a_{j},
+    E(\mathbf{V}, \mathbf{h}) = - \sum^{D}_{i = 1} \sum^{F}_{j = 1} \sum^{K}_{k = 1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i = 1} \sum^{K}_{k = 1} v_{ik} b_{ik} - D\sum^{F}_{j = 1} h_{j} a_{j},
 \end{equation}
-where the set of parameters $\{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ refers to the set of model parameters.
+where the set of parameters $\{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$ refers to the set of model parameters, or network parameters.
 $\mathbf{W}$ is the weight tensor, each element $W_{ijk}$ is a symmetric interaction between a visible unit $i$ that takes on value $k$ and a hidden unit $j$, $b_{ik}$ is the bias of unit $i$ that takes on value $k$, and $a_{j}$ is the bias of hidden unit $j$.
 
 The normalized joint probability of state ${\{\mathbf{V}, \mathbf{h}\}}$ is given by:
@@ -50,7 +50,7 @@ Equation~(\ref{eq:app:rsm-cond-prob-hidden}), by definition, devides equation~(\
     &= \frac{\exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h_{j} v_{ik} + \sum\limits^{F}_{j=1} h_{j} a_{j}\right) \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}}}{\left[ \sum\limits_{\mathbf{h}'} \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{F}_{j=1} \sum\limits^{K}_{k=1} W_{ijk} h'_{j} v_{ik} + \sum\limits^{F}_{j=1} h'_{j} a_{j}\right)}\right] \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} v_{ik} b_{ik}\right)}} \nonumber \\ %
     &= \frac{\exp{\left[ \sum\limits^{F}_{j=1} h_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\sum\limits_{\mathbf{h}'} \exp{\left[ \sum\limits^{F}_{j=1} h'_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}} \nonumber \\ %
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\sum\limits_{h'_{1} \in \{0,1\}} \cdots \sum\limits_{h'_{F} \in \{0,1\}} \left\{ \prod\limits^{F}_{j=1} \exp{\left[h'_{j} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}\right\}} \nonumber \\ %
-    &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left\{ \sum\limits_{h'_{1} \atop \in \{0,1\}} \exp{\left[h'_{1} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)\right]}\right\} \cdots \left\{ \sum\limits_{h'_{F} \atop \in \{0,1\}} \exp{\left[h'_{F} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)\right]}\right\}}  \nonumber \\ %
+    &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left\{ \sum\limits_{\substack{h'_{1} \\ \in \{0,1\}}} \exp{\left[h'_{1} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)\right]}\right\} \cdots \left\{ \sum\limits_{\substack{h'_{F} \\ \in \{0,1\}}} \exp{\left[h'_{F} \left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)\right]}\right\}}  \nonumber \\ %
     &= \frac{\prod\limits^{F}_{j=1} \exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{i1k} v_{ik} + a_{1}\right)}\right] \cdots \left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{iFk} v_{ik} + a_{F}\right)}\right]}  \nonumber \\ %
     &= \prod\limits^{F}_{j=1} \frac{\exp{\left[h_{j} \left(\sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)\right]}}{\left[ 1 + \exp{\left( \sum\limits^{D}_{i=1} \sum\limits^{K}_{k=1} W_{ijk} v_{ik} + a_{j}\right)}\right]}  \nonumber \\ %
     \label{eq:app:rsm-cond-prob-hidden-prod}
@@ -115,6 +115,96 @@ which is the softmax function.
 
 Figure~(\ref{fig:rsm-fig2}) shows the Replicated Softmax model describe up to this point. The model has its visible and hidden units, respectively $v_{ik}$ and $h_{j}$, which are connected by weights $w_{ijk}$. 
 
-\input{images/tikz_figs/rsm_fig2.tex}
+In a set of $N$ different documents, $\{\mathbf{V}_{n}\}^{N}_{n=1}$, each document $V_{n}$ has its own RBM. Considering the word order in the document is irrelevant, for the $k^{th}$ word of the dictionary, every $i^{th}$ word of the document which is activated on $k$ share the same weights. The assumption of word order irrelevance, implies that $W_{ijk}$ = $W_{jk}$ and $b_{ik} = b_{k}$, i.e., the weights that connect every unit of $k$ to a unit $j$ are the same, and so is the bias. For a document with $D$ words, the energy of the state $\{\mathbf{V}, \mathbf{h}\}$ is equivalent of the state $\{\mathbf{\hat{V}}, \mathbf{h}\}$:
+\begin{align}
+    \label{eq:app:rsm-energy-shareweights}
+     E(\mathbf{V}, \mathbf{h}) &= -\sum^{D}_{i=1} \sum^{F}_{j=1} \sum^{K}_{k=1} W_{ijk} h_{j} v_{ik} - \sum^{D}_{i=1} \sum^{K}_{k=1} v_{ik} b_{k} - D \sum^{F}_{j=1} h_{j} a_{j} \nonumber \\ %
+     &= -\sum^{F}_{j=1} \sum^{K}_{k=1} W_{jk} h_{j} \left[ \sum^{D}_{i=1} v_{ik} \right] - \sum^{K}_{k=1}  \left[ \sum^{D}_{i=1 }v_{ik} \right] b_{k} - D \sum^{F}_{j=1} h_{j} a_{j} \nonumber \\ %
+     E(\mathbf{\hat{V}}, \mathbf{h}) &= -\sum^{F}_{j=1} \sum^{K}_{k=1} W_{jk} h_{j} \hat{v}_{k} - \sum^{K}_{k=1} \hat{v}_{k} b_{k} - D \sum^{F}_{j=1} h_{j} a_{j}, %
+\end{align}
+where $\hat{v}_{k} = \sum^{D}_{i=1} v_{ik}$ is the count or frequency of the $k^{th}$ word of the dictionary. It is important to notice that in both equations~(\ref{eq:app:rsm-energy-Vh}) and (\ref{eq:app:rsm-energy-shareweights}) the hidden units term (third term on the right side of the equations) is scaled by the length $D$ of the document, each RBM will have its own $D$ scaler. By applying this scaler, the energy becomes sensitive to the size of the document, and thus it is able to handle different size documents.
 
-\input{images/tikz_figs/rsm_fig3.tex}
+In the collection of documents $\{\mathbf{V}_{n}\}^{N}_{n=1}$, each document $\mathbf{V}_{n}$ has a desired probability $R(\mathbf{V}_{n})$, while the network will is able to provide the marginal probability $P(\mathbf{V}_{n})$. The relative entropy or Kullback-Leibler divergence can be used to estimate the difference between the distributions $P(\mathbf{\hat{V}})$ and $R(\mathbf{\hat{V}})$ for the $n^{th}$ document with $D$ words,
+\begin{equation}
+    \label{eq:app:rsm-dkl}
+    D_{KL}(R(\mathbf{\hat{V}} || P(\mathbf{\hat{V}}) = \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \ln\left[ \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \right].
+\end{equation}
+
+The divergence at equation~(\ref{eq:app:rsm-dkl}) can be minimize by finding the optimal set of parameters $\{\mathbf{W}, \mathbf{b}, \mathbf{a}\}$. Theses parameters can be obtain by using the gradient descent:
+\begin{align}
+    \label{eq:app:rsm-wjk}
+    \Delta W_{jk} &= -\eta \frac{\partial D_{KL}}{\partial W_{jk}}, \\ %
+    \label{eq:app:rsm-bk}
+    \Delta b_{k} &= -\eta_{b} \frac{\partial D_{KL}}{\partial b_{k}}, \\ %
+    \label{eq:app:rsm-aj}
+    \Delta a_{j} &= -\eta_{a} \frac{\partial D_{KL}}{\partial a_{j}}.
+\end{align}
+
+The derivation of equation~(\ref{eq:app:rsm-wjk}) follows as
+\begin{align}
+    \Delta W_{jk} &= -\eta \frac{\partial }{\partial W_{jk}} \left[ D_{KL}(R(\mathbf{\hat{V}}) || P(\mathbf{\hat{V}})) \right] \nonumber \\ %
+    &= -\eta \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \left[ \ln\left(R(\mathbf{\hat{V}})\right) - \ln\left(P(\mathbf{\hat{V}})\right) \right] \right] \nonumber \\ %
+    &= \eta \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \ln\left(P(\mathbf{\hat{V}})\right) \right] \nonumber \\ %
+    \label{eq:app:rsm-wjk-step1}
+    &= \eta \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \frac{\partial}{\partial W_{jk}} \left[ \ln\left(P(\mathbf{\hat{V}})\right) \right]. %
+\end{align}
+
+At equation~(\ref{eq:app:rsm-wjk-step1}), working only with the derivative,
+\begin{align}
+    \frac{\partial}{\partial W_{jk}} \left[ \ln\left(P(\mathbf{\hat{V}})\right) \right] &= \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{h}} \frac{e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \right] \nonumber \\ %
+    \label{eq:app:rsm-wjk-step2}
+    &= \frac{1}{Z} \sum_{\mathbf{h}} \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z^{2}} \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right],
+\end{align}
+then at equation~(\ref{eq:app:rsm-wjk-step2}), for each of the chain derivatives we have
+\begin{align}
+    \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \frac{\partial}{\partial W_{jk}} \left[ -E(\mathbf{\hat{V}}, \mathbf{h}) \right] \nonumber \\ %
+    &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \frac{\partial}{\partial W_{jk}} \left[ \sum^{F}_{l=1} \sum^{K}_{m=1} W_{lm} h_{l} \hat{v}_{m} + \sum^{K}_{m=1} \hat{v}_{m} b_{m} + D \sum^{F}_{l=1} h_{l} a_{l} \right] \nonumber \\ %
+    &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \frac{\partial}{\partial W_{jk}} \left[ \sum_{l\neq j} \sum_{m \neq k} W_{lm} h_{l} \hat{v}_{m} + \sum^{K}_{m=1} W_{jm} h_{j} \hat{v}_{m} + \sum^{F}_{l=1} W_{lk} h_{l} \hat{v}_{k} + W_{jk} h_{j} \hat{v_{k}} \right] \nonumber \\ %
+    \label{eq:app:rsm-wjk-step3}
+    &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \hat{v}_{k} h_{j}, 
+\end{align}
+and for the second term with a chain derivative,
+\begin{align}
+    \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right] &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \frac{\partial}{\partial W_{jk}} \left[ -E(\mathbf{\hat{V}}', \mathbf{h}') \right] \nonumber \\ %
+    &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \frac{\partial}{\partial W_{jk}} \left[ \sum^{F}_{l=1} \sum^{K}_{m=1} W_{lm} h'_{l} \hat{v}'_{m} + \sum^{K}_{m=1} \hat{v}'_{m} b_{m} + D \sum^{F}_{l=1} h'_{l} a_{l} \right] \nonumber \\ %
+    \label{eq:app:rsm-wjk-step4}
+    &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k} h'_{j}. 
+\end{align}
+
+In the next steps, we just bring back the results of equations~(\ref{eq:app:rsm-wjk-step3}) and (\ref{eq:app:rsm-wjk-step4}) to equation~(\ref{eq:app:rsm-wjk-step2}), and then to equation~(\ref{eq:app:rsm-wjk-step1}),
+\begin{align}
+    \frac{\partial}{\partial W_{jk}} \left[ \ln\left(P(\mathbf{\hat{V}})\right) \right] &= \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \hat{v}_{k} h_{j} - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{v}}, \mathbf{h})}}{Z^{2}} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k} h'_{j} \nonumber \\ % 
+    &= \sum_{\mathbf{h}} \frac{e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \hat{v}_{k} h_{j} - \sum_{\mathbf{h}} \frac{e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} \frac{e^{-E(\mathbf{\hat{V}}', \mathbf{h}')}}{Z} \hat{v}'_{k} h'_{j} \nonumber \\ %
+    \label{eq:app:rsm-wjk-step5}
+    &= \sum_{\mathbf{h}} P(\mathbf{\hat{V}}, \mathbf{h}) \hat{v}_{k} h_{j} - P(\mathbf{\hat{V}}) \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} P(\mathbf{\hat{V}}', \mathbf{h}') \hat{v}'_{k} h'_{j},
+\end{align}
+then the increment $\Delta W_{jk}$ is
+\begin{align}
+    \Delta W_{jk} &= \eta \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \left[ \sum_{\mathbf{h}} P(\mathbf{\hat{V}}, \mathbf{h}) \hat{v}_{k} h_{j} - P(\mathbf{\hat{V}}) \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} P(\mathbf{\hat{V}}', \mathbf{h}') \hat{v}'_{k} h'_{j} \right] \nonumber \\ %
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} P(\mathbf{\hat{V}}, \mathbf{h}) \hat{v}_{k} h_{j} - \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} P(\mathbf{\hat{V}}) \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} P(\mathbf{\hat{V}}', \mathbf{h}') \hat{v}'_{k} h'_{j} \right] \nonumber \\ %
+    \label{eq:app:rsm-wjk-step6}
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} R(\mathbf{\hat{V}}) P(\mathbf{h}|\mathbf{\hat{V}}) \hat{v}_{k} h_{j} - \overbrace{\sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}})}^{=1} \underbrace{\sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} P(\mathbf{\hat{V}}', \mathbf{h}') \hat{v}'_{k} h'_{j}}_{\langle \hat{v}'_{k} h'_{j} \rangle_{model}} \right], 
+\end{align}
+where $\langle \hat{v}_{k} h_{j} \rangle_{model}$ is the weighted average or expected value of the network.
+
+When modeling the desired probability $R(\mathbf{\hat{V}})$, we expect that the network is able to represent the desired conditional probability of the hidden units $\mathbf{h}$ given a certain state of the visible units $\mathbf{\hat{V}}$, which means that we would like to have
+\begin{align}
+    \label{eq:app:rsm-desired-conditional-hidden}
+    P(\mathbf{h}|\mathbf{\hat{V}}) &= R(\mathbf{h}|\mathbf{\hat{V}}), \\ %
+    P(\mathbf{h}|\mathbf{\hat{V}}) &= \frac{R(\mathbf{\hat{V}}, \mathbf{h})}{R(\mathbf{\hat{V}})}, \nonumber \\ %
+    \label{eq:app:rsm-wjk-likelihood}
+    \implies R(\mathbf{\hat{V}}) P(\mathbf{h}|\mathbf{\hat{V}}) &= R(\mathbf{\hat{V}}, \mathbf{h}). 
+\end{align}
+
+With this last step, we can retrieve the equation of the increment of the weights $W_{jk}$,
+\begin{align}
+    \Delta W_{jk} &= \eta \left[ \overbrace{\sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} R(\mathbf{\hat{V}}, \mathbf{\hat{V}}) \hat{v}_{k} h_{j}}^{\langle \hat{v}_{k} h_{j} \rangle_{data}} - \langle \hat{v}'_{k} h'_{j} \rangle_{model} \right], \nonumber \\ %
+    \therefore \Delta W_{jk} &= \eta \left[ \langle \hat{v}_{k} h_{j} \rangle_{data} - \langle \hat{v}'_{k} h'_{j} \rangle_{model} \right].
+\end{align}
+
+
+
+
+\input{images/tikz_figs/rsm_fig2.tex}
+\input{images/tikz_figs/rsm_fig3.tex} 
+
