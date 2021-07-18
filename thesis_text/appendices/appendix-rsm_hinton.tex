@@ -135,9 +135,9 @@ The divergence at equation~(\ref{eq:app:rsm-dkl}) can be minimize by finding the
     \label{eq:app:rsm-wjk}
     \Delta W_{jk} &= -\eta \frac{\partial D_{KL}}{\partial W_{jk}}, \\ %
     \label{eq:app:rsm-bk}
-    \Delta b_{k} &= -\eta_{b} \frac{\partial D_{KL}}{\partial b_{k}}, \\ %
+    \Delta b_{k} &= -\eta \frac{\partial D_{KL}}{\partial b_{k}}, \\ %
     \label{eq:app:rsm-aj}
-    \Delta a_{j} &= -\eta_{a} \frac{\partial D_{KL}}{\partial a_{j}}.
+    \Delta a_{j} &= -\eta \frac{\partial D_{KL}}{\partial a_{j}}.
 \end{align}
 
 The derivation of equation~(\ref{eq:app:rsm-wjk}) follows as
@@ -153,7 +153,7 @@ At equation~(\ref{eq:app:rsm-wjk-step1}), working only with the derivative,
 \begin{align}
     \frac{\partial}{\partial W_{jk}} \left[ \ln\left(P(\mathbf{\hat{V}})\right) \right] &= \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{h}} \frac{e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \right] \nonumber \\ %
     \label{eq:app:rsm-wjk-step2}
-    &= \frac{1}{Z} \sum_{\mathbf{h}} \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z^{2}} \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right],
+    &= \frac{1}{Z} \sum_{\mathbf{h}} \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z^{2}} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right],
 \end{align}
 then at equation~(\ref{eq:app:rsm-wjk-step2}), for each of the chain derivatives we have
 \begin{align}
@@ -163,13 +163,11 @@ then at equation~(\ref{eq:app:rsm-wjk-step2}), for each of the chain derivatives
     \label{eq:app:rsm-wjk-step3}
     &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \hat{v}_{k} h_{j}, 
 \end{align}
-and for the second term with a chain derivative,
-\begin{align}
-    \frac{\partial}{\partial W_{jk}} \left[ \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right] &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \frac{\partial}{\partial W_{jk}} \left[ -E(\mathbf{\hat{V}}', \mathbf{h}') \right] \nonumber \\ %
-    &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \frac{\partial}{\partial W_{jk}} \left[ \sum^{F}_{l=1} \sum^{K}_{m=1} W_{lm} h'_{l} \hat{v}'_{m} + \sum^{K}_{m=1} \hat{v}'_{m} b_{m} + D \sum^{F}_{l=1} h'_{l} a_{l} \right] \nonumber \\ %
+and similarly for the other derivative term we obtain
+\begin{equation}
     \label{eq:app:rsm-wjk-step4}
-    &= \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k} h'_{j}. 
-\end{align}
+    \frac{\partial}{\partial W_{jk}} \left[ e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right] = e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k} h'_{j}.  
+\end{equation}
 
 In the next steps, we just bring back the results of equations~(\ref{eq:app:rsm-wjk-step3}) and (\ref{eq:app:rsm-wjk-step4}) to equation~(\ref{eq:app:rsm-wjk-step2}), and then to equation~(\ref{eq:app:rsm-wjk-step1}),
 \begin{align}
@@ -198,9 +196,52 @@ When modeling the desired probability $R(\mathbf{\hat{V}})$, we expect that the 
 
 With this last step, we can retrieve the equation of the increment of the weights $W_{jk}$,
 \begin{align}
+    \label{eq:app:rsm-weight-increment}
     \Delta W_{jk} &= \eta \left[ \overbrace{\sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} R(\mathbf{\hat{V}}, \mathbf{\hat{V}}) \hat{v}_{k} h_{j}}^{\langle \hat{v}_{k} h_{j} \rangle_{data}} - \langle \hat{v}'_{k} h'_{j} \rangle_{model} \right], \nonumber \\ %
-    \therefore \Delta W_{jk} &= \eta \left[ \langle \hat{v}_{k} h_{j} \rangle_{data} - \langle \hat{v}'_{k} h'_{j} \rangle_{model} \right].
+    \therefore \Delta W_{jk} &= \eta \left[ \langle \hat{v}_{k} h_{j} \rangle_{data} - \langle \hat{v}'_{k} h'_{j} \rangle_{model} \right]. 
 \end{align}
+
+Even though equation~(\ref{eq:app:rsm-weight-increment}) has a simple structure due to the RBM architecture, where there is not connection within layers, only between layers, the procedure to compute the weight increment $\Delta W_{ik}$ is not simple at all. The first term represents the average of active connections between visible and hidden units given the dataset being analysed, while the second term is the average of active connections between visible and hidden units considering all possible states of the neural network. (REVER DISCUSSÃO DO SMOLENSKY, RSM, Hertz!)
+
+For the biases $b_{k}$ and $a_{j}$, the increments of equations~(\ref{eq:app:rsm-bk}) and (\ref{eq:app:rsm-aj}), respectively, can be determined similarly to $\Delta W_{jk}$,
+\begin{align}
+    \Delta b_{k} &= \eta \frac{\partial}{\partial b_{k}} \left[ \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \ln \left(P(\mathbf{\hat{V}}) \right) \right] \nonumber \\%
+    \label{eq:app:rsm-bk-step1}
+    &= \eta \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \frac{\partial}{\partial b_{k}} \left[ P(\mathbf{\hat{V}}) \right],
+\end{align}
+where 
+\begin{equation}
+    \label{eq:app:rsm-bk-step2}
+    \frac{\partial}{\partial b_{k}} \left[ P(\mathbf{\hat{V}}) \right] = \frac{1}{Z} \sum_{\mathbf{h}} \frac{\partial}{\partial b_{k}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z^{2}} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} \frac{\partial}{\partial b_{k}} \left[ e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right], 
+\end{equation}
+and
+\begin{align}
+    \frac{\partial}{\partial b_{k}} \left[ e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \right] &=  e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \frac{\partial}{\partial b_{k}} \left[ \sum_{n} \sum_{m} W_{nm} h_{n} \hat{v}_{m} + \sum_{m} \hat{v}_{m} b_{m} + D \sum_{n} h_{n} a_{n} \right] \nonumber \\%
+    &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \frac{\partial}{\partial b_{k}} \left[ \sum_{m \neq k} \hat{v}_{m} b_{m} + \hat{v}_{k} b_{k} \right] \nonumber \\% 
+    \label{eq:app:rsm-bk-step3}
+    &= e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \hat{v}_{k}, \\
+    \label{eq:app:rsm-bk-step4}
+    \frac{\partial}{\partial b_{k}} \left[ e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \right] &= e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k}. 
+\end{align}
+
+Updating equation~(\ref{eq:app:rsm-bk-step1}),
+\begin{align}
+    \Delta b_{k} &= \eta \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \left[ \frac{1}{Z} \sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})} \hat{v}_{k} - \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z^{2}} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} e^{-E(\mathbf{\hat{V}}', \mathbf{h}')} \hat{v}'_{k} \right] \nonumber \\%
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \sum_{\mathbf{h}} \frac{e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \hat{v}_{k} - \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} \frac{\sum_{\mathbf{h}} e^{-E(\mathbf{\hat{V}}, \mathbf{h})}}{Z} \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} \frac{e^{-E(\mathbf{\hat{V}}', \mathbf{h}')}}{Z} \hat{v}'_{k} \right] \nonumber \\%
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} P(\mathbf{\hat{V}}, \mathbf{h}) \hat{v}_{k} - \sum_{\mathbf{\hat{V}}} \frac{R(\mathbf{\hat{V}})}{P(\mathbf{\hat{V}})} P(\mathbf{\hat{V}}) \sum_{\mathbf{\hat{V}}'} \sum_{\mathbf{h}'} P(\mathbf{\hat{V}}', \mathbf{h}') \hat{v}'_{k} \right] \nonumber \\%
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} R(\mathbf{\hat{V}}) P(\mathbf{h}| \mathbf{\hat{V}}) \hat{v}_{k} - \sum_{\mathbf{\hat{V}}} R(\mathbf{\hat{V}}) \langle \hat{v}'_{k} \rangle_{model} \right] \nonumber \\%
+    &= \eta \left[ \sum_{\mathbf{\hat{V}}} \sum_{\mathbf{h}} R(\mathbf{\hat{V}}, \mathbf{h}) \hat{v}_{k} - \langle \hat{v}'_{k} \rangle_{model} \right] \nonumber \\%
+    \label{eq:app:rsm-bk-final}
+    \therefore \Delta b_{k} &= \eta \left[ \langle \hat{v}_{k} \rangle_{data} - \langle \hat{v}'_{k} \rangle_{model} \right].
+\end{align}
+
+Correspondingly, equation~(\ref{eq:app:rsm-aj}) becomes
+\begin{equation}
+    \label{eq:app:rsm-aj-final}
+    \Delta a_{j} = D \eta \left[ \langle h_{j} \rangle_{data} - \langle h'_{j} \rangle_{model} \right].
+\end{equation}
+
+
 
 
 
